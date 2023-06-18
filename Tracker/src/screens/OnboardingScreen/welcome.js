@@ -11,4 +11,5 @@ const Welcome = () => {
 
 export default Welcome
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+})
