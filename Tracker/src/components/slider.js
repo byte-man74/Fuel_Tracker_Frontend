@@ -1,58 +1,29 @@
-import { StyleSheet, Text, View, Dimensions, StatusBar, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, Dimensions, StatusBar, ViewPropTypes } from 'react-native';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const { height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 
-
-const Slider = () => {
-  return (
-      <View style={styles.coverContainer}>
-          <Image
-              source={require('../images/cover_image.png')}
-              style={styles.coverImage}
-          />
-    </View>
-  )
-}
-
-export default Slider
-
-const styles = StyleSheet.create({
-    coverContainer: {
-        top: -statusBarHeight,
-        height: height * 0.60,
-        width: '100%',
-        backgroundColor: 'red',
-    },
-    coverImage: {
-        top: 0,
-        height: height * 0.45,
-        width: '100%',
-        resizeMode: 'contain',
-    },
-})
-
-
-
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+const paragraphOne = 'The tracker constantly monitors fuel prices and updates them in real-time to reflect the current market conditions accurately.';
+const paragraphTwo = 'Just turn on your location and you will find the nearest filling station around you.';
+const paragraphThree = 'Price updates are generated from users like yourself. You also get the chance to share your experience with other users.';
 
 const carouselData = [
-    { id: 1, title: 'Slide 1', image: require('./path/to/image1.jpg') },
-    { id: 2, title: 'Slide 2', image: require('./path/to/image2.jpg') },
-    { id: 3, title: 'Slide 3', image: require('./path/to/image3.jpg') },
+    { id: 1, title: 'Get update on petrol prices.', paragraph: paragraphOne, image: require('../images/cover_image.png') },
+    { id: 2, title: 'Locate petrol stations near you.', paragraph: paragraphTwo, image: require('../images/maps.png') },
+    { id: 3, title: 'Share your experience with other users.', paragraph: paragraphThree, image: require('../images/experience.png') },
 ];
 
 const CarouselItem = ({ item }) => (
-    <View style={styles.carouselItem}>
+    <>
         <Image source={item.image} style={styles.carouselItemImage} />
         <Text style={styles.carouselItemText}>{item.title}</Text>
-    </View>
+        <Text style={styles.carouselItemParagraph}>{item.paragraph}</Text>
+    </>
 );
 
-const App = () => {
+const Slider = () => {
     const [activeSlide, setActiveSlide] = useState(0);
 
     const renderCarouselItem = ({ item }) => <CarouselItem item={item} />;
@@ -62,9 +33,12 @@ const App = () => {
             <Carousel
                 data={carouselData}
                 renderItem={renderCarouselItem}
-                sliderWidth={300}
-                itemWidth={200}
+                sliderWidth={Dimensions.get('window').width}
+                itemWidth={Dimensions.get('window').width}
                 onSnapToItem={(index) => setActiveSlide(index)}
+                decelerationRate={0.9} // Adjust the deceleration rate for smoother scrolling
+                snapToInterval={Dimensions.get('window').width} // Snap to each item's width for smooth snapping
+                snapToAlignment="start" // Snap to the start of each item
             />
             <Pagination
                 dotsLength={carouselData.length}
@@ -79,37 +53,39 @@ const App = () => {
     );
 };
 
+Slider.propTypes = {
+    style: ViewPropTypes.style,
+};
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    carouselItem: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'gray',
-        borderRadius: 10,
-        padding: 20,
+        top: -statusBarHeight,
+        minHeight: height * 0.6,
+        width: '100%',
+        backgroundColor: 'red',
     },
     carouselItemImage: {
-        width: 150,
-        height: 150,
+        top: 0,
+        height: height * 0.45,
+        width: '100%',
         resizeMode: 'cover',
-        borderRadius: 10,
     },
     carouselItemText: {
-        marginTop: 10,
-        fontSize: 18,
+        marginTop: 33,
+        fontSize: 28,
+        textAlign: 'center',
         fontWeight: 'bold',
+        color: 'black',
+    },
+    carouselItemParagraph: {
+        marginTop: 10,
+        fontSize: 20,
         color: 'white',
     },
     paginationContainer: {
-        marginTop: 10,
     },
     paginationDot: {
-        width: 10,
+        width: 15,
         height: 10,
         borderRadius: 5,
         backgroundColor: 'rgba(255, 255, 255, 0.92)',
@@ -119,4 +95,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default Slider;
