@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View, Text, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
-
+import Slider from '../../components/slider';
 const { height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 
@@ -12,10 +12,7 @@ const Welcome = () => {
       style={styles.backgroundImage}
     >
       <SafeAreaView style={styles.container}>
-        <Image
-          source={require('../../images/cover_image.png')}
-          style={styles.coverImage}
-        />
+        <Slider />
         <View style={styles.content}>
           <Text>Hdhhdh</Text>
         </View>
