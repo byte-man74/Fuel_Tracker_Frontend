@@ -1,48 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
 import OnboardingNavigator from './src/navigations/OnboardingNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/navigations/AuthenticationNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AppRegistry } from 'react-native';
-import { Font } from 'expo-font'; // If using Expo
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
 
-// Function to load custom fonts
-const loadFonts = async () => {
-  await Font.loadAsync({
-    'CustomFontRegular': require('./assets/fonts/CustomFont-Regular.ttf'),
-    'CustomFontBold': require('./assets/fonts/CustomFont-Bold.ttf'),
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'Mulish-Regular': require('./assets/fonts/Mulish-Regular.ttf'),
   });
 };
-
-// Call the loadFonts function before rendering the app
-loadFonts().then(() => {
-  // Render the app
-  AppRegistry.registerComponent('Tracker', () => App); // Replace 'MyApp' with your app name
-});
-
-
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Load custom fonts
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+      />
+    );
+  }
   return (
-    <NavigationContainer >
+    <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
         <Stack.Screen name="Authentication" component={AuthNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
- 
