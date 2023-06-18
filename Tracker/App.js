@@ -1,32 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import OnboardingNavigator from './src/navigations/OnboardingNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/navigations/AuthenticationNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
+import { useFonts } from 'expo-font';
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    'Mulish-Regular': require('./assets/fonts/Mulish-Regular.ttf'),
+const loadFonts = () => {
+  return useFonts({
+    CustomFontRegular: require('./assets/fonts/Mulish-Black.ttf'),
+    CustomFontBold: require('./assets/fonts/Mulish-Bold.ttf'),
   });
 };
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [fontsLoaded] = loadFonts();
 
-  // Load custom fonts
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
-      />
-    );
+  if (!fontsLoaded) {
+    return null; // or a loading indicator
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -37,3 +32,11 @@ export default function App() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
