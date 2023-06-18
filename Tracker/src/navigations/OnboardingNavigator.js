@@ -6,7 +6,7 @@ const Stack = createStackNavigator();
 
 function OnboardingNavigator() {
     return (
-        <Stack.Navigator headerMode="none">
+        <Stack.Navigator>
             <Stack.Screen name="Welcome" component={Welcome} />
         </Stack.Navigator>
     );
