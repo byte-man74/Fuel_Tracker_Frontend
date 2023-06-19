@@ -1,16 +1,25 @@
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
-const Button = ({ title, onPress, color, width, height, imageSource }) => {
+const Button = ({
+    title,
+    onPress,
+    color,
+    width,
+    height,
+    imageSource,
+    textColor = 'black',
+}) => {
     const buttonStyles = [
         styles.button,
-        { backgroundColor: color, width, height }
+        { backgroundColor: color, width, height },
     ];
+    const textStyles = [styles.buttonText, { color: textColor }];
 
     return (
         <TouchableOpacity style={buttonStyles} onPress={onPress}>
             {imageSource && <Image source={imageSource} style={styles.buttonImage} />}
-            <Text style={styles.buttonText}>{title}</Text>
+            <Text style={textStyles}>{title}</Text>
         </TouchableOpacity>
     );
 };
@@ -28,7 +37,6 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     buttonText: {
-        color: 'white',
         fontFamily: 'MulishBold',
         fontSize: 14,
     },
