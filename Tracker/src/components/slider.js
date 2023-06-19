@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, StatusBar } from 'react-native';
 import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LottieView from 'lottie-react-native';
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
-
 
 const paragraphOne = 'The tracker constantly monitors fuel prices and updates them in real-time to reflect the current market conditions accurately.';
 const paragraphTwo = 'Just turn on your location and you will find the nearest filling station around you.';
@@ -19,12 +18,14 @@ const carouselData = [
 ];
 
 const CarouselItem = ({ item }) => (
-    <View style={{ alignItems: "center", width: '100%' }}>
-        <LottieView source={item.image}
+    <View style={styles.carouselItem}>
+        <LottieView
+            source={item.image}
             autoPlay
             loop
-            style={styles.carouselItemImage} />
-        <Text style={styles.carouselItemTex}>{item.title}</Text>
+            style={styles.carouselItemImage}
+        />
+        <Text style={styles.carouselItemText}>{item.title}</Text>
         <Text style={styles.carouselItemParagraph}>{item.paragraph}</Text>
     </View>
 );
@@ -39,12 +40,12 @@ const Slider = () => {
             <Carousel
                 data={carouselData}
                 renderItem={renderCarouselItem}
-                sliderWidth={Dimensions.get('window').width}
-                itemWidth={Dimensions.get('window').width}
-                onSnapToItem={(index) => setActiveSlide(index)}
-                decelerationRate={0.9} // Adjust the deceleration rate for smoother scrolling
-                snapToInterval={Dimensions.get('window').width} // Snap to each item's width for smooth snapping
-                snapToAlignment="start" // Snap to the start of each item
+                sliderWidth={width}
+                itemWidth={width}
+                onSnapToItem={setActiveSlide}
+                decelerationRate={0.9}
+                snapToInterval={width}
+                snapToAlignment="start"
                 autoplay
                 autoplayInterval={5000}
             />
@@ -71,33 +72,34 @@ const styles = StyleSheet.create({
         minHeight: height * 0.6,
         width: '100%',
     },
+    carouselItem: {
+        alignItems: 'center',
+        width: '100%',
+    },
     carouselItemImage: {
         width: '100%',
         aspectRatio: 1,
         height: height * 0.48,
     },
-
-    carouselItemTex: {
-        fontFamily: 'MulishBold', // Replace 'Regular' with the actual font name
+    carouselItemText: {
+        fontFamily: 'MulishBold',
         fontSize: 28,
         lineHeight: 35,
-        color: "#232323",
+        color: '#232323',
         marginTop: 25,
         textAlign: 'center',
-        width: 300
+        width: 300,
     },
     carouselItemParagraph: {
         fontFamily: 'Regular',
         marginTop: 14,
         lineHeight: 22.2,
         fontSize: 15,
-        textAlign: "center",
+        textAlign: 'center',
         color: '#232323',
-        width: 330
+        width: 330,
     },
-    paginationContainer: {
-
-    },
+    paginationContainer: {},
     paginationDot: {
         width: 17,
         height: 6,
