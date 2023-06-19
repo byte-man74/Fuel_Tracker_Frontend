@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View, Text, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
 import Slider from '../../components/slider';
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 
 
@@ -13,8 +13,7 @@ const Welcome = () => {
     >
       <SafeAreaView style={styles.container}>
         <Slider />
-        <View style={styles.content}>
-          <Text>Hdhhdh</Text>
+        <View style={styles.content}>    
         </View>
       </SafeAreaView>
       <Image
@@ -41,6 +40,14 @@ const styles = StyleSheet.create({
     height: height * 0.45,
     width: '100%',
     resizeMode: 'contain',
+  },
+  content: {
+    width: width,
+    marginTop: -40,
+    height: 80,
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   bottomImage: {
     position: 'absolute',
