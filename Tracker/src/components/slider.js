@@ -13,14 +13,17 @@ const paragraphTwo = 'Just turn on your location and you will find the nearest f
 const paragraphThree = 'Price updates are generated from users like yourself. You also get the chance to share your experience with other users.';
 
 const carouselData = [
-    { id: 1, title: 'Get update on petrol prices.', paragraph: paragraphOne, image: require('../images/cover_image.png') },
-    { id: 2, title: 'Locate petrol stations near you.', paragraph: paragraphTwo, image: require('../images/maps.png') },
-    { id: 3, title: 'Share your experience with other users.', paragraph: paragraphThree, image: require('../images/experience.png') },
+    { id: 1, title: 'Get update on petrol prices.', paragraph: paragraphOne, image: require('../images/share.json') },
+    { id: 2, title: 'Locate petrol stations near you.', paragraph: paragraphTwo, image: require('../images/maps.json') },
+    { id: 3, title: 'Share your experience with other users.', paragraph: paragraphThree, image: require('../images/experience.json') },
 ];
 
 const CarouselItem = ({ item }) => (
-    <View style={{alignItems: "center"}}>
-        <Image source={item.image} style={styles.carouselItemImage} />
+    <View style={{ alignItems: "center", width: '100%' }}>
+        <LottieView source={item.image}
+            autoPlay
+            loop
+            style={styles.carouselItemImage} />
         <Text style={styles.carouselItemTex}>{item.title}</Text>
         <Text style={styles.carouselItemParagraph}>{item.paragraph}</Text>
     </View>
@@ -69,11 +72,11 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     carouselItemImage: {
-        top: 0,
-        height: height * 0.45,
         width: '100%',
-        resizeMode: 'cover',
+        aspectRatio: 1,
+        height: height * 0.48,
     },
+
     carouselItemTex: {
         fontFamily: 'MulishBold', // Replace 'Regular' with the actual font name
         fontSize: 28,
