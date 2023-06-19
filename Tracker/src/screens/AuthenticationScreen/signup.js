@@ -87,14 +87,35 @@ const SignUp = ({ navigation }) => {
                 source={require('../../images/Line.png')}
               />
             </View>
-            <View style={styles.formContainerItem}>
-              <Button title="Continue"
+            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+              <Button title="Continue with Google"
+                imageSource={require('../../images/google.png')}
                 onPress={() => { crossOriginIsolated.log('hello') }}
-                color='#1E1E1E' // Custom color
+                color='#EFEFEF' // Custom color
                 width={'100%'} // Custom width
+                textColor="black"
+                height={55} />
+            </View>
+            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+              <Button title="Continue with Apple"
+                imageSource={require('../../images/apple.png')}
+                onPress={() => { crossOriginIsolated.log('hello') }}
+                color='#EFEFEF' // Custom color
+                width={'100%'} // Custom width
+                textColor="black"
+                height={55} />
+            </View>
+            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+              <Button title="Continue with facebook"
+                imageSource={require('../../images/fb.png')}
+                onPress={() => { crossOriginIsolated.log('hello') }}
+                color='#EFEFEF' // Custom color
+                width={'100%'} // Custom width
+                textColor="black"
                 height={55} />
             </View>
           </View>
+          
         </ImageBackground>
       </View>
     </ScrollView>
@@ -111,7 +132,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height * 1.2
+    minHeight: height * 1.1
   },
   formHeader: {
     width: width,
@@ -179,7 +200,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     height: 30,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: 'center',
 
   }
