@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, StatusBar, ViewPropTypes } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions, StatusBar } from 'react-native';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const { height } = Dimensions.get('window');
@@ -19,7 +20,7 @@ const carouselData = [
 const CarouselItem = ({ item }) => (
     <>
         <Image source={item.image} style={styles.carouselItemImage} />
-        <Text style={styles.carouselItemText}>{item.title}</Text>
+        <Text style={styles.carouselItemTex}>{item.title}</Text>
         <Text style={styles.carouselItemParagraph}>{item.paragraph}</Text>
     </>
 );
@@ -71,15 +72,13 @@ const styles = StyleSheet.create({
         width: '100%',
         resizeMode: 'cover',
     },
-    carouselItemText: {
+    carouselItemTex: {
+        fontFamily: 'CustomFontRegular',
         marginTop: 33,
         fontSize: 28,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: 'black',
     },
     carouselItemParagraph: {
-        fontFamily: 'CustomFontRegular',
+        fontFamily: 'Regular',
         marginTop: 10,
         fontSize: 20,
         color: 'white',

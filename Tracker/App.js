@@ -2,11 +2,9 @@ import OnboardingNavigator from './src/navigations/OnboardingNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/navigations/AuthenticationNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import { useCallback } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from 'expo';
 
 
 
@@ -18,6 +16,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     "CustomFontRegular": require('./assets/fonts/Mulish-Black.ttf'),
     "CustomFontBold": require('./assets/fonts/Mulish-Bold.ttf'),
+    "Regular": require('./assets/fonts/Mulish-Regular.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
