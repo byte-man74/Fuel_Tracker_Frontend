@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, StatusBar } from 'react-native';
 import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import LottieView from 'lottie-react-native';
 
 const { height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
