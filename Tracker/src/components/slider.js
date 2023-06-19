@@ -47,7 +47,7 @@ const Slider = () => {
                 snapToInterval={width}
                 snapToAlignment="start"
                 autoplay
-                autoplayInterval={5500}
+                autoplayInterval={5000}
             />
             <Pagination
                 dotsLength={carouselData.length}

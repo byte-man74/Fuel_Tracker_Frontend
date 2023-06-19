@@ -1,15 +1,16 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View, Text, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
 import Slider from '../../components/slider';
-const { height, width } = Dimensions.get('window');
-const statusBarHeight = StatusBar.currentHeight || 0;
 import Button from '../../components/button';
 
+const { height, width } = Dimensions.get('window');
+const statusBarHeight = StatusBar.currentHeight || 0;
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
   const handleButtonPress = () => {
-    console.log('Button pressed!');
+    navigation.navigate('Authentication');
   };
+
   return (
     <ImageBackground
       source={require('../../images/Background.png')}
@@ -17,7 +18,7 @@ const Welcome = () => {
     >
       <SafeAreaView style={styles.container}>
         <Slider />
-        <View style={styles.content}>   
+        <View style={styles.content}>
           <Button title="Get Started" onPress={handleButtonPress} />
         </View>
       </SafeAreaView>
@@ -40,18 +41,12 @@ const styles = StyleSheet.create({
     minHeight: height,
     position: 'relative',
   },
-  coverImage: {
-    top: -statusBarHeight,
-    height: height * 0.45,
-    width: '100%',
-    resizeMode: 'contain',
-  },
   content: {
     width: width,
     marginTop: -40,
     height: 80,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   bottomImage: {
     position: 'absolute',
