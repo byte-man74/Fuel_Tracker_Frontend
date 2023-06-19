@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, StatusBar } from 'react-native';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { StyleSheet, View, Text, Image, Dimensions, StatusBar, ViewPropTypes } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const { height } = Dimensions.get('window');
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     carouselItemText: {
-        fontFamily: 'CustomFontRegular',
         marginTop: 33,
         fontSize: 28,
         textAlign: 'center',
