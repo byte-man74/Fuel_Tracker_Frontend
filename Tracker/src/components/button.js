@@ -8,7 +8,7 @@ const Button = ({
     width,
     height,
     imageSource,
-    textColor = 'black',
+    textColor = 'white',
 }) => {
     const buttonStyles = [
         styles.button,
