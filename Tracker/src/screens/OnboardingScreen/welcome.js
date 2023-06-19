@@ -3,9 +3,13 @@ import { StyleSheet, ImageBackground, View, Text, SafeAreaView, Image, Dimension
 import Slider from '../../components/slider';
 const { height, width } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
+import Button from '../../components/button';
 
 
 const Welcome = () => {
+  const handleButtonPress = () => {
+    console.log('Button pressed!');
+  };
   return (
     <ImageBackground
       source={require('../../images/Background.png')}
@@ -13,7 +17,8 @@ const Welcome = () => {
     >
       <SafeAreaView style={styles.container}>
         <Slider />
-        <View style={styles.content}>    
+        <View style={styles.content}>   
+          <Button title="Get Started" onPress={handleButtonPress} />
         </View>
       </SafeAreaView>
       <Image
@@ -45,7 +50,6 @@ const styles = StyleSheet.create({
     width: width,
     marginTop: -40,
     height: 80,
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center'
   },
