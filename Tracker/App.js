@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     "CustomFontRegular": require('./assets/fonts/Mulish-Black.ttf'),
-    "CustomFontBold": require('./assets/fonts/Mulish-Bold.ttf'),
+    "MulishBold": require('./assets/fonts/Mulish-Bold.ttf'),
     "Regular": require('./assets/fonts/Mulish-Regular.ttf'),
   });
 

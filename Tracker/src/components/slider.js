@@ -18,11 +18,11 @@ const carouselData = [
 ];
 
 const CarouselItem = ({ item }) => (
-    <>
+    <View style={{alignItems: "center"}}>
         <Image source={item.image} style={styles.carouselItemImage} />
         <Text style={styles.carouselItemTex}>{item.title}</Text>
         <Text style={styles.carouselItemParagraph}>{item.paragraph}</Text>
-    </>
+    </View>
 );
 
 const Slider = () => {
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
         top: -statusBarHeight,
         minHeight: height * 0.6,
         width: '100%',
-        backgroundColor: 'red',
     },
     carouselItemImage: {
         top: 0,
@@ -73,26 +72,36 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     carouselItemTex: {
-        fontFamily: 'CustomFontRegular',
-        marginTop: 33,
+        fontFamily: 'MulishBold', // Replace 'Regular' with the actual font name
         fontSize: 28,
+        lineHeight: 35,
+        color: "#232323",
+        marginTop: 25,
+        textAlign: 'center',
+        width: 300
     },
     carouselItemParagraph: {
         fontFamily: 'Regular',
-        marginTop: 10,
-        fontSize: 20,
-        color: 'white',
+        marginTop: 14,
+        lineHeight: 22.2,
+        fontSize: 15,
+        textAlign: "center",
+        color: '#232323',
+        width: 330
     },
     paginationContainer: {
+
     },
     paginationDot: {
-        width: 15,
-        height: 10,
+        width: 17,
+        height: 6,
+        marginHorizontal: -8,
         borderRadius: 5,
-        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+        backgroundColor: '#1E1E1E',
     },
     paginationInactiveDot: {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        width: 6,
+        backgroundColor: '#BDBDBD',
     },
 });
 
