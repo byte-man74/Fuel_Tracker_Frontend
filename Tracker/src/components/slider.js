@@ -47,7 +47,7 @@ const Slider = () => {
                 snapToInterval={width}
                 snapToAlignment="start"
                 autoplay
-                autoplayInterval={5000}
+                autoplayInterval={5500}
             />
             <Pagination
                 dotsLength={carouselData.length}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         top: -statusBarHeight,
         minHeight: height * 0.6,
-        width: '100%',
+        width: width,
     },
     carouselItem: {
         alignItems: 'center',
