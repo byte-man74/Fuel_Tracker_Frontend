@@ -6,6 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 const { height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 
+
 const paragraphOne = 'The tracker constantly monitors fuel prices and updates them in real-time to reflect the current market conditions accurately.';
 const paragraphTwo = 'Just turn on your location and you will find the nearest filling station around you.';
 const paragraphThree = 'Price updates are generated from users like yourself. You also get the chance to share your experience with other users.';
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     carouselItemText: {
-        fontFamily: 'Mulish-Regular',
+        fontFamily: 'CustomFontRegular',
         marginTop: 33,
         fontSize: 28,
         textAlign: 'center',
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     carouselItemParagraph: {
+        fontFamily: 'CustomFontRegular',
         marginTop: 10,
         fontSize: 20,
         color: 'white',

@@ -1,32 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
 import OnboardingNavigator from './src/navigations/OnboardingNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/navigations/AuthenticationNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    'Mulish-Regular': require('./assets/fonts/Mulish-Regular.ttf'),
-  });
-};
+import { useCallback } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+
+
+
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [fontsLoaded] = useFonts({
+    "CustomFontRegular": require('./assets/fonts/Mulish-Black.ttf'),
+    "CustomFontBold": require('./assets/fonts/Mulish-Bold.ttf'),
+  });
 
-  // Load custom fonts
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
-      />
-    );
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
   }
+
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
