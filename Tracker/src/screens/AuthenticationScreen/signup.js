@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
+import Button from '../../components/button';
 
 const { height, width } = Dimensions.get('window');
 
@@ -68,6 +69,13 @@ const SignUp = ({ navigation }) => {
                 />
               </TouchableOpacity>
             </View>
+            <View style={styles.formContainerItem}>
+              <Button title="Continue"
+                onPress={() => {crossOriginIsolated.log('hello')}}
+                color='#1E1E1E' // Custom color
+                width={'100%'} // Custom width
+                height={55} />
+            </View>
           </View>
         </ImageBackground>
       </View>
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 90,
     justifyContent: 'space-around',
-    marginBottom: 15
+    marginBottom: 20
   },
   formContainerText: {
     fontFamily: 'Regular',
