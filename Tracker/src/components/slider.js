@@ -41,6 +41,8 @@ const Slider = () => {
                 decelerationRate={0.9} // Adjust the deceleration rate for smoother scrolling
                 snapToInterval={Dimensions.get('window').width} // Snap to each item's width for smooth snapping
                 snapToAlignment="start" // Snap to the start of each item
+                autoplay
+                autoplayInterval={5000}
             />
             <Pagination
                 dotsLength={carouselData.length}
