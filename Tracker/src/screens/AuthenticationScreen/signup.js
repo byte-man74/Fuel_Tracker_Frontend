@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
 
@@ -72,6 +72,24 @@ const SignUp = ({ navigation }) => {
             <View style={styles.formContainerItem}>
               <Button title="Continue"
                 onPress={() => {crossOriginIsolated.log('hello')}}
+                color='#1E1E1E' // Custom color
+                width={'100%'} // Custom width
+                height={55} />
+            </View>
+          </View>
+          < View style={styles.otherCTA}>
+            <View style={styles.orContainer}>
+              <Image 
+                source={require('../../images/Line.png')}
+              />
+              <Text style={{fontFamily: 'Regular',fontSize: 14}}>or</Text>
+              <Image
+                source={require('../../images/Line.png')}
+              />
+            </View>
+            <View style={styles.formContainerItem}>
+              <Button title="Continue"
+                onPress={() => { crossOriginIsolated.log('hello') }}
                 color='#1E1E1E' // Custom color
                 width={'100%'} // Custom width
                 height={55} />
@@ -149,5 +167,20 @@ const styles = StyleSheet.create({
       right: 15,
       top: "50%"
   },
+  otherCTA: {
+    width: '100%',
+    height: height * 0.4,
+    paddingHorizontal: 30,
 
+
+  },
+  orContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 30,
+    marginBottom: 20,
+    alignItems: 'center',
+
+  }
 });
