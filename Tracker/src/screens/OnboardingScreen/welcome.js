@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, View, Text, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, ImageBackground, View, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
 import Slider from '../../components/slider';
 import Button from '../../components/button';
 
 const { height, width } = Dimensions.get('window');
-const statusBarHeight = StatusBar.currentHeight || 0;
+
 
 const Welcome = ({ navigation }) => {
   const handleButtonPress = () => {
