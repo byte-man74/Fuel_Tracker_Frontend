@@ -205,3 +205,13 @@ const styles = StyleSheet.create({
 
   }
 });
+
+
+
+
+///todo
+/*
+change the button color when the input is empty
+add the modal on form submission
+
+*/
