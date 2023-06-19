@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     carouselItemImage: {
         width: '100%',
         aspectRatio: 1,
-        height: height * 0.48,
     },
     carouselItemText: {
         fontFamily: 'MulishBold',
