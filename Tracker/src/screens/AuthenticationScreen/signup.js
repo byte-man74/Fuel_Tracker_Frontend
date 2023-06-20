@@ -8,11 +8,15 @@ const { height, width } = Dimensions.get('window');
 
 const SignUp = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const handleSignInPress = () => {
     // Navigate to the sign-in page
     navigation.navigate('Login');
   };
-
+  const isButtonDisabled = email === '' || password === '' || password !== confirmPassword;
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
@@ -35,13 +39,24 @@ const SignUp = ({ navigation }) => {
               <Text style={styles.formContainerText} >
                 Email Address
               </Text>
-              <TextInput style={styles.formInputBox} placeholder="-- Enter --"></TextInput>
+              <TextInput
+                style={styles.formInputBox}
+                value={email}
+                onChangeText={setEmail}
+                placeholder="-- Enter --">
+                
+                </TextInput>
             </View>
             <View style={styles.formContainerItem}>
               <Text style={styles.formContainerText} >
                 Password
               </Text>
-              <TextInput style={styles.formInputBox} placeholder="-- Enter --" secureTextEntry={!showPassword} />
+              <TextInput
+                style={styles.formInputBox}
+                placeholder="-- Enter --"
+                secureTextEntry={!showPassword}
+                value={password}
+                onChangeText={setPassword}/>
               <TouchableOpacity
                 style={styles.eyeIconContainer}
                 onPress={() => setShowPassword(!showPassword)}
@@ -57,7 +72,12 @@ const SignUp = ({ navigation }) => {
               <Text style={styles.formContainerText} >
                 Confirm Password
               </Text>
-              <TextInput style={styles.formInputBox} placeholder="-- Enter --" secureTextEntry={!showPassword} />
+              <TextInput
+                style={styles.formInputBox}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="-- Enter --"
+                secureTextEntry={!showPassword} />
               <TouchableOpacity
                 style={styles.eyeIconContainer}
                 onPress={() => setShowPassword(!showPassword)}
@@ -70,24 +90,26 @@ const SignUp = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.formContainerItem}>
-              <Button title="Continue"
-                onPress={() => {crossOriginIsolated.log('hello')}}
-                color='#1E1E1E' // Custom color
+              <Button title="Sign in"
+                onPress={() => { console.log('hello') }}
+                disabled={isButtonDisabled}
+                color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
+                textColor={isButtonDisabled ? '#A9A9A9' : 'black'}
                 width={'100%'} // Custom width
                 height={55} />
             </View>
           </View>
           < View style={styles.otherCTA}>
             <View style={styles.orContainer}>
-              <Image 
+              <Image
                 source={require('../../images/Line.png')}
               />
-              <Text style={{fontFamily: 'Regular',fontSize: 14}}>or</Text>
+              <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>or</Text>
               <Image
                 source={require('../../images/Line.png')}
               />
             </View>
-            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+            <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Button title="Continue with Google"
                 imageSource={require('../../images/google.png')}
                 onPress={() => { navigation.navigate('OtpVerification') }}
@@ -96,7 +118,7 @@ const SignUp = ({ navigation }) => {
                 textColor="black"
                 height={55} />
             </View>
-            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+            <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Button title="Continue with Apple"
                 imageSource={require('../../images/apple.png')}
                 onPress={() => { crossOriginIsolated.log('hello') }}
@@ -105,7 +127,7 @@ const SignUp = ({ navigation }) => {
                 textColor="black"
                 height={55} />
             </View>
-            <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
+            <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Button title="Continue with facebook"
                 imageSource={require('../../images/fb.png')}
                 onPress={() => { crossOriginIsolated.log('hello') }}
@@ -115,7 +137,7 @@ const SignUp = ({ navigation }) => {
                 height={55} />
             </View>
           </View>
-          
+
         </ImageBackground>
       </View>
     </ScrollView>
@@ -183,10 +205,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Regular',
     fontSize: 16,
   },
-    eyeIconContainer: {
-      position: 'absolute',
-      right: 15,
-      top: "50%"
+  eyeIconContainer: {
+    position: 'absolute',
+    right: 15,
+    top: "50%"
   },
   otherCTA: {
     width: '100%',
