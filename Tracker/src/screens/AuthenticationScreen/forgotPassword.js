@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
-import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
-import Checkbox from '../../components/checkbox';
-import TextLink from '../../components/link';
+
 
 const { height, width } = Dimensions.get('window');
 
@@ -166,10 +164,3 @@ const styles = StyleSheet.create({
 
 
 
-///todo
-/*
-change the button color when the input is empty✅
-connect to api
-add the modal on form submission
-
-*/
