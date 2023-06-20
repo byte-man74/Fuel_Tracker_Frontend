@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     checkedCheckbox: {
-        backgroundColor: '#007AFF',
+        backgroundColor: 'black',
     },
 });
 
