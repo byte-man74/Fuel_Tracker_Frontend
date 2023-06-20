@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
 
   const handleSignInPress = () => {
     // Navigate to the sign-in page
-    navigation.navigate('Login');
+    navigation.navigate('SignUp');
   };
   const isButtonDisabled = email === '' || password === '';
   return (
@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.formContainerItem}>
-              <Button title="Sign in"
+              <Button title="Log in"
                 onPress={() => { console.log('hello') }}
                 disabled={isButtonDisabled}
                 color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height * 1.1
+    minHeight: height 
   },
   formHeader: {
     width: width,

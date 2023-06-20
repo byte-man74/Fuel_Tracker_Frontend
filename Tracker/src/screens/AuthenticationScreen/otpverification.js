@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#AAAAAC',
     borderRadius: 12,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     fontFamily: 'Regular',
     fontSize: 16,
   },
