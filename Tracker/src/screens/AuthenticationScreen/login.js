@@ -114,7 +114,7 @@ const Login = ({ navigation }) => {
             <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Button title="Continue with Apple"
                 imageSource={require('../../images/apple.png')}
-                onPress={() => { crossOriginIsolated.log('hello') }}
+                onPress={() => { navigation.navigate('ResetPasswordOtp')}}
                 color='#EFEFEF' // Custom color
                 width={'100%'} // Custom width
                 textColor="black"
