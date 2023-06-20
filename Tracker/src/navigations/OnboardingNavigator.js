@@ -3,6 +3,7 @@ import Welcome from '../screens/OnboardingScreen/welcome';
 import SignUp from '../screens/OnboardingScreen/signup';
 import OtpVerification from '../screens/OnboardingScreen/otpverification';
 import TermsAndConditions from '../screens/OnboardingScreen/termsAndCondition';
+import Permission from '../screens/OnboardingScreen/permission';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ function OnboardingNavigator() {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />
             <Stack.Screen name="TermsAndCondition" component={TermsAndConditions} />
+            <Stack.Screen name="Permissions" component={Permission} />
         </Stack.Navigator>
     );
 }
