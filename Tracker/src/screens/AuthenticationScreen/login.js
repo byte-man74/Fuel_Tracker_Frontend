@@ -76,7 +76,7 @@ const Login = ({ navigation }) => {
                 <Text style={{fontFamily: 'Regular',fontSize: 14, marginLeft: 7}}>Remember me</Text>
               </View>
               <View style={{ width: '60%', height: '80%', alignItems: 'flex-end',  justifyContent:'center' }}>
-                  <TextLink text='Forgot password' onPress={() => {console.log('me')}} />
+                <TextLink text='Forgot password' onPress={() => { navigation.navigate('ForgottenPassword')}} />
               </View>
               <View>
 
