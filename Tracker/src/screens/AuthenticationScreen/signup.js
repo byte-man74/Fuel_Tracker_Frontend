@@ -94,7 +94,7 @@ const SignUp = ({ navigation }) => {
                 onPress={() => { console.log('hello') }}
                 disabled={isButtonDisabled}
                 color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
-                textColor={isButtonDisabled ? '#A9A9A9' : 'black'}
+                textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
                 width={'100%'} // Custom width
                 height={55} />
             </View>
