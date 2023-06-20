@@ -4,7 +4,7 @@ import React from 'react'
 const ResetPasswordOTP = () => {
   return (
     <View>
-      <Text>ResetPasswordOTP</Text>
+      
     </View>
   )
 }
