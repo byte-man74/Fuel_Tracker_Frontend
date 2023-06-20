@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 
-const Checkbox = () => {
+const Checkbox = ({ onCheckboxClick }) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxPress = () => {
         setIsChecked(!isChecked);
+        if (onCheckboxClick) {
+            onCheckboxClick(!isChecked); // Call the optional prop function if provided
+        }
     };
 
     return (

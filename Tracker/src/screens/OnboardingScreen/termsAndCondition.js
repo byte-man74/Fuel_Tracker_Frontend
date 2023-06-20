@@ -1,14 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
-import { Ionicons } from 'react-native-vector-icons';
-import Button from '../../components/button';
 import Checkbox from '../../components/checkbox';
-import TextLink from '../../components/link';
+
 
 const { height, width } = Dimensions.get('window');
 
-const TermsAndConditions = () => {
+const TermsAndConditions = ({ navigation }) => {
 
     const handleSignInPress = () => {
         // Navigate to the sign-in page
@@ -25,11 +22,20 @@ const TermsAndConditions = () => {
                         <Text style={styles.formHeaderTitle}>
                             Accept price Tracker Terms & Condition
                         </Text>
-                        <TouchableOpacity onPress={handleSignInPress}>
-                            <Text style={styles.formHeaderText}>
-                                By selecting “I Agree” below, I have reviewed and agree to the<Text style={{ fontFamily: 'MulishBold' }}>Terms of Use </Text>and acknowledge the <Text style={{ fontFamily: 'MulishBold' }}>Privacy Policy</Text>. 
-                            </Text>
-                        </TouchableOpacity>
+                        <Text style={styles.formHeaderText}>
+                            By selecting “I Agree” below, I have reviewed and agree to the<Text style={{ fontFamily: 'MulishBold' }}>Terms of Use </Text>and acknowledge the <Text style={{ fontFamily: 'MulishBold' }}>Privacy Policy</Text>.
+                        </Text>
+                    </View>
+                    <View style={styles.remeberMeContainer}>
+                        <View style={{ width: '40%', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Text style={{ fontFamily: 'Regular', fontSize: 14, marginLeft: 7 }}>I Agree</Text>
+                        </View>
+                        <View style={{ width: '60%', height: '80%', alignItems: 'flex-end', justifyContent: 'center' }}>
+                            <Checkbox onCheckboxClick={handleSignInPress}  />
+                        </View>
+                        <View>
+
+                        </View>
                     </View>
                 </ImageBackground>
             </View>
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height * 1.1
+        minHeight: height
     },
     formHeader: {
         width: width,
@@ -121,9 +127,10 @@ const styles = StyleSheet.create({
     },
     remeberMeContainer: {
         width: '100%',
+        paddingHorizontal: 30,
         flexDirection: 'row',
         height: 35,
-        marginBottom: 20,
+        marginTop: 20,
         justifyContent: 'space-between',
         alignItems: 'center'
     }
