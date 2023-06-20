@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
+import Checkbox from '../../components/checkbox';
+import TextLink from '../../components/link';
 
 const { height, width } = Dimensions.get('window');
 
@@ -47,7 +49,7 @@ const Login = ({ navigation }) => {
 
               </TextInput>
             </View>
-            <View style={styles.formContainerItem}>
+            <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Text style={styles.formContainerText} >
                 Password
               </Text>
@@ -67,6 +69,18 @@ const Login = ({ navigation }) => {
                   color="#888"
                 />
               </TouchableOpacity>
+            </View>
+            <View style={styles.remeberMeContainer}>
+              <View style={{ width: '40%', flexDirection: 'row', alignItems: 'center'}}>
+                <Checkbox />
+                <Text style={{fontFamily: 'Regular',fontSize: 14, marginLeft: 7}}>Remember me</Text>
+              </View>
+              <View style={{ width: '60%', height: '80%', alignItems: 'flex-end',  justifyContent:'center' }}>
+                  <TextLink text='Forgot password' onPress={() => {console.log('me')}} />
+              </View>
+              <View>
+
+              </View>
             </View>
             <View style={styles.formContainerItem}>
               <Button title="Log in"
@@ -133,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height 
+    minHeight: height * 1.1
   },
   formHeader: {
     width: width,
@@ -193,8 +207,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: height * 0.4,
     paddingHorizontal: 30,
-
-
   },
   orContainer: {
     flexDirection: 'row',
@@ -203,7 +215,14 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 10,
     alignItems: 'center',
-
+  },
+  remeberMeContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    height: 35,
+    marginBottom: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 });
 
