@@ -7,9 +7,7 @@ import Button from '../../components/button';
 const { height, width } = Dimensions.get('window');
 
 const ForgetPassword = ({ navigation }) => {
-  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
 
   const handleSignInPress = () => {
