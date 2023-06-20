@@ -1,5 +1,5 @@
 import React, { useState, useEffect,  useRef } from 'react';
-import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput, Image } from 'react-native';
 
 const { height } = Dimensions.get('window');
 
@@ -74,6 +74,10 @@ const SignUp = ({ navigation }) => {
               </TouchableOpacity>
             )}
           </View>
+          <Image
+            source={require('../../images/bottom_image.png')}
+            style={styles.bottomImage}
+          />
         </ImageBackground>
       </View>
     </ScrollView>
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height * 1.1,
+    minHeight: height * 1,
   },
   formHeader: {
     paddingHorizontal: 30,
@@ -135,6 +139,12 @@ const styles = StyleSheet.create({
     color: '#232323',
     marginBottom: 20,
     lineHeight: 30,
+  },
+  bottomImage: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+    width: '100%',
   },
 });
 
