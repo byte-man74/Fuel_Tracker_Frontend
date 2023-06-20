@@ -90,7 +90,7 @@ const SignUp = ({ navigation }) => {
             <View style={[styles.formContainerItem, { marginBottom: 3 }]}>
               <Button title="Continue with Google"
                 imageSource={require('../../images/google.png')}
-                onPress={() => { crossOriginIsolated.log('hello') }}
+                onPress={() => { navigation.navigate('OtpVerification') }}
                 color='#EFEFEF' // Custom color
                 width={'100%'} // Custom width
                 textColor="black"
