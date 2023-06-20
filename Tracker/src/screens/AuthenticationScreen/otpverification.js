@@ -1,24 +1,27 @@
-import React, { useRef } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
-import { Ionicons } from 'react-native-vector-icons';
+import React, { useState, useEffect,  useRef } from 'react';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const SignUp = ({ navigation }) => {
   const handleSignInPress = () => {
     // Navigate to the sign-in page
     navigation.navigate('Login');
   };
+
+  const [countdown, setCountdown] = useState(60);
+
+  useEffect(() => {
+    // Decrease the countdown every second
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    // Clear the timer when the component unmounts
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   // Refs for the OTP input fields
   const otpInputs = [
@@ -63,6 +66,13 @@ const SignUp = ({ navigation }) => {
                 />
               ))}
             </View>
+            {countdown > 0 ? (
+              <Text style={styles.countdownText}>Resend code in {countdown} seconds</Text>
+            ) : (
+              <TouchableOpacity onPress={handleSignInPress} activeOpacity={0.7}>
+                <Text style={styles.countdownText}>Didn't get a code, get a new code</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ImageBackground>
       </View>
@@ -83,9 +93,8 @@ const styles = StyleSheet.create({
     minHeight: height * 1.1,
   },
   formHeader: {
-    width: width,
-    marginTop: height * 0.11,
     paddingHorizontal: 30,
+    marginTop: height * 0.11,
   },
   formHeaderTitle: {
     fontFamily: 'MulishBold',
@@ -97,14 +106,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Regular',
     fontSize: 16,
     width: '95%',
-    color: '#1E1E1E',
-    marginBottom: 20,
+    color: '#232323',
     lineHeight: 30,
   },
   otpContainer: {
     flexDirection: 'row',
-    width: '90%', 
-    marginTop: 15,
+    width: '90%',
+    marginTop: 25,
+    marginBottom: 15, 
     justifyContent: 'space-between',
   },
   otpInput: {
@@ -119,4 +128,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Regular',
     fontSize: 16,
   },
+  countdownText: {
+    fontFamily: 'Regular',
+    fontSize: 16,
+    width: '95%',
+    color: '#232323',
+    marginBottom: 20,
+    lineHeight: 30,
+  },
 });
+
+
+/* 
+todo
+-error validation
+-full functionality
+*/
