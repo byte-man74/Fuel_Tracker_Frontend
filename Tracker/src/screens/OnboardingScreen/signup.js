@@ -14,7 +14,7 @@ const SignUp = ({ navigation }) => {
 
   const handleSignInPress = () => {
     // Navigate to the sign-in page
-    navigation.navigate('Login');
+    navigation.navigate('Authentication');
   };
   const isButtonDisabled = email === '' || password === '' || password !== confirmPassword;
   return (
