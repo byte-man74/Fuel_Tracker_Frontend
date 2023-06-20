@@ -233,7 +233,8 @@ const styles = StyleSheet.create({
 
 ///todo
 /*
-change the button color when the input is empty
+change the button color when the input is empty✅
+connect to api
 add the modal on form submission
 
 */
