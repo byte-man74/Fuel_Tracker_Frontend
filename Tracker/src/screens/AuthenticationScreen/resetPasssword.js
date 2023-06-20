@@ -1,6 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ImageBackground,
+    Image,
+    ScrollView,
+    Dimensions,
+    TouchableOpacity,
+    TextInput,
+} from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
 
@@ -10,12 +19,44 @@ const PasswordReset = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [requirementsMet, setRequirementsMet] = useState({
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        specialChar: false,
+        length: false,
+    });
+
+    useEffect(() => {
+        const requirements = {
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /[0-9]/.test(password),
+            specialChar: /[!@#$%^&*]/.test(password),
+            length: password.length >= 8,
+        };
+
+        setRequirementsMet(requirements);
+    }, [password]);
 
     const handleSignInPress = () => {
         // Navigate to the sign-in page
         navigation.navigate('Login');
     };
+
     const isButtonDisabled = password === '' || password !== confirmPassword;
+
+    const renderRequirementItem = (text, isMet) => (
+        <View style={styles.requirementItem}>
+            {isMet ? (
+                <Ionicons name="checkmark-circle" size={20} color="#00C72D" />
+            ) : (
+                <Ionicons name="close-circle" size={20} color="#FF1F1F" />
+            )}
+            <Text style={styles.requirementText}>{text}</Text>
+        </View>
+    );
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View>
@@ -24,26 +65,22 @@ const PasswordReset = () => {
                     style={styles.backgroundImage}
                 >
                     <View style={styles.formHeader}>
-                        <Text style={styles.formHeaderTitle}>
-                            Create new password
-                        </Text>
+                        <Text style={styles.formHeaderTitle}>Create new password</Text>
 
                         <Text style={styles.formHeaderText}>
                             Your new password must be different from previously used password.
                         </Text>
-
                     </View>
                     <View style={styles.formContainer}>
                         <View style={styles.formContainerItem}>
-                            <Text style={styles.formContainerText} >
-                                Password
-                            </Text>
+                            <Text style={styles.formContainerText}>Password</Text>
                             <TextInput
                                 style={styles.formInputBox}
                                 placeholder="-- Enter --"
                                 secureTextEntry={!showPassword}
                                 value={password}
-                                onChangeText={setPassword} />
+                                onChangeText={setPassword}
+                            />
                             <TouchableOpacity
                                 style={styles.eyeIconContainer}
                                 onPress={() => setShowPassword(!showPassword)}
@@ -56,15 +93,14 @@ const PasswordReset = () => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.formContainerItem}>
-                            <Text style={styles.formContainerText} >
-                                Confirm Password
-                            </Text>
+                            <Text style={styles.formContainerText}>Confirm Password</Text>
                             <TextInput
                                 style={styles.formInputBox}
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
                                 placeholder="-- Enter --"
-                                secureTextEntry={!showPassword} />
+                                secureTextEntry={!showPassword}
+                            />
                             <TouchableOpacity
                                 style={styles.eyeIconContainer}
                                 onPress={() => setShowPassword(!showPassword)}
@@ -76,24 +112,52 @@ const PasswordReset = () => {
                                 />
                             </TouchableOpacity>
                         </View>
+                        <View style={styles.formCredentials}>
+                            <Text style={styles.formCredentialsHeader}>
+                                Password Requirements:
+                            </Text>
+                            {renderRequirementItem(
+                                'At least 1 Upper Case',
+                                requirementsMet.uppercase
+                            )}
+                            {renderRequirementItem(
+                                'At least 1 Lower Case',
+                                requirementsMet.lowercase
+                            )}
+                            {renderRequirementItem(
+                                'At least 1 Number',
+                                requirementsMet.number
+                            )}
+                            {renderRequirementItem(
+                                'At least 1 Special Character/Symbol',
+                                requirementsMet.specialChar
+                            )}
+                            {renderRequirementItem(
+                                'At least 8 Characters',
+                                requirementsMet.length
+                            )}
+                        </View>
                     </View>
                     <View style={styles.bottomCTA}>
-                        <Button title="Submit"
-                            onPress={() => { navigation.navigate('PasswordReset') }}
+                        <Button
+                            title="Submit"
+                            onPress={() => {
+                                navigation.navigate('PasswordReset');
+                            }}
                             disabled={isButtonDisabled}
                             color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
                             textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
                             width={'100%'} // Custom width
-                            height={55} />
+                            height={55}
+                        />
                     </View>
                 </ImageBackground>
             </View>
         </ScrollView>
     );
-}
+};
 
-export default PasswordReset
-
+export default PasswordReset;
 
 const styles = StyleSheet.create({
     container: {
@@ -103,40 +167,39 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height 
+        minHeight: height,
     },
     formHeader: {
         width: width,
         height: 90,
         justifyContent: 'space-between',
-        marginTop: height * 0.11
+        marginTop: height * 0.11,
     },
     formHeaderTitle: {
         fontFamily: 'MulishBold',
         fontSize: 22,
         color: '#232323',
-        paddingHorizontal: 30
+        paddingHorizontal: 30,
     },
     formHeaderText: {
         fontFamily: 'Regular',
         fontSize: 16,
         color: '#232323',
         lineHeight: 25,
-        paddingHorizontal: 30
+        paddingHorizontal: 30,
     },
     formContainer: {
         width: width,
         marginTop: 30,
         minHeight: height * 0.5,
         paddingHorizontal: 30,
-        alignItems: 'center'
-
+        alignItems: 'center',
     },
     formContainerItem: {
-        width: "100%",
+        width: '100%',
         height: 90,
         justifyContent: 'space-around',
-        marginBottom: 20
+        marginBottom: 20,
     },
     formContainerText: {
         fontFamily: 'Regular',
@@ -144,8 +207,8 @@ const styles = StyleSheet.create({
         color: '#232323',
     },
     formInputBox: {
-        width: "100%",
-        height: "60%",
+        width: '100%',
+        height: '60%',
         backgroundColor: 'white',
         borderStyle: 'solid',
         borderWidth: 1,
@@ -158,14 +221,12 @@ const styles = StyleSheet.create({
     eyeIconContainer: {
         position: 'absolute',
         right: 15,
-        top: "50%"
+        top: '50%',
     },
     otherCTA: {
         width: '100%',
         height: height * 0.4,
         paddingHorizontal: 30,
-
-
     },
     orContainer: {
         flexDirection: 'row',
@@ -174,15 +235,38 @@ const styles = StyleSheet.create({
         height: 30,
         marginBottom: 10,
         alignItems: 'center',
-
     },
     bottomCTA: {
-        width: "100%",
+        width: '100%',
         height: 90,
         paddingHorizontal: 30,
         position: 'absolute',
         bottom: 0,
         justifyContent: 'space-around',
     },
+    formCredentials: {
+        width: '100%',
+        height: 220,
+        backgroundColor: '#F8F8F8',
+        borderRadius: 6,
+        paddingTop: 12,
+        paddingLeft: 12,
+    },
+    formCredentialsHeader: {
+        fontFamily: 'MulishBold',
+        fontSize: 16,
+        color: '#333333',
+        marginBottom: 15,
+    },
+    requirementItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    requirementText: {
+        fontFamily: 'Regular',
+        fontSize: 14,
+        color: '#333333',
+        marginLeft: 10,
+    },
 });
-
