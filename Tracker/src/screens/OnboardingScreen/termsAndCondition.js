@@ -9,7 +9,7 @@ const TermsAndConditions = ({ navigation }) => {
 
     const handleSignInPress = () => {
         // Navigate to the sign-in page
-        navigation.navigate('SignUp');
+        navigation.navigate('Permissions');
     };
     return (
         <ScrollView contentContainerStyle={styles.container}>
