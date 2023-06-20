@@ -8,7 +8,7 @@ const { height, width } = Dimensions.get('window');
 
 const Welcome = ({ navigation }) => {
   const handleButtonPress = () => {
-    navigation.navigate('Authentication');
+    navigation.navigate('SignUp');
   };
 
   return (

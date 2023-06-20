@@ -6,10 +6,10 @@ import LottieView from 'lottie-react-native';
 const { height, width } = Dimensions.get('window');
 
 
-const ResetPasswordOTP = () => {
+const ResetPasswordOTP = ({ navigation }) => {
     const handleSignInPress = () => {
         // Navigate to the sign-in page
-        navigation.navigate('Login');
+        navigation.navigate('PasswordReset');
     };
 
     const [countdown, setCountdown] = useState(60);

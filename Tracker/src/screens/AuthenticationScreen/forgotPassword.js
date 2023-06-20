@@ -48,7 +48,7 @@ const ForgetPassword = ({ navigation }) => {
           </View>
           <View style={styles.bottomCTA}>
             <Button title="Submit"
-              onPress={() => { navigation.navigate('PasswordReset') }}
+              onPress={() => { navigation.navigate('ResetPasswordOtp') }}
               disabled={isButtonDisabled}
               color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
               textColor={isButtonDisabled ? '#A9A9A9' : 'white'}

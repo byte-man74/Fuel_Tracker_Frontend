@@ -91,7 +91,7 @@ const SignUp = ({ navigation }) => {
             </View>
             <View style={styles.formContainerItem}>
               <Button title="Sign in"
-                onPress={() => { console.log('hello') }}
+                onPress={() => { navigation.navigate('OtpVerification') }}
                 disabled={isButtonDisabled}
                 color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
                 textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
