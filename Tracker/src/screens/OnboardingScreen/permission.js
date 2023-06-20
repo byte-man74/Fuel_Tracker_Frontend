@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import LottieView from 'lottie-react-native';
+import Button from '../../components/button';
 
 
 const { height, width } = Dimensions.get('window')
@@ -62,6 +63,18 @@ const Permission = ({ navigation }) => {
                         <Text style={[styles.formHeaderText, { marginTop: 30 }]}>
                             Tap continue and then tap <Text style={{ fontFamily: 'MulishBold' }}>Allow while using the app.</Text>
                         </Text>
+                    </View>
+                    <View style={styles.bottomCTA}>
+                        <Button
+                            title="Submit"
+                            onPress={() => {
+                                navigation.navigate('PasswordReset');
+                            }}
+                            color= '#1E1E1E' // Custom color
+                            textColor='white'
+                            width={'100%'} // Custom width
+                            height={55}
+                        />
                     </View>
                 </ImageBackground>
             </View>
@@ -137,7 +150,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
     },
-
+    bottomCTA: {
+        width: '100%',
+        height: 90,
+        paddingHorizontal: 30,
+        position: 'absolute',
+        bottom: 0,
+        justifyContent: 'space-around',
+    },
 });
 
 
