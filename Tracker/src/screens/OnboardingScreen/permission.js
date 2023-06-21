@@ -73,12 +73,6 @@ const Permission = ({ navigation }) => {
                             height={55}
                         />
                     </View>
-                    {state && localGovernment && (
-                        <View style={styles.locationContainer}>
-                            <Text style={styles.locationText}>State: {state}</Text>
-                            <Text style={styles.locationText}>Local Government: {localGovernment}</Text>
-                        </View>
-                    )}
                 </ImageBackground>
             </View>
         </ScrollView>
@@ -132,7 +126,7 @@ const styles = StyleSheet.create({
     locationText: {
         fontFamily: 'Regular',
         fontSize: 16,
-        color: 'white',
+        color: 'black',
         textAlign: 'center',
     },
 });
