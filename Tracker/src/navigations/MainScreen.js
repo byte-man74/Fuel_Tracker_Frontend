@@ -8,7 +8,7 @@ import SettingsScreen from '../screens/MainScreen/settings/settings';
 const TabArr = [
     { route: 'Dashboard', label: 'Home', activeIcon: require('../icons/home_active.png'), inActiveIcon: require('../icons/home.png'), component: MainDashboardNavigator },
     { route: 'Saved', label: 'Saved', activeIcon: require('../icons/bookmark_active.png'), inActiveIcon: require('../icons/bookmark.png'), component: SavedScreen },
-    { route: 'Settings', label: 'Settings', activeIcon: require('../icons/settings.png'), inActiveIcon: require('../icons/settings.png'), component: SettingsScreen },
+    { route: 'Settings', label: 'Settings', activeIcon: require('../icons/settings_active.png'), inActiveIcon: require('../icons/settings.png'), component: SettingsScreen },
 ];
 
 const Tab = createBottomTabNavigator();
