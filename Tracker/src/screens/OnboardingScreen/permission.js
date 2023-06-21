@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Button from '../../components/button';
 import * as Location from 'expo-location';
 
-
 const { height } = Dimensions.get('window');
-const apiKey = 'ejjjjjjj'
-const Permission = ({ navigation }) => {
 
-    const [location, setLocation] = useState(null);
+const Permission = ({ navigation }) => {
+    const handleSignInPress = () => {
+        // Navigate to the sign-in page
+        navigation.navigate('PasswordReset');
+    };
+
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
     const [state, setState] = useState('');
     const [localGovernment, setLocalGovernment] = useState('');
 
@@ -28,55 +32,21 @@ const Permission = ({ navigation }) => {
         try {
             const { coords } = await Location.getCurrentPositionAsync();
             const { latitude, longitude } = coords;
-            setLocation({ latitude, longitude });
+            setLatitude(latitude);
+            setLongitude(longitude);
 
-            // Get state and local government using geocoding
-            const address = await fetchAddressFromCoordinates(latitude, longitude);
-            setState(address.state);
-            setLocalGovernment(address.localGovernment);
-            console.log(state)
+            // Get state and local government using Bing Maps Geocoding API
+            const apiKey = 'Ahndh4GZR21tp2mdoH3VYktZS7HeiGs7-UYmNhOk5gD7G7kAVuY6i57lJC8wHjrL';
+            const url = `http://dev.virtualearth.net/REST/v1/Locations/${latitude},${longitude}?o=json&key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            const address = data.resourceSets[0]?.resources[0]?.address || {};
+            setState(address.adminDistrict);
+            setLocalGovernment(address.adminDistrict2);
         } catch (error) {
             console.log('Error:', error.message);
         }
     };
-    
-
-    const fetchAddressFromCoordinates = async (latitude, longitude) => {
-        const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
-        const response = await fetch(geocodingUrl);
-        const data = await response.json();
-        console.log(data)
-
-        if (data.status === 'OK') {
-            const addressComponents = data.results[0].address_components;
-            let state = '';
-            let localGovernment = '';
-
-            for (const component of addressComponents) {
-                const types = component.types;
-
-                if (types.includes('administrative_area_level_1')) {
-                    state = component.long_name;
-                } else if (types.includes('administrative_area_level_2')) {
-                    localGovernment = component.long_name;
-                }
-            }
-
-            return {
-                state,
-                localGovernment,
-            };
-        }
-
-        return {
-            state: '',
-            localGovernment: '',
-        };
-    };
-
-    useEffect(() => {
-        requestLocationPermission();
-    }, []);
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -103,6 +73,12 @@ const Permission = ({ navigation }) => {
                             height={55}
                         />
                     </View>
+                    {state && localGovernment && (
+                        <View style={styles.locationContainer}>
+                            <Text style={styles.locationText}>State: {state}</Text>
+                            <Text style={styles.locationText}>Local Government: {localGovernment}</Text>
+                        </View>
+                    )}
                 </ImageBackground>
             </View>
         </ScrollView>
@@ -148,6 +124,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         justifyContent: 'space-around',
+    },
+    locationContainer: {
+        marginTop: 20,
+        paddingHorizontal: 30,
     },
     locationText: {
         fontFamily: 'Regular',
