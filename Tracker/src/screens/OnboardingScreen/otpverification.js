@@ -6,7 +6,7 @@ const { height } = Dimensions.get('window');
 const SignUp = ({ navigation }) => {
   const handleSignInPress = () => {
     // Navigate to the sign-in page
-    navigation.navigate('Login');
+    navigation.navigate('TermsAndCondition');
   };
 
   const [countdown, setCountdown] = useState(60);
