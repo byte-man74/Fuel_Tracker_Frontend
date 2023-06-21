@@ -96,7 +96,7 @@ const Permission = ({ navigation }) => {
                     <View style={styles.bottomCTA}>
                         <Button
                             title="Submit"
-                            onPress={captureLocation}
+                            onPress={requestLocationPermission}
                             color="#1E1E1E" // Custom color
                             textColor="white"
                             width={'100%'} // Custom width
