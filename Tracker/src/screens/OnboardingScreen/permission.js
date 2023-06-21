@@ -1,64 +1,93 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Button from '../../components/button';
+import * as Location from 'expo-location';
 
 
-const { height, width } = Dimensions.get('window')
-
-
+const { height } = Dimensions.get('window');
+const apiKey = 'ejjjjjjj'
 const Permission = ({ navigation }) => {
-    const handleSignInPress = () => {
-        // Navigate to the sign-in page
-        navigation.navigate('PasswordReset');
+
+    const [location, setLocation] = useState(null);
+    const [state, setState] = useState('');
+    const [localGovernment, setLocalGovernment] = useState('');
+
+    const requestLocationPermission = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            console.log('Location permission not granted');
+            return;
+        }
+
+        // Location permission granted, continue with capturing location
+        captureLocation();
     };
 
-    const [countdown, setCountdown] = useState(60);
+    const captureLocation = async () => {
+        try {
+            const { coords } = await Location.getCurrentPositionAsync();
+            const { latitude, longitude } = coords;
+            setLocation({ latitude, longitude });
 
-    useEffect(() => {
-        // Decrease the countdown every second
-        const timer = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
-        }, 1000);
-
-        // Clear the timer when the component unmounts
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
-
-    // Refs for the OTP input fields
-    const otpInputs = [
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-    ];
-
-    // Function to focus the next input field
-    const focusNextInput = (index) => {
-        if (index < otpInputs.length - 1) {
-            otpInputs[index + 1].current.focus();
+            // Get state and local government using geocoding
+            const address = await fetchAddressFromCoordinates(latitude, longitude);
+            setState(address.state);
+            setLocalGovernment(address.localGovernment);
+            console.log(state)
+        } catch (error) {
+            console.log('Error:', error.message);
         }
     };
+    
+
+    const fetchAddressFromCoordinates = async (latitude, longitude) => {
+        const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+        const response = await fetch(geocodingUrl);
+        const data = await response.json();
+        console.log(data)
+
+        if (data.status === 'OK') {
+            const addressComponents = data.results[0].address_components;
+            let state = '';
+            let localGovernment = '';
+
+            for (const component of addressComponents) {
+                const types = component.types;
+
+                if (types.includes('administrative_area_level_1')) {
+                    state = component.long_name;
+                } else if (types.includes('administrative_area_level_2')) {
+                    localGovernment = component.long_name;
+                }
+            }
+
+            return {
+                state,
+                localGovernment,
+            };
+        }
+
+        return {
+            state: '',
+            localGovernment: '',
+        };
+    };
+
+    useEffect(() => {
+        requestLocationPermission();
+    }, []);
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View>
-                <ImageBackground
-                    source={require('../../images/Background.png')}
-                    style={styles.backgroundImage}
-                >
-                    <LottieView
-                        source={require('../../images/new_map.json')}
-                        autoPlay
-                        loop
-                        style={styles.carouselItemImage}
-                    />
+                <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
+                    <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />
                     <View style={styles.formHeader}>
                         <Text style={styles.formHeaderTitle}>Give priceTracker access to your precise location</Text>
                         <Text style={styles.formHeaderText}>
-                            priceTracker needs your precise location to give you turn-by-turn directions and other useful features. <Text style={{ fontFamily: 'MulishBold' }}>View Privacy Policy.</Text>
+                            priceTracker needs your precise location to give you turn-by-turn directions and other useful features.
+                            <Text style={{ fontFamily: 'MulishBold' }}> View Privacy Policy.</Text>
                         </Text>
                         <Text style={[styles.formHeaderText, { marginTop: 30 }]}>
                             Tap continue and then tap <Text style={{ fontFamily: 'MulishBold' }}>Allow while using the app.</Text>
@@ -67,11 +96,9 @@ const Permission = ({ navigation }) => {
                     <View style={styles.bottomCTA}>
                         <Button
                             title="Submit"
-                            onPress={() => {
-                                navigation.navigate('PasswordReset');
-                            }}
-                            color= '#1E1E1E' // Custom color
-                            textColor='white'
+                            onPress={captureLocation}
+                            color="#1E1E1E" // Custom color
+                            textColor="white"
                             width={'100%'} // Custom width
                             height={55}
                         />
@@ -80,10 +107,7 @@ const Permission = ({ navigation }) => {
             </View>
         </ScrollView>
     );
-}
-
-export default Permission
-
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -117,39 +141,6 @@ const styles = StyleSheet.create({
         color: '#232323',
         lineHeight: 30,
     },
-    otpContainer: {
-        flexDirection: 'row',
-        width: '90%',
-        marginTop: 25,
-        marginBottom: 15,
-        justifyContent: 'space-between',
-    },
-    otpInput: {
-        width: '22%',
-        height: 65,
-        backgroundColor: 'white',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: '#AAAAAC',
-        borderRadius: 12,
-        paddingHorizontal: 30,
-        fontFamily: 'Regular',
-        fontSize: 16,
-    },
-    countdownText: {
-        fontFamily: 'Regular',
-        fontSize: 16,
-        width: '95%',
-        color: '#232323',
-        marginBottom: 20,
-        lineHeight: 30,
-    },
-    bottomImage: {
-        position: 'absolute',
-        bottom: 0,
-        alignSelf: 'center',
-        width: '100%',
-    },
     bottomCTA: {
         width: '100%',
         height: 90,
@@ -158,6 +149,12 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'space-around',
     },
+    locationText: {
+        fontFamily: 'Regular',
+        fontSize: 16,
+        color: 'white',
+        textAlign: 'center',
+    },
 });
 
-
+export default Permission;
