@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 function MainScreenTab() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen name="DashboardStack" component={MainDashboardNavigator} />
             <Tab.Screen name="Saved" component={SavedScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
@@ -17,4 +17,6 @@ function MainScreenTab() {
     );
 }
 
-export default MainScreenTab
+export default MainScreenTab 
+
+
