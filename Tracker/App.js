@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo';
+import MainScreenTab from './src/navigations/MainScreen';
 
 
 
@@ -33,6 +34,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="MainScreen" component={MainScreenTab} />
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
         <Stack.Screen name="Authentication" component={AuthNavigator} />
       </Stack.Navigator>
