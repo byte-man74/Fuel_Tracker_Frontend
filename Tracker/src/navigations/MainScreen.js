@@ -1,51 +1,57 @@
+import { StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainDashboardNavigator from './MainScreenDashboardNavigation';
 import SavedScreen from '../screens/MainScreen/bookmark/savedScreen';
 import SettingsScreen from '../screens/MainScreen/settings/settings';
-import { Image } from 'react-native';
-// will add a search screen here 
+
+
 const TabArr = [
-    { route: 'Home', label: 'Home', activeIcon: '../../icons/home_active.png', inActiveIcon: '../../icons/home.png', component: MainDashboardNavigator },
-    { route: 'Saved', label: 'Like', activeIcon: '../../icons/bookmark_active.png', inActiveIcon: '../../icons/bookmark.png', component: SavedScreen },
-    { route: 'Settings', label: 'Search', activeIcon: '../../icons/settings.png', inActiveIcon: '../../icons/settings.png', component: SettingsScreen },
+    { route: 'Dashboard', label: 'Home', activeIcon: require('../icons/home_active.png'), inActiveIcon: require('../icons/home.png'), component: MainDashboardNavigator },
+    { route: 'Saved', label: 'Saved', activeIcon: require('../icons/bookmark_active.png'), inActiveIcon: require('../icons/bookmark.png'), component: SavedScreen },
+    { route: 'Settings', label: 'Settings', activeIcon: require('../icons/settings.png'), inActiveIcon: require('../icons/settings.png'), component: SettingsScreen },
 ];
 
 const Tab = createBottomTabNavigator();
 
 function MainScreenTab() {
     return (
-        <Tab.Navigator screenOptions={{
-            headerShown: false,
-            tabBarStyle: {
-                height: 60,
-                position: 'absolute',
-                bottom: 16,
-                right: 16,
-                left: 16,
-                borderRadius: 30
-            }
-        }}>
-            {TabArr.map((item, index) => {
-                return (
-                    <Tab.Screen key={index} name={item.route} component={item.component}
-                        options={{
-                            tabBarShowLabel: false,
-                            tabBarLabel: item.label,
-                            tabBarIcon: ({ color, focused }) => (
-                                <Image
-                                />
-                            )
-                        }}
-                    />
-                )
-            })}
-            {/* <Tab.Screen name="DashboardStack" component={MainDashboardNavigator} />
-            <Tab.Screen name="Saved" component={SavedScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} /> */}
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    height: 60,
+                    position: 'absolute',
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    backgroundColor: 'black',
+                    borderRadius: 30
+                }
+            }}
+        >
+            {TabArr.map((item, index) => (
+                <Tab.Screen
+                    key={index}
+                    name={item.route}
+                    component={item.component}
+                    options={{
+                        tabBarShowLabel: false,
+                        tabBarLabel: item.label,
+                        tabBarIcon: ({ color, focused }) => (
+                            <Image source={focused ? item.activeIcon : item.inActiveIcon} style={styles.buttonImage} />
+                        )
+                    }}
+                />
+            ))}
         </Tab.Navigator>
     );
 }
 
-export default MainScreenTab 
+export default MainScreenTab;
 
-
+const styles = StyleSheet.create({
+    buttonImage: {
+        width: 24,
+        height: 24
+    },
+});
