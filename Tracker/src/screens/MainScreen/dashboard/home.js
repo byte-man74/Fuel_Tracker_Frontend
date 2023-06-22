@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import React from 'react'
+import Slider from '../../../components/verticalSlider';
 
 const { height, width } = Dimensions.get('window');
 
@@ -61,7 +62,9 @@ const HomeScreen = () => {
                             <Text style={styles.haaderTitle}>Fueling stations near you</Text>
                             <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
                         </View>
-                        
+                        <View style={styles.carouselBox}>
+                            <Slider />
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -184,6 +187,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginBottom: 20
+    },
+    carouselBox: {
+        flex: 1,
+        width: '100%',
+        minHeight: 100,
+        backgroundColor: 'red',
     }
-
 })
