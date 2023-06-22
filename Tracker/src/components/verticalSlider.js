@@ -6,9 +6,12 @@ const ITEM_WIDTH = width * 0.68;
 
 const Slider = () => {
     const data = [
-        { id: 1, coverImage: require('../../assets/image1.png'), name: 'Item 1', location: "wuse zone 3", price: "300" },
+        { id: 1, coverImage: require('../../assets/image1.jpg'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "300" },
         { id: 2, coverImage: require('../../assets/image2.png'), name: 'Item 2', location: "wuse zone 3", price: "300" },
         { id: 3, coverImage: require('../../assets/image3.png'), name: 'Item 3', location: "wuse zone 3", price: "300" },
+        { id: 4, coverImage: require('../../assets/image1.png'), name: 'Item 1', location: "wuse zone 3", price: "300" },
+        { id: 5, coverImage: require('../../assets/image2.png'), name: 'Item 2', location: "wuse zone 3", price: "300" },
+        { id: 6, coverImage: require('../../assets/image3.png'), name: 'Item 3', location: "wuse zone 3", price: "300" },
         // Add more data items as needed
     ];
 
@@ -17,9 +20,13 @@ const Slider = () => {
             <TouchableOpacity onPress={() => console.log('Item pressed')} style={styles.itemContainer}>
                 <Image source={item.coverImage} style={styles.image} />
                 <View style={styles.carouselContainer}>
-                    <Text style={styles.text}>{item.name}</Text>
-                    <Text style={styles.text}>{item.location}</Text>
-                    <Text style={styles.text}>{item.price}</Text>
+                    <View style={styles.carouselContainerExtraInfo}>
+                        <Image source={require('../../assets/shell.jpg')} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
+                        <View style={styles.carouselContainerExtraInfoText}>
+                            <Text style={styles.stationText}>{ item.name}</Text>
+                            <Text style={styles.stationLocation}>{item.location}</Text>
+                        </View>
+                    </View>
                 </View>
             </TouchableOpacity>
         );
@@ -54,14 +61,13 @@ const styles = StyleSheet.create({
          // Assuming square items, adjust as per your requirements
         marginRight: 20,
         borderRadius: 10,
-        backgroundColor: 'gray',
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
         width: '100%',
         height: 170,
-        borderRadius: 10,
+        borderRadius: 8,
     },
     text: {
         fontSize: 16,
@@ -72,11 +78,31 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: 120,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: 'blue',
+
     },
+    carouselContainerExtraInfo: {
+        width: '100%',
+        top: 10,
+        minHeight: 60,
+        flexDirection: 'row',
+        alignItems: "center",
+    },
+    carouselContainerExtraInfoText: {
+        minWidth: 50,
+        minHeight: 40,
+        flexDirection: 'column',
+        justifyContent: 'space-around'
+    },
+    stationText: {
+        fontFamily: 'SemiBold',
+        fontSize: 15,
+        color: '#232323',
+    },
+    stationLocation: {
+        fontFamily: 'Regular',
+        fontSize: 14,
+        color: '#232323',
+    }
 });
 
 export default Slider;
