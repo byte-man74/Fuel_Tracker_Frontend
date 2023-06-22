@@ -163,9 +163,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ABABAB',
         borderRadius: 8,
-        paddingLeft: "13.5%",
+        paddingLeft: "13.2%",
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
         color: '#232323',
     }
 
