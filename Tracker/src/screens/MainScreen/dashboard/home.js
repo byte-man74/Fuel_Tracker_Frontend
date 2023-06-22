@@ -44,7 +44,17 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.searchContainer}>
-                        <TextInput style={styles.searchInput} ></TextInput>
+                        <Image
+                            source={require('../../../icons/search.png')}
+                            style={{ width: 28, height: 28, position: 'absolute', top: "22.5%", left: "3%" }} />
+                        <TextInput style={styles.searchInput} placeholder='Search' ></TextInput>
+                        <TouchableOpacity style={{ position: 'absolute', top: "22.5%", right: "3%" }}>
+                            <Image
+                                source={require('../../../icons/filter.png')}
+                                style={{ width: 28, height: 28, }}
+                            />
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </ScrollView>
@@ -144,9 +154,19 @@ const styles = StyleSheet.create({
     searchContainer: {
         width: '100%',
         height: 50,
-        backgroundColor: 'red',
-        marginTop: 30
-        
+        marginTop: 30     
+    },
+    searchInput: {
+        width: '100%',
+        height: '100%',
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: '#ABABAB',
+        borderRadius: 8,
+        paddingLeft: "13.5%",
+        fontFamily: 'Regular',
+        fontSize: 14,
+        color: '#232323',
     }
-    
+
 })
