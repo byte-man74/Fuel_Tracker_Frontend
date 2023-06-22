@@ -18,6 +18,7 @@ export default function App() {
     "CustomFontRegular": require('./assets/fonts/Mulish-Black.ttf'),
     "MulishBold": require('./assets/fonts/Mulish-Bold.ttf'),
     "Regular": require('./assets/fonts/Mulish-Regular.ttf'),
+    "SemiBold": require('./assets/fonts/Mulish-SemiBold.ttf')
   });
 
   const onLayoutRootView = useCallback(async () => {
