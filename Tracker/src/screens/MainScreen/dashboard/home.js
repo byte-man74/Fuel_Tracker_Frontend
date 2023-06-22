@@ -57,7 +57,11 @@ const HomeScreen = () => {
 
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
-                        <Text style={styles.haaderTitle}>Fueling stations near you</Text>
+                        <View style={styles.nearbyFuelingStationContainerHeader}>
+                            <Text style={styles.haaderTitle}>Fueling stations near you</Text>
+                            <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
+                        </View>
+                        
                     </View>
                 </View>
             </ScrollView>
@@ -174,7 +178,12 @@ const styles = StyleSheet.create({
     },
     nearbyFuelingStationContainer: {
         width: '100%',
-        height: 30,
+        minHeight: 30,
+    },
+    nearbyFuelingStationContainerHeader: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 
 })
