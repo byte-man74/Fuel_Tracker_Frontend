@@ -6,12 +6,12 @@ const ITEM_WIDTH = width * 0.68;
 
 const Slider = () => {
     const data = [
-        { id: 1, coverImage: require('../../assets/image1.jpg'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "300" },
-        { id: 2, coverImage: require('../../assets/image2.png'), name: 'Item 2', location: "wuse zone 3", price: "300" },
-        { id: 3, coverImage: require('../../assets/image3.png'), name: 'Item 3', location: "wuse zone 3", price: "300" },
-        { id: 4, coverImage: require('../../assets/image1.png'), name: 'Item 1', location: "wuse zone 3", price: "300" },
-        { id: 5, coverImage: require('../../assets/image2.png'), name: 'Item 2', location: "wuse zone 3", price: "300" },
-        { id: 6, coverImage: require('../../assets/image3.png'), name: 'Item 3', location: "wuse zone 3", price: "300" },
+        { id: 1, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.jpg'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260" },
+        { id: 2, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300" },
+        { id: 3, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "Kuje zone 3", price: "300" },
+        { id: 4, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.jpg'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260" },
+        { id: 5, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300" },
+        { id: 6, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "wuse zone 3", price: "300" },
         // Add more data items as needed
     ];
 
@@ -21,11 +21,26 @@ const Slider = () => {
                 <Image source={item.coverImage} style={styles.image} />
                 <View style={styles.carouselContainer}>
                     <View style={styles.carouselContainerExtraInfo}>
-                        <Image source={require('../../assets/shell.jpg')} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
+                        <Image source={item.logo} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
                         <View style={styles.carouselContainerExtraInfoText}>
                             <Text style={styles.stationText}>{ item.name}</Text>
                             <Text style={styles.stationLocation}>{item.location}</Text>
                         </View>
+                        <TouchableOpacity
+                            style={{ position: 'absolute', top: '19.5%', right: 0 }}
+                        ><Image source={require('../icons/bookmark_black.png')}
+                                style={styles.bookmarkIconStyling}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.extraFunctionsStyling}>
+                        <View style={{ width: "60%", height: "100%"}}>
+                            <TouchableOpacity style={styles.upvoteButton}>
+                                <Image source={require('../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
+                                <Text style={{ fontFamily: 'Regular', fontSize: 14, }}>Upvote price  |  24</Text>                    
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={{ fontFamily: 'SemiBold', fontSize: 18, }}>₦540</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -102,6 +117,27 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 14,
         color: '#232323',
+    },
+    bookmarkIconStyling: {
+        width: 22,
+        height: 22
+    },
+    extraFunctionsStyling: {
+        width: '100%',
+        height: 35,
+        marginTop: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    upvoteButton: {
+        width: 160,
+        height: "100%",
+        backgroundColor: "#E8E9EE",
+        borderRadius: 8,
+        paddingHorizontal: 4,
+        alignItems: 'center',
+        flexDirection: 'row'
     }
 });
 
