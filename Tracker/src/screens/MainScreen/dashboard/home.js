@@ -66,6 +66,15 @@ const HomeScreen = () => {
                             <Slider />
                         </View>
                     </View>
+                    <View style={styles.nearbyFuelingStationContainer}>
+                        <View style={styles.nearbyFuelingStationContainerHeader}>
+                            <Text style={styles.haaderTitle}>Saved filling stations</Text>
+                            <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
+                        </View>
+                        <View style={styles.carouselBox}>
+                            <Slider />
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         </>
@@ -99,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height * 1.1,
+        minHeight: height * 1.2,
         paddingHorizontal: '4%'
     },
     avatarWithName: {
@@ -182,6 +191,7 @@ const styles = StyleSheet.create({
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
+        marginBottom: 40
     },
     nearbyFuelingStationContainerHeader: {
         width: '100%',
