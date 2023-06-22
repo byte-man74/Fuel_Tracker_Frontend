@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, Touchable, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import React from 'react'
 
 const { height, width } = Dimensions.get('window');
@@ -42,6 +42,9 @@ const HomeScreen = () => {
                             </Text>
                             <Image style={{ width: 24, height: 24, marginLeft: 2 }} source={require('../../../icons/switch.png')} />
                         </TouchableOpacity>
+                    </View>
+                    <View style={styles.searchContainer}>
+                        <TextInput style={styles.searchInput} ></TextInput>
                     </View>
                 </View>
             </ScrollView>
@@ -137,5 +140,13 @@ const styles = StyleSheet.create({
         fontSize: 28,
         color: '#232323',
         letterSpacing: 0.4
+    },
+    searchContainer: {
+        width: '100%',
+        height: 50,
+        backgroundColor: 'red',
+        marginTop: 30
+        
     }
+    
 })
