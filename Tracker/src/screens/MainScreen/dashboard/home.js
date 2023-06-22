@@ -56,6 +56,9 @@ const HomeScreen = () => {
                         </TouchableOpacity>
 
                     </View>
+                    <View style={styles.nearbyFuelingStationContainer}>
+                        <Text style={styles.haaderTitle}>Fueling stations near you</Text>
+                    </View>
                 </View>
             </ScrollView>
         </>
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     haaderTitle: {
-        fontFamily: 'MulishBold',
+        fontFamily: 'SemiBold',
         fontSize: 18,
         color: '#232323',
     },
@@ -154,7 +157,8 @@ const styles = StyleSheet.create({
     searchContainer: {
         width: '100%',
         height: 50,
-        marginTop: 30     
+        marginTop: 30,
+        marginBottom: 30
     },
     searchInput: {
         width: '100%',
@@ -167,6 +171,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 16,
         color: '#232323',
+    },
+    nearbyFuelingStationContainer: {
+        width: '100%',
+        height: 30,
     }
 
 })
