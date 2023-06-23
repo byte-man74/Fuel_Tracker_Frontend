@@ -37,9 +37,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="MainScreen" component={MainScreenTab} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
         <Stack.Screen name="Authentication" component={AuthNavigator} />
-        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
