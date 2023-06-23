@@ -8,9 +8,7 @@ const Stack = createStackNavigator();
 function MainDashboardNavigator() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="ViewStation" component={ViewStationDetails} />
         </Stack.Navigator>
     );
 }
