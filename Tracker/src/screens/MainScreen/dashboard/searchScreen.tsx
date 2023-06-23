@@ -13,7 +13,7 @@ const MAX_UPWARD_TRANSLATE_Y =
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
 const DRAG_THRESHOLD = 50;
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const lastGestureDy = useRef(0);
   const panResponder = useRef(
@@ -82,7 +82,7 @@ const SearchScreen = () => {
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
         </View>
-        < SearchItemComponent />
+        < SearchItemComponent navigation={navigation}/>
       </Animated.View>
     </View>
   );

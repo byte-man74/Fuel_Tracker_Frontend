@@ -37,14 +37,14 @@ const HomeScreen = ({navigation}) => {
                             </View>
                             <Text style={styles.headerText} >Average fuel price near you</Text>
                         </View>
-                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('SearchScreen')}>
                             <Text style={styles.headerlink}>
                                 Map view
                             </Text>
                             <Image style={{ width: 24, height: 24, marginLeft: 2 }} source={require('../../../icons/switch.png')} />
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.searchContainer}>
+                    <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
                         <Image
                             source={require('../../../icons/search.png')}
                             style={{ width: 28, height: 28, position: 'absolute', top: "22.5%", left: "3%" }} />
@@ -56,7 +56,7 @@ const HomeScreen = ({navigation}) => {
                             />
                         </TouchableOpacity>
 
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.nearbyFuelingStationContainer}>
                         <View style={styles.nearbyFuelingStationContainerHeader}>
                             <Text style={styles.haaderTitle}>Fueling stations near you</Text>
