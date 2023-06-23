@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { Animated, PanResponder, Platform, StyleSheet, View, Dimensions } from 'react-native';
+import MapsComponent from '../../../components/maps';
+import SearchItemComponent from '../../../components/searchItemComponent';
 
 const { height, width } = Dimensions.get('window');
 
@@ -75,14 +77,12 @@ const SearchScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: width, height: 0.65 * height, backgroundColor: 'red' }}>
-
-      </View>
+      <MapsComponent />
       <Animated.View style={[styles.bottomSheet, bottomSheetAnimation]}>
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
-
         </View>
+        < SearchItemComponent />
       </Animated.View>
     </View>
   );
