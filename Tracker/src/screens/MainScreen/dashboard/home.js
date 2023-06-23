@@ -4,7 +4,7 @@ import Slider from '../../../components/verticalSlider';
 
 const { height, width } = Dimensions.get('window');
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
         <>
             <View style={styles.headerBox}>
@@ -49,7 +49,7 @@ const HomeScreen = () => {
                             source={require('../../../icons/search.png')}
                             style={{ width: 28, height: 28, position: 'absolute', top: "22.5%", left: "3%" }} />
                         <TextInput style={styles.searchInput} placeholder='Search' ></TextInput>
-                        <TouchableOpacity style={{ position: 'absolute', top: "22.5%", right: "3%" }}>
+                        <TouchableOpacity style={{ position: 'absolute', top: "22.5%", right: "3%" }} onPress={() => navigation.navigate('SearchScreen')}>
                             <Image
                                 source={require('../../../icons/filter.png')}
                                 style={{ width: 28, height: 28, }}
