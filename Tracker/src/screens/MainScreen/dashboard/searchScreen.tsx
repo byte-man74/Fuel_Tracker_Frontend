@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { Animated, PanResponder, Platform, StyleSheet, View, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
@@ -11,7 +11,7 @@ const MAX_UPWARD_TRANSLATE_Y =
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
 const DRAG_THRESHOLD = 50;
 
-const DraggableBottomSheet = () => {
+const SearchScreen = () => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const lastGestureDy = useRef(0);
   const panResponder = useRef(
@@ -75,13 +75,13 @@ const DraggableBottomSheet = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: width, height: 0.65 * height, backgroundColor: 'red'}}>
-        
+      <View style={{ width: width, height: 0.65 * height, backgroundColor: 'red' }}>
+
       </View>
       <Animated.View style={[styles.bottomSheet, bottomSheetAnimation]}>
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
-          
+
         </View>
       </Animated.View>
     </View>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: BOTTOM_SHEET_MAX_HEIGHT,
     bottom: BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT,
     ...Platform.select({
-      android: {elevation: 3},
+      android: { elevation: 3 },
       ios: {
         shadowColor: '#a8bed2',
         shadowOpacity: 1,
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DraggableBottomSheet;
+export default SearchScreen;

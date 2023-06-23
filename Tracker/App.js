@@ -39,8 +39,7 @@ export default function App() {
         <Stack.Screen name="MainScreen" component={MainScreenTab} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
-        <Stack.Screen name="Authentication" component={AuthNavigator} />
-        
+        <Stack.Screen name="Authentication" component={AuthNavigator} />     
       </Stack.Navigator>
     </NavigationContainer>
   );
