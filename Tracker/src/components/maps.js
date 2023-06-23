@@ -1,27 +1,13 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import MapView from 'react-native-maps'
 
 const MapsComponent = () => {
-  return (
-      <View style={styles.headerBox}>
-          <View style={styles.homeContainerHeader}>
-              <View style={styles.avatarWithName}>
-                  <Image
-                      source={require('../images/avatar.png')}
-                      style={styles.avatarStyling}
-                      resizeMode="contain"
-                  />
-                  <Text style={styles.haaderTitle}>Hello Justice👋</Text>
-              </View>
-              <TouchableOpacity style={styles.notificationBox}>
-                  <Image
-                      source={require('../icons/notifiction_active.png')}
-                      style={styles.iconStyling}
-                  />
-              </TouchableOpacity>
-          </View>
-      </View>
-  )
+    return (
+        <MapView style={{ width: "100%", height: "100%" }} />
+
+
+    )
 }
 
 export default MapsComponent
@@ -32,8 +18,10 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'flex-start',
         paddingHorizontal: '4%',
-        backgroundColor: '#FFFFFF',
-        minHeight: 90
+        backgroundColor: 'rgba(187, 96, 96, 0.0)',
+        minHeight: 90,
+        position: 'absolute',
+        zIndex: 2
     },
     homeContainerHeader: {
         width: "100%",
