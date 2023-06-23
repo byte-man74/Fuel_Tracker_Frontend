@@ -1,15 +1,13 @@
-import React, { useRef } from 'react';
-import { Animated, PanResponder, Platform, StyleSheet, View, Dimensions } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { Animated, PanResponder, Platform, StyleSheet, View, Dimensions, Keyboard, UIManager } from 'react-native';
 import MapsComponent from '../../../components/maps';
 import SearchItemComponent from '../../../components/searchItemComponent';
 
-const { height, width } = Dimensions.get('window');
-
+const { height } = Dimensions.get('window');
 
 const BOTTOM_SHEET_MAX_HEIGHT = height * 0.95;
 const BOTTOM_SHEET_MIN_HEIGHT = height * 0.4;
-const MAX_UPWARD_TRANSLATE_Y =
-  BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT; // negative number;
+const MAX_UPWARD_TRANSLATE_Y = BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT;
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
 const DRAG_THRESHOLD = 50;
 
@@ -28,35 +26,55 @@ const SearchScreen = ({ navigation }) => {
       onPanResponderRelease: (e, gesture) => {
         animatedValue.flattenOffset();
         lastGestureDy.current += gesture.dy;
-        // if (lastGestureDy.current < MAX_UPWARD_TRANSLATE_Y) {
-        //   lastGestureDy.current = MAX_UPWARD_TRANSLATE_Y;
-        // } else if (lastGestureDy.current > MAX_DOWNWARD_TRANSLATE_Y) {
-        //   lastGestureDy.current = MAX_DOWNWARD_TRANSLATE_Y;
-        // }
 
         if (gesture.dy > 0) {
-          // dragging down
           if (gesture.dy <= DRAG_THRESHOLD) {
-            springAnimation('up');
+            springAnimation('up', 0);
           } else {
-            springAnimation('down');
+            springAnimation('down', 0);
           }
         } else {
-          // dragging up
           if (gesture.dy >= -DRAG_THRESHOLD) {
-            springAnimation('down');
+            springAnimation('down', 0);
           } else {
-            springAnimation('up');
+            springAnimation('up', 0);
           }
         }
       },
-    }),
+    })
   ).current;
 
-  const springAnimation = (direction: 'up' | 'down') => {
-    console.log('direction', direction);
-    lastGestureDy.current =
-      direction === 'down' ? MAX_DOWNWARD_TRANSLATE_Y : MAX_UPWARD_TRANSLATE_Y;
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', handleKeyboardDidShow);
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', handleKeyboardDidHide);
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const handleKeyboardDidShow = (event) => {
+    const keyboardHeight = event.endCoordinates.height;
+    springAnimation('up', keyboardHeight);
+  };
+
+  const handleKeyboardDidHide = () => {
+    springAnimation('down', 0);
+  };
+
+  const springAnimation = (direction, keyboardHeight) => {
+    lastGestureDy.current = direction === 'down' ? MAX_DOWNWARD_TRANSLATE_Y : MAX_UPWARD_TRANSLATE_Y;
+
+    const maxTranslateYWithKeyboard = MAX_UPWARD_TRANSLATE_Y + keyboardHeight;
+    const minTranslateYWithKeyboard = MAX_DOWNWARD_TRANSLATE_Y + keyboardHeight;
+
+    if (lastGestureDy.current < maxTranslateYWithKeyboard) {
+      lastGestureDy.current = maxTranslateYWithKeyboard;
+    } else if (lastGestureDy.current > minTranslateYWithKeyboard) {
+      lastGestureDy.current = minTranslateYWithKeyboard;
+    }
+
     Animated.spring(animatedValue, {
       toValue: lastGestureDy.current,
       useNativeDriver: true,
@@ -75,6 +93,10 @@ const SearchScreen = ({ navigation }) => {
     ],
   };
 
+  if (Platform.OS === 'android') {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
   return (
     <View style={styles.container}>
       <MapsComponent />
@@ -82,7 +104,7 @@ const SearchScreen = ({ navigation }) => {
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
         </View>
-        < SearchItemComponent navigation={navigation}/>
+        <SearchItemComponent navigation={navigation} />
       </Animated.View>
     </View>
   );
