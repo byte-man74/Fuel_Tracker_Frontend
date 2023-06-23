@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height * 1.2,
+        minHeight: height * 1.15,
         paddingHorizontal: '4%'
     },
     avatarWithName: {
