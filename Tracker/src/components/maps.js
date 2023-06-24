@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import MapView from 'react-native-maps'
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+
+const customMapStyle = require('../../assets/maps/configuration.json');
 
 const MapsComponent = () => {
     return (
-        <MapView style={{ width: "100%", height: "100%" }} />
+        <MapView style={{ width: "100%", height: "100%" }} provider={PROVIDER_GOOGLE} customMapStyle={customMapStyle} />
 
 
     )
@@ -66,4 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#232323',
     },
+
+
 })
+
