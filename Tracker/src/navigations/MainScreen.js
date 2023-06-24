@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainDashboardNavigator from './MainScreenDashboardNavigation';
 import SavedScreen from '../screens/MainScreen/bookmark/savedScreen';
 import SettingsScreen from '../screens/MainScreen/settings/settings';
-import MapsScreen from '../screens/MainScreen/maps/mapsScreen';
+
 
 
 const TabArr = [

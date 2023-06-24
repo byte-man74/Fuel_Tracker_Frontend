@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo';
 import MainScreenTab from './src/navigations/MainScreen';
 import SearchScreen from './src/screens/MainScreen/dashboard/searchScreen';
+import FuelStationDetails from './src/screens/others/fuelStationDetails';
 
 
 
@@ -37,6 +38,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="MainScreen" component={MainScreenTab} />
+        <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
         <Stack.Screen name="Authentication" component={AuthNavigator} />     
