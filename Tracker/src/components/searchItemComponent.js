@@ -18,7 +18,6 @@ const yodata = [
 ];
 
 const SearchItemComponent = ({ navigation }) => {
-
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer}>
             <View style={styles.stationDetails}>
@@ -26,7 +25,7 @@ const SearchItemComponent = ({ navigation }) => {
                 <View style={styles.detailsContainer}>
                     <Text style={styles.stationText}>{item.name}</Text>
                     <Text style={styles.stationLocation}>{item.location}</Text>
-                    <Text style={styles.stationLocation}><Text style={styles.stationPrice}>{item.price}</Text> | {item.time_posted}</Text>
+                    <Text style={[styles.stationLocation, styles.stationPrice]}>{item.price} | {item.time_posted}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -72,17 +71,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: '4%',
     },
     searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         width: '100%',
         height: 50,
         marginTop: 5,
         marginBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     searchIcon: {
         width: 28,
         height: 28,
         position: 'absolute',
+        top: '22.5%',
         left: '3%',
     },
     searchInput: {
@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
         marginBottom: 80,
     },
     nearbyFuelingStationContainerHeader: {
-        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 20,
