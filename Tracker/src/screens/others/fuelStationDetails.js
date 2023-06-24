@@ -27,7 +27,7 @@ const FuelStationDetails = ({ navigation }) => {
                                     4.0 (36)
                                 </Text>
                             </View>
-                            <Text style={styles.Text}>Helllo me</Text>
+                            <Text style={styles.Text_link}>View Ratings</Text>
                             <View style={styles.extraFunctionsStyling}>
                                 <View style={{ width: "100%", height: "100%", flexDirection: 'row', alignItems: 'center' }}>
     
@@ -71,7 +71,7 @@ const FuelStationDetails = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-                    <View style={styles.otherDetails}>
+                    <View style={styles.secondDetails}>
                         <Text style={styles.TextBold}>₦560/liter</Text>
                         <TouchableOpacity style={{ flexDirection: 'row' }}>
                             <Text style={styles.Text}>
@@ -143,7 +143,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 16,
         color: '#232323',
-
+    },
+    Text_link: {
+        fontFamily: 'Regular',
+        fontSize: 16,
+        color: '#232323',
+        textDecorationLine: 'underline'
     },
     TextBold: {
         fontFamily: 'SemiBold',
@@ -201,10 +206,18 @@ const styles = StyleSheet.create({
     },
     otherDetails: {
         width: '94%',
-
         minHeight: 120,
         borderBottomColor: '#D9D9D9',
         borderBottomWidth: 1,
+        marginBottom: 20
+    },
+    secondDetails: {
+        width: '94%',
+        minHeight: 60,
+        borderBottomColor: '#D9D9D9',
+        borderBottomWidth: 1,
+        marginBottom: 20,
+        justifyContent: 'space-around'
     },
     carouselContainerExtraInfo: {
         width: '100%',
