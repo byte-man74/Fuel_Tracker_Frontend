@@ -26,7 +26,7 @@ const SearchItemComponent = ({ navigation }) => {
                 <View style={{ justifyContent: 'space-between', height: '100%' }}>
                     <Text style={styles.stationText}>{item.name}</Text>
                     <Text style={styles.stationLocation}>{item.location}</Text>
-                    <Text style={styles.stationLocation}>{item.price} | {item.time_posted}</Text>
+                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>{item.price}</Text> | {item.time_posted}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
-        marginBottom: 40,
+        marginBottom: 80,
     },
     nearbyFuelingStationContainerHeader: {
         width: '100%',
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     itemContainer: {
         width: '100%',
         paddingVertical: 6,
-        height: 80,
-        paddingVertical: 8,
+        height: 100,
+        paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: '#E5E5E5',
         flexDirection: 'row'
