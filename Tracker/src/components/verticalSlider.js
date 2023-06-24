@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width * 0.68;
+const ITEM_WIDTH = width * 0.7;
 
 const Slider = () => {
     const data = [
@@ -26,21 +26,26 @@ const Slider = () => {
                             <Text style={styles.stationText}>{ item.name}</Text>
                             <Text style={styles.stationLocation}>{item.location}</Text>
                         </View>
-                        <TouchableOpacity
+                        <View
                             style={{ position: 'absolute', top: '19.5%', right: 0 }}
-                        ><Image source={require('../icons/bookmark_black.png')}
-                                style={styles.bookmarkIconStyling}
-                            />
-                        </TouchableOpacity>
+                        ><Text style={{ fontFamily: 'MulishBold', fontSize: 18, }}>₦540</Text>
+                        </View>
                     </View>
                     <View style={styles.extraFunctionsStyling}>
-                        <View style={{ width: "60%", height: "100%"}}>
+                        <View style={{ width: "100%", height: "100%", flexDirection: 'row' }}>
+                            <View style={styles.trafficIndicator}>
+                                <Image source={require('../icons/traffic.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
+                                <Text style={{ fontFamily: 'Regular', fontSize: 14, color: 'white' }}>Traffic</Text>  
+                            </View>
                             <TouchableOpacity style={styles.upvoteButton}>
                                 <Image source={require('../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
-                                <Text style={{ fontFamily: 'Regular', fontSize: 14, }}>Upvote price  |  24</Text>                    
+                                <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote | 24</Text>                    
                             </TouchableOpacity>
+                            <Image source={require('../icons/share.png')} style={{ width: 43.95, height: "100%", marginRight: 5 }} />
                         </View>
-                        <Text style={{ fontFamily: 'SemiBold', fontSize: 18, }}>₦540</Text>
+                    </View>
+                    <View style={styles.lastUpdatedPrice}>
+                        <Text style={{ fontFamily: 'Regular', fontSize: 16, color: '#333333'}}>Last updated 30mins ago </Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     carouselContainer: {
         flex: 1,
         width: '100%',
-        height: 120,
+        height: 145,
 
     },
     carouselContainerExtraInfo: {
@@ -131,13 +136,30 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     upvoteButton: {
-        width: 160,
+        width: 115,
         height: "100%",
         backgroundColor: "#E8E9EE",
         borderRadius: 8,
         paddingHorizontal: 4,
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginRight: 12
+    },
+    trafficIndicator: {
+        width: 85,
+        height: "100%",
+        backgroundColor: "rgba(102, 189, 112, 1)",
+        borderRadius: 8,
+        paddingHorizontal: 4,
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginRight: 12
+    },
+    lastUpdatedPrice:
+    {
+        justifyContent: 'flex-end',
+        width: "100%",
+        height: 35,
     }
 });
 

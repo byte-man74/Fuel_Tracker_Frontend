@@ -48,7 +48,7 @@ const HomeScreen = ({navigation}) => {
                         <Image
                             source={require('../../../icons/search.png')}
                             style={{ width: 28, height: 28, position: 'absolute', top: "22.5%", left: "3%" }} />
-                        <TextInput style={styles.searchInput} placeholder='Search' ></TextInput>
+                        <TextInput style={styles.searchInput} placeholder='Search' onFocus={() => navigation.navigate('SearchScreen')} ></TextInput>
                         <TouchableOpacity style={{ position: 'absolute', top: "22.5%", right: "3%" }} onPress={() => navigation.navigate('SearchScreen')}>
                             <Image
                                 source={require('../../../icons/filter.png')}
