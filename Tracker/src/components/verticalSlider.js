@@ -4,7 +4,7 @@ import { View, FlatList, StyleSheet, Dimensions, Image, Text, TouchableOpacity }
 const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width * 0.68;
 
-const Slider = () => {
+const Slider = ({ navigation }) => {
     const data = [
         { id: 1, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.jpg'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260" },
         { id: 2, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300" },
@@ -17,7 +17,7 @@ const Slider = () => {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => console.log('Item pressed')} style={styles.itemContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate('FuelStationDetails')} style={styles.itemContainer}>
                 <Image source={item.coverImage} style={styles.image} />
                 <View style={styles.carouselContainer}>
                     <View style={styles.carouselContainerExtraInfo}>

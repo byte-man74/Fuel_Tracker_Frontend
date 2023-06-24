@@ -63,7 +63,7 @@ const HomeScreen = ({navigation}) => {
                             <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
                         </View>
                         <View style={styles.carouselBox}>
-                            <Slider />
+                            <Slider navigation={navigation} />
                         </View>
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
