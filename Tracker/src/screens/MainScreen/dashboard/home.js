@@ -1,10 +1,29 @@
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import Slider from '../../../components/verticalSlider';
 
 const { height, width } = Dimensions.get('window');
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
+    const fadeInAnimation = useRef(new Animated.Value(0)).current;
+    const slideInAnimation = useRef(new Animated.Value(100)).current;
+
+    useEffect(() => {
+        const fadeIn = Animated.timing(fadeInAnimation, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+        });
+
+        const slideIn = Animated.spring(slideInAnimation, {
+            toValue: 0,
+            speed: 15,
+            bounciness: 5,
+            useNativeDriver: true,
+        });
+
+        Animated.parallel([fadeIn, slideIn]).start();
+    }, []);
     return (
         <>
             <View style={styles.headerBox}>
@@ -58,13 +77,13 @@ const HomeScreen = ({navigation}) => {
 
                     </TouchableOpacity>
                     <View style={styles.nearbyFuelingStationContainer}>
-                        <View style={styles.nearbyFuelingStationContainerHeader}>
+                        <Animated.View style={[styles.nearbyFuelingStationContainerHeader, { transform: [{ translateY: slideInAnimation }] }]}>
                             <Text style={styles.haaderTitle}>Fueling stations near you</Text>
                             <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
-                        </View>
-                        <View style={styles.carouselBox}>
+                        </Animated.View>
+                        <Animated.View style={[styles.carouselBox, { opacity: fadeInAnimation }]}>
                             <Slider navigation={navigation} />
-                        </View>
+                        </Animated.View>
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
                         <View style={styles.nearbyFuelingStationContainerHeader}>
