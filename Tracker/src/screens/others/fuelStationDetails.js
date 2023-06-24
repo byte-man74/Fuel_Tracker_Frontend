@@ -72,13 +72,51 @@ const FuelStationDetails = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={styles.secondDetails}>
-                        <Text style={styles.TextBold}>₦560/liter</Text>
-                        <TouchableOpacity style={{ flexDirection: 'row' }}>
-                            <Text style={styles.Text}>
-                                4.0 (36)
+                        <View style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
+                            <Text style={styles.TextBold}>
+                                Fuel Price / Liter (₦)
                             </Text>
-                            <Image style={{ width: 18, height: 18, marginRight: 5 }} source={require('../../icons/star.png')} />
+                            <View style={{ width: 180, height: 30, backgroundColor: '#F6CA63', marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
+                                <Text style={styles.Text}>
+                                    330 users approved 👍🏾
+                                </Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center'}}>
+                            <Text style={styles.EditText}>
+                                ₦540
+                            </Text>
+                            <Image style={{ width: 18, height: 18, marginHorizontal: 5 }} source={require('../../icons/edit.png')} />
+                            <Text style={styles.Text}>
+                                Update Price
+                            </Text>
+                            <Text style={styles.TimeText}>
+                                Last updated 5 mins ago
+                            </Text>
                         </TouchableOpacity>
+                    </View>
+                    <View style={styles.secondDetails}>
+                        <View style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
+                            <Text style={styles.TextBold}>
+                                Contact information
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
+                            <Image style={{ width: 18, height: 18, marginHorizontal: 5 }} source={require('../../icons/phone.png')} />
+                            <Text style={styles.Text}>
+                                0817 4509 183
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.secondDetails}>
+                        <View style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 15 }}>
+                            <Text style={styles.TextBold}>
+                                Comments (4)
+                            </Text>
+                        </View>
+                        <View style={{ width: '100%', height: 300, backgroundColor: '#F4F4F4', borderRadius: 10}}>
+                                
+                        </View>
                     </View>
                 </View>
 
@@ -144,6 +182,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#232323',
     },
+    EditText: {
+        fontFamily: 'MulishBold',
+        fontSize: 18,
+        color: '#232323',
+        marginRight: 10
+    }, 
     Text_link: {
         fontFamily: 'Regular',
         fontSize: 16,
@@ -154,7 +198,13 @@ const styles = StyleSheet.create({
         fontFamily: 'SemiBold',
         fontSize: 18,
         color: '#232323',
-
+    },
+    TimeText: {
+        fontFamily: 'Regular',
+        fontSize: 16,
+        color: '#232323',
+        position: 'absolute',
+        right: 0
     },
     extraFunctionsStyling: {
         width: '90%',
@@ -213,11 +263,11 @@ const styles = StyleSheet.create({
     },
     secondDetails: {
         width: '94%',
-        minHeight: 60,
+        minHeight: 90,
         borderBottomColor: '#D9D9D9',
         borderBottomWidth: 1,
         marginBottom: 20,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     carouselContainerExtraInfo: {
         width: '100%',
