@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width * 0.7;
+const ITEM_WIDTH = width * 0.68;
 
 const Slider = () => {
     const data = [
@@ -32,7 +32,7 @@ const Slider = () => {
                         </View>
                     </View>
                     <View style={styles.extraFunctionsStyling}>
-                        <View style={{ width: "100%", height: "100%", flexDirection: 'row' }}>
+                        <View style={{ width: "100%", height: "100%", flexDirection: 'row', alignItems: 'center' }}>
                             <View style={styles.trafficIndicator}>
                                 <Image source={require('../icons/traffic.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
                                 <Text style={{ fontFamily: 'Regular', fontSize: 14, color: 'white' }}>Traffic</Text>  
@@ -41,7 +41,7 @@ const Slider = () => {
                                 <Image source={require('../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
                                 <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote | 24</Text>                    
                             </TouchableOpacity>
-                            <Image source={require('../icons/share.png')} style={{ width: 43.95, height: "100%", marginRight: 5 }} />
+                            <Image source={require('../icons/share.png')} style={{ width: 43.95, height: "90%", marginRight: 5, objectFit: 'contain' }} />
                         </View>
                     </View>
                     <View style={styles.lastUpdatedPrice}>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        marginRight: 12
+        marginRight: 8
     },
     trafficIndicator: {
         width: 85,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        marginRight: 12
+        marginRight: 8
     },
     lastUpdatedPrice:
     {

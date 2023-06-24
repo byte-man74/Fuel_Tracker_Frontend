@@ -18,14 +18,15 @@ const yodata = [
 ];
 
 const SearchItemComponent = ({ navigation }) => {
+
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer}>
             <View style={styles.stationDetails}>
                 <Image source={item.logo} style={styles.stationImage} />
-                <View style={styles.detailsContainer}>
+                <View style={{ justifyContent: 'space-between', height: '100%' }}>
                     <Text style={styles.stationText}>{item.name}</Text>
                     <Text style={styles.stationLocation}>{item.location}</Text>
-                    <Text style={[styles.stationLocation, styles.stationPrice]}>{item.price} | {item.time_posted}</Text>
+                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>{item.price}</Text> | {item.time_posted}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -36,14 +37,14 @@ const SearchItemComponent = ({ navigation }) => {
             <View style={styles.searchContainer}>
                 <Image
                     source={require('../icons/search.png')}
-                    style={styles.searchIcon}
+                    style={{ width: 28, height: 28, position: 'absolute', top: '22.5%', left: '3%' }}
                 />
                 <TextInput style={styles.searchInput} placeholder='Search' />
                 <TouchableOpacity
-                    style={styles.filterButton}
+                    style={{ position: 'absolute', top: '22.5%', right: '3%' }}
                     onPress={() => navigation.navigate('SearchScreen')}
                 >
-                    <Image source={require('../icons/filter.png')} style={styles.filterIcon} />
+                    <Image source={require('../icons/filter.png')} style={{ width: 28, height: 28 }} />
                 </TouchableOpacity>
             </View>
             <View style={styles.nearbyFuelingStationContainer}>
@@ -71,22 +72,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: '4%',
     },
     searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
         width: '100%',
         height: 50,
         marginTop: 5,
         marginBottom: 20,
     },
-    searchIcon: {
-        width: 28,
-        height: 28,
-        position: 'absolute',
-        top: '22.5%',
-        left: '3%',
-    },
     searchInput: {
-        flex: 1,
+        width: '100%',
         height: '100%',
         borderStyle: 'solid',
         borderWidth: 1,
@@ -97,21 +89,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#232323',
     },
-    filterButton: {
-        position: 'absolute',
-        top: '22.5%',
-        right: '3%',
-    },
-    filterIcon: {
-        width: 28,
-        height: 28,
-    },
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
         marginBottom: 80,
     },
     nearbyFuelingStationContainerHeader: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 20,
@@ -142,7 +126,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: '#E5E5E5',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     stationDetails: {
         width: '60%',
@@ -152,11 +136,7 @@ const styles = StyleSheet.create({
     stationImage: {
         width: 50,
         height: 50,
-        marginRight: 10,
-    },
-    detailsContainer: {
-        justifyContent: 'space-between',
-        height: '100%',
+        marginRight: 10
     },
     stationText: {
         fontFamily: 'SemiBold',
@@ -167,8 +147,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 14,
         color: '#232323',
-    },
-    stationPrice: {
-        fontFamily: 'MulishBold',
     },
 });
