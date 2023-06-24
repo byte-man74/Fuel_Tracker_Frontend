@@ -3,13 +3,13 @@ import React from 'react'
 
 const { height, width } = Dimensions.get('window');
 
-const FuelStationDetails = () => {
+const FuelStationDetails = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.backgroundImage}>
                 <ImageBackground source={require('../../images/backgrnd.png')} style={styles.fullBackground}>
                     <View style={styles.header}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Image style={{ width: 32, height: 30}} source={require('../../icons/back.png')}/>  
                         </TouchableOpacity>
                         <TouchableOpacity>
@@ -17,6 +17,10 @@ const FuelStationDetails = () => {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
+                <View style={styles.stationInfo}>
+                    <Image style={styles.stationImage} source={require('../../../assets/image1.jpg')} />
+                    <View style={styles.stationDetailsTextContainer}></View>
+                </View>
             </View>
         </ScrollView>
     );
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     },
     fullBackground: {
         width: width,
-        height: height * 0.25,
+        height: height * 0.2,
         objectFit: 'cover',
         paddingHorizontal: '4%'
     },
@@ -47,6 +51,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
+    },
+    stationInfo: {
+        width: '100%',
+        height: 110,
+        paddingHorizontal: '4%',
+        flexDirection: 'row'
+    },
+    stationImage: {
+        width: 180,
+        height: 150,
+        marginTop: -40,
+        borderRadius: 10,
+        borderWidth: 5,
+        borderColor: '#D1D1D147',
+        marginRight: 10,
+    },
+    stationDetailsTextContainer: {
+        width: '48.5%',
+        height: '87%',
+        alignSelf: 'center',
+        backgroundColor: 'red'
     }
 })
 
