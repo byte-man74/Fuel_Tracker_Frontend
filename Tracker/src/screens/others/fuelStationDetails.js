@@ -10,7 +10,7 @@ const FuelStationDetails = ({ navigation }) => {
                 <ImageBackground source={require('../../images/backgrnd.png')} style={styles.fullBackground}>
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Image style={{ width: 32, height: 30}} source={require('../../icons/back.png')}/>  
+                            <Image style={{ width: 32, height: 30 }} source={require('../../icons/back.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Image style={{ width: 30, height: 30 }} source={require('../../icons/options.png')} />
@@ -20,9 +20,9 @@ const FuelStationDetails = ({ navigation }) => {
                 <View style={styles.stationInfo}>
                     <Image style={styles.stationImage} source={require('../../../assets/image3.jpg')} />
                     <View style={styles.stationDetailsTextContainer}>
-                        <View style={{ width: '92%', height: '100%', justifyContent: 'space-between'}}>
-                            <View style={{ flexDirection: 'row'}}>
-                                <Image style={{width: 18, height: 18, marginRight:5}} source={require('../../icons/star.png')} />
+                        <View style={{ width: '92%', height: '100%', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Image style={{ width: 18, height: 18, marginRight: 5 }} source={require('../../icons/star.png')} />
                                 <Text style={styles.Text}>
                                     4.0 (36)
                                 </Text>
@@ -30,7 +30,7 @@ const FuelStationDetails = ({ navigation }) => {
                             <Text style={styles.Text_link}>View Ratings</Text>
                             <View style={styles.extraFunctionsStyling}>
                                 <View style={{ width: "100%", height: "100%", flexDirection: 'row', alignItems: 'center' }}>
-    
+
                                     <TouchableOpacity style={styles.upvoteButton}>
                                         <Image source={require('../../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
                                         <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote | 24</Text>
@@ -40,7 +40,7 @@ const FuelStationDetails = ({ navigation }) => {
                             </View>
                         </View>
                         <TouchableOpacity>
-                            <Image source={require('../../icons/bookmark_black.png')} style={{ width: 25, height: 25}} />
+                            <Image source={require('../../icons/bookmark_black.png')} style={{ width: 25, height: 25 }} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -82,7 +82,7 @@ const FuelStationDetails = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center'}}>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
                             <Text style={styles.EditText}>
                                 ₦540
                             </Text>
@@ -114,8 +114,43 @@ const FuelStationDetails = ({ navigation }) => {
                                 Comments (4)
                             </Text>
                         </View>
-                        <View style={{ width: '100%', height: 300, backgroundColor: '#F4F4F4', borderRadius: 10}}>
-                                
+                        <View style={{ width: '100%', minHeight: 300, backgroundColor: '#F4F4F4', borderRadius: 10, padding: 10 }}>
+                            <View style={styles.commentItem}>
+                                <View style={styles.carouselContainerExtraInfo}>
+                                    <Image source={require('../../images/avatar.png')} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
+                                    <View style={styles.carouselContainerExtraInfoText}>
+                                        <Text style={styles.stationText}>Leke Daniel</Text>
+                                        <Text style={styles.stationLocation}>3 days ago</Text>
+                                    </View>
+                                </View>
+                                <Text style={styles.Text}>
+                                    Amazing customer service
+                                </Text>
+                            </View>
+                            <View style={styles.commentItem}>
+                                <View style={styles.carouselContainerExtraInfo}>
+                                    <Image source={require('../../images/avatar.png')} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
+                                    <View style={styles.carouselContainerExtraInfoText}>
+                                        <Text style={styles.stationText}>Leke Daniel</Text>
+                                        <Text style={styles.stationLocation}>3 days ago</Text>
+                                    </View>
+                                </View>
+                                <Text style={styles.Text}>
+                                    Amazing customer service
+                                </Text>
+                            </View>
+                            <View style={styles.commentItem}>
+                                <View style={styles.carouselContainerExtraInfo}>
+                                    <Image source={require('../../images/avatar.png')} style={{ width: 35, height: 35, borderRadius: 400, marginRight: 7 }} />
+                                    <View style={styles.carouselContainerExtraInfoText}>
+                                        <Text style={styles.stationText}>Leke Daniel</Text>
+                                        <Text style={styles.stationLocation}>3 days ago</Text>
+                                    </View>
+                                </View>
+                                <Text style={styles.Text}>
+                                    Amazing customer service
+                                </Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -187,7 +222,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#232323',
         marginRight: 10
-    }, 
+    },
     Text_link: {
         fontFamily: 'Regular',
         fontSize: 16,
@@ -242,7 +277,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        marginRight: 8  
+        marginRight: 8
     },
     trafficIndicator: {
         width: 85,
@@ -296,6 +331,14 @@ const styles = StyleSheet.create({
         width: 22,
         height: 22
     },
+    commentItem: {
+        width: '100%',
+        minHeight: 80,
+        paddingBottom: 20,
+        borderBottomWidth: 2,
+        borderColor: '#D1D1D147',
+        marginBottom: 10
+    }
 })
 
 
