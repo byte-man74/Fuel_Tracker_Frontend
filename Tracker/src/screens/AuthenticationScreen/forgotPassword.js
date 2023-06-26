@@ -1,20 +1,34 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import Button from '../../components/button';
-
+import BottomSheet from '../../components/bottomSheet';
 
 const { height, width } = Dimensions.get('window');
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
-
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
   const handleSignInPress = () => {
     // Navigate to the sign-in page
     navigation.navigate('SignUp');
   };
+
   const isButtonDisabled = email === '';
+
+  const openBottomSheet = () => {
+    setBottomSheetVisible(true);
+  };
+
+  const closeBottomSheet = () => {
+    setBottomSheetVisible(false);
+  };
+
+  const handleSubmit = () => {
+    openBottomSheet();
+    // Additional logic or API calls can be added here
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
@@ -34,34 +48,47 @@ const ForgetPassword = ({ navigation }) => {
           </View>
           <View style={styles.formContainer}>
             <View style={styles.formContainerItem}>
-              <Text style={styles.formContainerText} >
+              <Text style={styles.formContainerText}>
                 Email Address
               </Text>
               <TextInput
                 style={styles.formInputBox}
                 value={email}
                 onChangeText={setEmail}
-                placeholder="-- Enter --">
-
-              </TextInput>
+                placeholder="-- Enter --"
+              />
             </View>
           </View>
           <View style={styles.bottomCTA}>
-            <Button title="Submit"
-              onPress={() => { navigation.navigate('ResetPasswordOtp') }}
+            <Button
+              title="Submit"
+              onPress={handleSubmit}
               disabled={isButtonDisabled}
               color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
               textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
               width={'100%'} // Custom width
-              height={55} />
+              height={55}
+            />
           </View>
         </ImageBackground>
       </View>
+      <BottomSheet
+        isVisible={bottomSheetVisible}
+        onDismiss={closeBottomSheet}
+        snapPoints={['50%']}
+      >
+        {/* Bottom sheet content */}
+        <View style={styles.bottomSheetContent}>
+          <Text>Bottom Sheet Content</Text>
+          <Button title="Close" onPress={closeBottomSheet} color={'#1E1E1E'} />
+        </View>
+      </BottomSheet>
     </ScrollView>
   );
 };
 
 export default ForgetPassword;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -156,9 +183,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: 'space-between',
     alignItems: 'center'
-  }
+  },
+  bottomSheetContent: {
+    padding: 16,
+    alignItems: 'center',
+  },
 });
-
-
-
 
