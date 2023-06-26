@@ -18,12 +18,22 @@ const BottomSheet = ({ isVisible, onDismiss, snapPoints, children }) => {
       ref={bottomSheetModalRef}
       index={0}
       snapPoints={snapPoints}
-      backdropComponent={BottomSheetBackdrop}
+      backdropComponent={(backdropProps) => (
+        <BottomSheetBackdrop
+          {...backdropProps}
+          enableTouchThrough={true}
+          pressBehavior="none"
+          appearsOnIndex={0}
+          opacity={0.6}
+          backdropStyle={styles.backdrop}
+        />
+      )}
       onDismiss={onDismiss}
+      handleComponent={() => null}
     >
       <View style={styles.container}>
         <View style={styles.sheet}>
-          <View style={styles.curve} />
+          <View style={styles.topLine} />
           <View style={styles.content}>{children}</View>
         </View>
       </View>
@@ -32,35 +42,31 @@ const BottomSheet = ({ isVisible, onDismiss, snapPoints, children }) => {
 };
 
 export default BottomSheet;
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'transparent',
-    },
-    sheet: {
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
-      overflow: 'hidden',
-      backgroundColor: 'white',
-    },
-    curve: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: 16,
-      backgroundColor: 'white',
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
-    },
-    content: {
-      paddingTop: 16,
-      paddingHorizontal: 16,
-    },
-  });
 
-  
-  
-  
-  
-  
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  sheet: {
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+  },
+  topLine: {
+    height: 6,
+    width: 60,
+    alignSelf: 'center',
+    marginTop: 8,
+    borderRadius: 6,
+    backgroundColor: 'red', // Change the color here
+  },
+  content: {
+    paddingTop: 16,
+    paddingHorizontal: 16,
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Change the color and opacity here
+  },
+});
