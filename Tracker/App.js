@@ -8,7 +8,7 @@ import * as SplashScreen from 'expo';
 import MainScreenTab from './src/navigations/MainScreen';
 import SearchScreen from './src/screens/MainScreen/dashboard/searchScreen';
 import FuelStationDetails from './src/screens/others/fuelStationDetails';
-
+import StationList from './src/screens/others/stationList';
 
 
 

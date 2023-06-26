@@ -13,7 +13,7 @@ import React, { useEffect, useRef } from "react";
 
 const { height, width } = Dimensions.get("window");
 
-const HomeScreen = ({ navigation }) => {
+const SavedScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
   const slideInAnimation = useRef(new Animated.Value(100)).current;
 
@@ -271,7 +271,7 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-export default HomeScreen;
+export default SavedScreen;
 
 const styles = StyleSheet.create({
   headerBox: {
