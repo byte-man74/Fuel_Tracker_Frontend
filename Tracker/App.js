@@ -9,7 +9,7 @@ import MainScreenTab from './src/navigations/MainScreen';
 import SearchScreen from './src/screens/MainScreen/dashboard/searchScreen';
 import FuelStationDetails from './src/screens/others/fuelStationDetails';
 import StationList from './src/screens/others/stationList';
-
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 
 
@@ -36,13 +36,15 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MainScreen" component={MainScreenTab} />
-        <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
-        <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
-        <Stack.Screen name="Authentication" component={AuthNavigator} />     
-      </Stack.Navigator>
+      <BottomSheetModalProvider>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Authentication" component={AuthNavigator} /> 
+          <Stack.Screen name="MainScreen" component={MainScreenTab} />
+          <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
+          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="Onboarding" component={OnboardingNavigator} />    
+        </Stack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 }
