@@ -80,9 +80,11 @@ const ForgetPassword = ({ navigation }) => {
         {/* Bottom sheet content */}
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader}>
+              <TouchableOpacity onPress={closeBottomSheet}>
 
+              </TouchableOpacity>
           </View> 
-          <Button title="Close" onPress={closeBottomSheet} color={'#1E1E1E'} />
+          <Button title="Close"  color={'#1E1E1E'} />
         </View>
       </BottomSheet>
     </ScrollView>
@@ -190,5 +192,13 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: 'center',
   },
+  buttomsheetheader: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "blue",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  }
 });
 
