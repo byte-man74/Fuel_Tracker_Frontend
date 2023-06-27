@@ -120,14 +120,9 @@ const ResetPasswordOTP = ({ navigation }) => {
       <BottomSheet
         isVisible={bottomSheetVisible}
         onDismiss={closeBottomSheet}
-        snapPoints={['60%']}
+        snapPoints={['45%']}
       >
         <View style={styles.bottomSheetContent}>
-          <View style={styles.buttomsheetheader}>
-            <TouchableOpacity onPress={closeBottomSheet}>
-              <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
-            </TouchableOpacity>
-          </View>
           <View style={styles.feedbackContainer}>
             <LottieView
               source={require('../../images/verified.json')}
@@ -136,10 +131,10 @@ const ResetPasswordOTP = ({ navigation }) => {
               style={styles.BottomSheetimage}
             />
             <Text style={styles.headFeedback}>
-              A verification code has been sent to your email.
+            Email Verified!
             </Text>
             <Text style={styles.bodyFeedback}>
-              Kindly confirm the verification code sent to your email. Only then will the advanced account features become available.
+            You can now proceed to change your password.
             </Text>
             <Button
               title="Proceed"
