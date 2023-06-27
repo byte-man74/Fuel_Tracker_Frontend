@@ -230,7 +230,7 @@ const FuelStationDetails = ({ navigation }) => {
             >
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.buttomsheetheader}>
-                        <
+                        <Text>Update Price</Text>
                         <TouchableOpacity onPress={closePriceOptionButton}>
                             <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
                         </TouchableOpacity>
