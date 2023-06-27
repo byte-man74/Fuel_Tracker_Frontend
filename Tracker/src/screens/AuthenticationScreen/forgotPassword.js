@@ -147,14 +147,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     alignItems: 'center',
   },
-  overlay: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    zIndex: 200,
-    backgroundColor: 'rgba(51, 51, 51, 0.54)',
-  },
   formContainerItem: {
     width: '100%',
     height: 90,
