@@ -1,18 +1,38 @@
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
-import React from 'react'
+import React, { useState } from 'react'
+import BottomSheet from '../../components/bottomSheet';
+import Button from '../../components/button';
+import Overlay from '../../components/overlay';
 
 const { height, width } = Dimensions.get('window');
 
 const FuelStationDetails = ({ navigation }) => {
+    const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
+
+    const handlePress = () => {
+        // Navigate to the sign-in page
+        openBottomSheet()
+    };
+
+    const openBottomSheet = () => {
+        setOptionBottomSheetVisible(true);
+    };
+
+    const closeBottomSheet = () => {
+        setOptionBottomSheetVisible(false);
+    };
+
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {OptionBottomSheetVisible && <Overlay />}
             <View style={styles.backgroundImage}>
                 <ImageBackground source={require('../../images/backgrnd.png')} style={styles.fullBackground}>
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Image style={{ width: 32, height: 30 }} source={require('../../icons/back.png')} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={openBottomSheet}>
                             <Image style={{ width: 30, height: 30 }} source={require('../../icons/options.png')} />
                         </TouchableOpacity>
                     </View>
@@ -156,6 +176,40 @@ const FuelStationDetails = ({ navigation }) => {
                 </View>
 
             </View>
+            {/* bottom sheet box share */}
+            <BottomSheet
+                isVisible={OptionBottomSheetVisible}
+                onDismiss={closeBottomSheet}
+                snapPoints={['27%']}
+            >
+                <View style={styles.bottomSheetContent}>
+                    <View style={styles.buttomsheetheader}>
+                        <TouchableOpacity onPress={closeBottomSheet}>
+                            <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.feedbackContainer}>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 30 }}>
+                            <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/edit.png')} />
+                            <Text style={styles.Text}>
+                                Update Price
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 30 }}>
+                            <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/uil_share.png')} />
+                            <Text style={styles.Text}>
+                                Share 
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 10 }}>
+                            <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/comment.png')} />
+                            <Text style={styles.Text}>
+                                Comment
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </BottomSheet>
         </ScrollView>
     );
 }
@@ -338,7 +392,23 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: '#D1D1D147',
         marginBottom: 10
-    }
+    },
+    bottomSheetContent: {
+        padding: 5,
+        alignItems: 'center',
+    },
+    buttomsheetheader: {
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    feedbackContainer: {
+        width: '100%',
+        minHeight: 70,
+        alignItems: 'center',
+    },
 })
 
 

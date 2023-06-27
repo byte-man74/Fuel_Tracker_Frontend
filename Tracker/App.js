@@ -37,9 +37,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Authentication" component={AuthNavigator} /> 
+        <Stack.Navigator screenOptions={{ headerShown: false }}>          
           <Stack.Screen name="MainScreen" component={MainScreenTab} />
+          <Stack.Screen name="Authentication" component={AuthNavigator} /> 
           <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingNavigator} />    
