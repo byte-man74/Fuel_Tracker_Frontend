@@ -10,7 +10,7 @@ const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
-  const handleSignInPress = () => {
+  const handleSignUpPress = () => {
     navigation.navigate('SignUp');
   };
 
@@ -37,11 +37,11 @@ const ForgetPassword = ({ navigation }) => {
         style={styles.backgroundImage}
       >
         <View style={styles.formHeader}>
-          <Text style={styles.formHeaderTitle}>
+          <Text style={styles.HeaderTitle}>
             Lost Password Reset
           </Text>
-          <TouchableOpacity onPress={handleSignInPress}>
-            <Text style={styles.formHeaderText}>
+          <TouchableOpacity onPress={handleSignUpPress}>
+            <Text style={styles.HeaderText}>
               Forgotten your password? Enter your email address below to begin the reset process.
             </Text>
           </TouchableOpacity>
@@ -52,7 +52,7 @@ const ForgetPassword = ({ navigation }) => {
               Email Address
             </Text>
             <TextInput
-              style={styles.formInputBox}
+              style={styles.InputBox}
               value={email}
               onChangeText={setEmail}
               placeholder="-- Enter --"
@@ -72,6 +72,7 @@ const ForgetPassword = ({ navigation }) => {
         </View>
       </ImageBackground>
 
+      {/* bottom sheet box */}
       <BottomSheet
         isVisible={bottomSheetVisible}
         onDismiss={closeBottomSheet}
@@ -125,13 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: height * 0.11,
   },
-  formHeaderTitle: {
+  HeaderTitle: {
     fontFamily: 'MulishBold',
     fontSize: 22,
     color: '#232323',
     paddingHorizontal: 30,
   },
-  formHeaderText: {
+  HeaderText: {
     fontFamily: 'Regular',
     fontSize: 16,
     color: '#232323',
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#232323',
   },
-  formInputBox: {
+  InputBox: {
     width: '100%',
     height: '60%',
     backgroundColor: 'white',
