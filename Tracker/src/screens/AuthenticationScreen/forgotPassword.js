@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import Button from '../../components/button';
 import BottomSheet from '../../components/bottomSheet';
+import LottieView from 'lottie-react-native';
 
 const { height, width } = Dimensions.get('window');
 
@@ -31,6 +32,7 @@ const ForgetPassword = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.overlay} />
       <View>
         <ImageBackground
           source={require('../../images/Background.png')}
@@ -75,16 +77,35 @@ const ForgetPassword = ({ navigation }) => {
       <BottomSheet
         isVisible={bottomSheetVisible}
         onDismiss={closeBottomSheet}
-        snapPoints={['50%']}
+        snapPoints={['60%']}
       >
         {/* Bottom sheet content */}
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader}>
-              <TouchableOpacity onPress={closeBottomSheet}>
-
-              </TouchableOpacity>
-          </View> 
-          <Button title="Close"  color={'#1E1E1E'} />
+            <TouchableOpacity onPress={closeBottomSheet}>
+              <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
+            </TouchableOpacity>
+          </View>
+          <View style={{ width: "100%", minHeight: 70, alignItems: 'center' }}>
+            <LottieView
+              source={require('../../images/mail.json')}
+              autoPlay
+              loop
+              style={styles.carouselItemImage}
+            />
+            <Text style={styles.headFeedback}>
+              A verification code has been sent to your email.
+            </Text>
+            <Text style={styles.BodyFeedback}>
+              Kindly confirm the verification code sent to your email. Only then will the advanced account features become available.
+            </Text>
+              <Button
+                title="Proceed"
+                onPress={handleSubmit}
+                color = {'#1E1E1E'}
+                width={"100%"}
+              />
+          </View>
         </View>
       </BottomSheet>
     </ScrollView>
@@ -102,7 +123,11 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height 
+    minHeight: height
+  },
+
+  carouselItemImage: {
+    width: '35%',
   },
   formHeader: {
     width: width,
@@ -130,6 +155,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     alignItems: 'center'
 
+  },
+  headFeedback: {
+    textAlign: 'center',
+    fontFamily: 'SemiBold',
+    textAlign: 'center',
+    width: "70%",
+    fontSize: 22,
+    color: '#232323',
+    marginBottom: 20,
+    marginTop: 20
+  },
+  BodyFeedback: {
+    fontFamily: 'Regular',
+    fontSize: 16,
+    width: '85%',
+    color: '#232323',
+    marginBottom: 60,
+    lineHeight: 30,
+    textAlign: 'center'
   },
   formContainerItem: {
     width: "100%",
@@ -195,9 +239,8 @@ const styles = StyleSheet.create({
   buttomsheetheader: {
     width: "100%",
     height: 50,
-    backgroundColor: "blue",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "center"
   }
 });

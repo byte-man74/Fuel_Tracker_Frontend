@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
   },
+  carouselItemImage: {
+    width: '50%',
+    marginTop: 30,
+    marginBottom: 40,
+},
   sheet: {
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -56,11 +61,11 @@ const styles = StyleSheet.create({
   },
   topLine: {
     height: 6,
-    width: 60,
+    width: 120,
     alignSelf: 'center',
     marginTop: 8,
     borderRadius: 6,
-    backgroundColor: 'red', // Change the color here
+    backgroundColor: '#DCDCDC', // Change the color here
   },
   content: {
     paddingTop: 0,
