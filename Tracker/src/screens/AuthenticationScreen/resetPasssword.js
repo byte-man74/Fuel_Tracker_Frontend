@@ -12,10 +12,17 @@ import {
 } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
+import Overlay from '../../components/overlay';
+import LottieView from 'lottie-react-native';
+import BottomSheet from '../../components/bottomSheet';
+
+
+
 
 const { height, width } = Dimensions.get('window');
 
 const PasswordReset = () => {
+    const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -39,10 +46,19 @@ const PasswordReset = () => {
         setRequirementsMet(requirements);
     }, [password]);
 
-    const handleSignInPress = () => {
+    const handlePress = () => {
         // Navigate to the sign-in page
-        navigation.navigate('Login');
+        openBottomSheet()
     };
+
+    const openBottomSheet = () => {
+        setBottomSheetVisible(true);
+    };
+
+    const closeBottomSheet = () => {
+        setBottomSheetVisible(false);
+    };
+
 
     const isButtonDisabled = password === '' || password !== confirmPassword;
 
@@ -59,6 +75,7 @@ const PasswordReset = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {bottomSheetVisible && <Overlay />}
             <View>
                 <ImageBackground
                     source={require('../../images/Background.png')}
@@ -141,9 +158,7 @@ const PasswordReset = () => {
                     <View style={styles.bottomCTA}>
                         <Button
                             title="Submit"
-                            onPress={() => {
-                                navigation.navigate('PasswordReset');
-                            }}
+                            onPress={isButtonDisabled ? undefined : handlePress}
                             disabled={isButtonDisabled}
                             color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
                             textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
@@ -153,6 +168,35 @@ const PasswordReset = () => {
                     </View>
                 </ImageBackground>
             </View>
+            {/* bottom sheet box */}
+            <BottomSheet
+                isVisible={bottomSheetVisible}
+                onDismiss={closeBottomSheet}
+                snapPoints={['40%']}
+            >
+                <View style={styles.bottomSheetContent}>
+                    <View style={styles.feedbackContainer}>
+                        <LottieView
+                            source={require('../../images/success.json')}
+                            autoPlay
+                            loop
+                            style={styles.BottomSheetimage}
+                        />
+                        <Text style={styles.headFeedback}>
+                            Password reset complete!
+                        </Text>
+                        <Text style={styles.bodyFeedback}>
+                        Your have successfully changed your password!
+                        </Text>
+                        <Button
+                            title="Proceed"
+                            onPress={() => { console.log('me') }}
+                            color="#1E1E1E"
+                            width="100%"
+                        />
+                    </View>
+                </View>
+            </BottomSheet>
         </ScrollView>
     );
 };
@@ -169,6 +213,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         minHeight: height,
     },
+    BottomSheetimage: {
+        width: '30%',
+      },
     formHeader: {
         width: width,
         height: 90,
@@ -268,5 +315,39 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#333333',
         marginLeft: 10,
+    },
+    headFeedback: {
+        fontFamily: 'SemiBold',
+        fontSize: 22,
+        color: '#232323',
+        marginBottom: 10,
+        marginTop: 5,
+        width: '85%',
+        textAlign: 'center',
+    },
+    bodyFeedback: {
+        fontFamily: 'Regular',
+        fontSize: 16,
+        width: '85%',
+        color: '#232323',
+        marginBottom: 60,
+        lineHeight: 30,
+        textAlign: 'center',
+    },
+    buttomsheetheader: {
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    feedbackContainer: {
+        width: '100%',
+        minHeight: 70,
+        alignItems: 'center',
+    },
+    bottomSheetContent: {
+        padding: 5,
+        alignItems: 'center',
     },
 });

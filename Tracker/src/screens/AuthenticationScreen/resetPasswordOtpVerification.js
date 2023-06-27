@@ -13,7 +13,7 @@ const ResetPasswordOTP = ({ navigation }) => {
     navigation.navigate('PasswordReset');
   };
 
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(4);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
   const openBottomSheet = () => {
