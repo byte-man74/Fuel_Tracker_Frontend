@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput, Image } from 'react-native';
 import Button from '../../components/button';
 import BottomSheet from '../../components/bottomSheet';
 import LottieView from 'lottie-react-native';
@@ -11,7 +11,6 @@ const ForgetPassword = ({ navigation }) => {
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
   const handleSignInPress = () => {
-    // Navigate to the sign-in page
     navigation.navigate('SignUp');
   };
 
@@ -32,63 +31,59 @@ const ForgetPassword = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {bottomSheetVisible ? (
-        <View style={styles.overlay} />
-      ) : null}
-      <View>
-        <ImageBackground
-          source={require('../../images/Background.png')}
-          style={styles.backgroundImage}
-        >
-          <View style={styles.formHeader}>
-            <Text style={styles.formHeaderTitle}>
-              Lost Password Reset
+      {bottomSheetVisible && <View style={styles.overlay} />}
+      <ImageBackground
+        source={require('../../images/Background.png')}
+        style={styles.backgroundImage}
+      >
+        <View style={styles.formHeader}>
+          <Text style={styles.formHeaderTitle}>
+            Lost Password Reset
+          </Text>
+          <TouchableOpacity onPress={handleSignInPress}>
+            <Text style={styles.formHeaderText}>
+              Forgotten your password? Enter your email address below to begin the reset process.
             </Text>
-            <TouchableOpacity onPress={handleSignInPress}>
-              <Text style={styles.formHeaderText}>
-                Forgotten your password? Enter your email address below to begin the reset process.
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.formContainer}>
-            <View style={styles.formContainerItem}>
-              <Text style={styles.formContainerText}>
-                Email Address
-              </Text>
-              <TextInput
-                style={styles.formInputBox}
-                value={email}
-                onChangeText={setEmail}
-                placeholder="-- Enter --"
-              />
-            </View>
-          </View>
-          <View style={styles.bottomCTA}>
-            <Button
-              title="Submit"
-              onPress={handleSubmit}
-              disabled={isButtonDisabled}
-              color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
-              textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
-              width={'100%'} // Custom width
-              height={55}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.formContainer}>
+          <View style={styles.formContainerItem}>
+            <Text style={styles.formContainerText}>
+              Email Address
+            </Text>
+            <TextInput
+              style={styles.formInputBox}
+              value={email}
+              onChangeText={setEmail}
+              placeholder="-- Enter --"
             />
           </View>
-        </ImageBackground>
-      </View>
+        </View>
+        <View style={styles.bottomCTA}>
+          <Button
+            title="Submit"
+            onPress={handleSubmit}
+            disabled={isButtonDisabled}
+            color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
+            textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
+            width="100%" // Custom width
+            height={55}
+          />
+        </View>
+      </ImageBackground>
+
       <BottomSheet
         isVisible={bottomSheetVisible}
         onDismiss={closeBottomSheet}
         snapPoints={['60%']}
       >
-        {/* Bottom sheet content */}
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader}>
             <TouchableOpacity onPress={closeBottomSheet}>
               <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
             </TouchableOpacity>
           </View>
-          <View style={{ width: "100%", minHeight: 70, alignItems: 'center' }}>
+          <View style={styles.feedbackContainer}>
             <LottieView
               source={require('../../images/mail.json')}
               autoPlay
@@ -98,24 +93,21 @@ const ForgetPassword = ({ navigation }) => {
             <Text style={styles.headFeedback}>
               A verification code has been sent to your email.
             </Text>
-            <Text style={styles.BodyFeedback}>
+            <Text style={styles.bodyFeedback}>
               Kindly confirm the verification code sent to your email. Only then will the advanced account features become available.
             </Text>
-              <Button
-                title="Proceed"
-                onPress={handleSubmit}
-                color = {'#1E1E1E'}
-                width={"100%"}
-              />
+            <Button
+              title="Proceed"
+              onPress={handleSubmit}
+              color="#1E1E1E"
+              width="100%"
+            />
           </View>
         </View>
       </BottomSheet>
     </ScrollView>
   );
 };
-
-export default ForgetPassword;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -125,78 +117,47 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-start',
-    minHeight: height
-  },
-
-  carouselItemImage: {
-    width: '35%',
+    minHeight: height,
   },
   formHeader: {
-    width: width,
+    width,
     height: 85,
     justifyContent: 'space-between',
-    marginTop: height * 0.11
+    marginTop: height * 0.11,
   },
   formHeaderTitle: {
     fontFamily: 'MulishBold',
     fontSize: 22,
     color: '#232323',
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
   },
   formHeaderText: {
     fontFamily: 'Regular',
     fontSize: 16,
     color: '#232323',
     lineHeight: 29,
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
   },
   formContainer: {
-    width: width,
+    width,
     marginTop: 20,
     minHeight: height * 0.36,
     paddingHorizontal: 30,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   overlay: {
     width: '100%',
-    height: "100%",
+    height: '100%',
     position: 'absolute',
     top: 0,
     zIndex: 200,
-    backgroundColor: 'rgba(51, 51, 51, 0.54)'
-  },
-  headFeedback: {
-    textAlign: 'center',
-    fontFamily: 'SemiBold',
-    textAlign: 'center',
-    width: "70%",
-    fontSize: 22,
-    color: '#232323',
-    marginBottom: 20,
-    marginTop: 20
-  },
-  BodyFeedback: {
-    fontFamily: 'Regular',
-    fontSize: 16,
-    width: '85%',
-    color: '#232323',
-    marginBottom: 60,
-    lineHeight: 30,
-    textAlign: 'center'
+    backgroundColor: 'rgba(51, 51, 51, 0.54)',
   },
   formContainerItem: {
-    width: "100%",
+    width: '100%',
     height: 90,
     justifyContent: 'space-around',
-    marginBottom: 20
-  },
-  bottomCTA: {
-    width: "100%",
-    height: 90,
-    paddingHorizontal: 30,
-    position: 'absolute',
-    bottom: 0,
-    justifyContent: 'space-around',
+    marginBottom: 20,
   },
   formContainerText: {
     fontFamily: 'Regular',
@@ -204,8 +165,8 @@ const styles = StyleSheet.create({
     color: '#232323',
   },
   formInputBox: {
-    width: "100%",
-    height: "60%",
+    width: '100%',
+    height: '60%',
     backgroundColor: 'white',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -215,42 +176,51 @@ const styles = StyleSheet.create({
     fontFamily: 'Regular',
     fontSize: 16,
   },
-  eyeIconContainer: {
-    position: 'absolute',
-    right: 15,
-    top: "50%"
-  },
-  otherCTA: {
+  bottomCTA: {
     width: '100%',
-    height: height * 0.4,
+    height: 90,
     paddingHorizontal: 30,
-  },
-  orContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: 30,
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  remeberMeContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    height: 35,
-    marginBottom: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    position: 'absolute',
+    bottom: 0,
+    justifyContent: 'space-around',
   },
   bottomSheetContent: {
     padding: 5,
     alignItems: 'center',
   },
   buttomsheetheader: {
-    width: "100%",
+    width: '100%',
     height: 50,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center"
-  }
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  feedbackContainer: {
+    width: '100%',
+    minHeight: 70,
+    alignItems: 'center',
+  },
+  carouselItemImage: {
+    width: '35%',
+  },
+  headFeedback: {
+    fontFamily: 'SemiBold',
+    fontSize: 22,
+    color: '#232323',
+    marginBottom: 20,
+    marginTop: 20,
+    width: '85%',
+    textAlign: 'center',
+  },
+  bodyFeedback: {
+    fontFamily: 'Regular',
+    fontSize: 16,
+    width: '85%',
+    color: '#232323',
+    marginBottom: 60,
+    lineHeight: 30,
+    textAlign: 'center',
+  },
 });
 
+export default ForgetPassword;
