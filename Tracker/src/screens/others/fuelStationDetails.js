@@ -8,31 +8,42 @@ const { height, width } = Dimensions.get('window');
 
 const FuelStationDetails = ({ navigation }) => {
     const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
+    const [PriceBottomSheetVisible, setPriceBottomSheetVisible]  = useState(false)
 
-    const handlePress = () => {
+    const handlePressOption = () => {
         // Navigate to the sign-in page
-        openBottomSheet()
+        openBottomOption()
     };
 
-    const openBottomSheet = () => {
+    const openBottomOption = () => {
         setOptionBottomSheetVisible(true);
     };
 
-    const closeBottomSheet = () => {
+    const closeBottomOption = () => {
         setOptionBottomSheetVisible(false);
     };
 
+    
+    const openPriceOptionButton = () => {
+        closeBottomOption()
+        setPriceBottomSheetVisible(true);
+    };
+
+    const closePriceOptionButton = () => {
+        setPriceBottomSheetVisible(false);
+    };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {OptionBottomSheetVisible && <Overlay />}
+            {PriceBottomSheetVisible && <Overlay />}
             <View style={styles.backgroundImage}>
                 <ImageBackground source={require('../../images/backgrnd.png')} style={styles.fullBackground}>
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Image style={{ width: 32, height: 30 }} source={require('../../icons/back.png')} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={openBottomSheet}>
+                        <TouchableOpacity onPress={openBottomOption}>
                             <Image style={{ width: 30, height: 30 }} source={require('../../icons/options.png')} />
                         </TouchableOpacity>
                     </View>
@@ -102,7 +113,7 @@ const FuelStationDetails = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
+                        <TouchableOpacity onPress={openPriceOptionButton} style={{ flexDirection: 'row', width: "100%", alignItems: 'center' }}>
                             <Text style={styles.EditText}>
                                 ₦540
                             </Text>
@@ -179,17 +190,17 @@ const FuelStationDetails = ({ navigation }) => {
             {/* bottom sheet box share */}
             <BottomSheet
                 isVisible={OptionBottomSheetVisible}
-                onDismiss={closeBottomSheet}
+                onDismiss={closeBottomOption}
                 snapPoints={['27%']}
             >
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.buttomsheetheader}>
-                        <TouchableOpacity onPress={closeBottomSheet}>
+                        <TouchableOpacity onPress={closeBottomOption}>
                             <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.feedbackContainer}>
-                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 30 }}>
+                        <TouchableOpacity onPress={openPriceOptionButton} style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 30 }}>
                             <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/edit.png')} />
                             <Text style={styles.Text}>
                                 Update Price
@@ -198,7 +209,7 @@ const FuelStationDetails = ({ navigation }) => {
                         <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 30 }}>
                             <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/uil_share.png')} />
                             <Text style={styles.Text}>
-                                Share 
+                                Share
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 10 }}>
@@ -207,6 +218,23 @@ const FuelStationDetails = ({ navigation }) => {
                                 Comment
                             </Text>
                         </TouchableOpacity>
+                    </View>
+                </View>
+            </BottomSheet>
+
+            {/* bottom sheet box price rating */}
+            <BottomSheet
+                isVisible={PriceBottomSheetVisible}
+                onDismiss={closeBottomOption}
+                snapPoints={['50%']}
+            >
+                <View style={styles.bottomSheetContent}>
+                    <View style={styles.buttomsheetheader}>
+                        <TouchableOpacity onPress={closePriceOptionButton}>
+                            <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.feedbackContainer}>
                     </View>
                 </View>
             </BottomSheet>
