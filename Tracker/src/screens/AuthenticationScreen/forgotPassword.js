@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, Toucha
 import Button from '../../components/button';
 import BottomSheet from '../../components/bottomSheet';
 import LottieView from 'lottie-react-native';
+import Overlay from '../../components/overlay';
 
 const { height, width } = Dimensions.get('window');
 
@@ -31,7 +32,7 @@ const ForgetPassword = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {bottomSheetVisible && <View style={styles.overlay} />}
+      {bottomSheetVisible && <Overlay />}
       <ImageBackground
         source={require('../../images/Background.png')}
         style={styles.backgroundImage}
@@ -62,7 +63,7 @@ const ForgetPassword = ({ navigation }) => {
         <View style={styles.bottomCTA}>
           <Button
             title="Submit"
-            onPress={handleSubmit}
+            onPress={isButtonDisabled ? undefined : handleSubmit} // Only call handleSubmit when the button is not disabled
             disabled={isButtonDisabled}
             color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
             textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
