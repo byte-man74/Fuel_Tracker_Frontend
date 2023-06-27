@@ -32,7 +32,9 @@ const ForgetPassword = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.overlay} />
+      {bottomSheetVisible ? (
+        <View style={styles.overlay} />
+      ) : null}
       <View>
         <ImageBackground
           source={require('../../images/Background.png')}
@@ -154,7 +156,14 @@ const styles = StyleSheet.create({
     minHeight: height * 0.36,
     paddingHorizontal: 30,
     alignItems: 'center'
-
+  },
+  overlay: {
+    width: '100%',
+    height: "100%",
+    position: 'absolute',
+    top: 0,
+    zIndex: 200,
+    backgroundColor: 'rgba(51, 51, 51, 0.54)'
   },
   headFeedback: {
     textAlign: 'center',
