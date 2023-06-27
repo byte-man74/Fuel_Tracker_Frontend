@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red', // Change the color here
   },
   content: {
-    paddingTop: 16,
-    paddingHorizontal: 16,
+    paddingTop: 0,
+    paddingHorizontal: 10,
   },
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)', // Change the color and opacity here

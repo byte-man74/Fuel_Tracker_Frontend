@@ -79,7 +79,9 @@ const ForgetPassword = ({ navigation }) => {
       >
         {/* Bottom sheet content */}
         <View style={styles.bottomSheetContent}>
-          <Text>Bottom Sheet Content</Text>
+          <View style={styles.buttomsheetheader}>
+
+          </View> 
           <Button title="Close" onPress={closeBottomSheet} color={'#1E1E1E'} />
         </View>
       </BottomSheet>
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   bottomSheetContent: {
-    padding: 16,
+    padding: 5,
     alignItems: 'center',
   },
 });
