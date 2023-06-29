@@ -45,7 +45,7 @@ import {
               />
               <Text style={styles.haaderTitle}>Hello Justice👋</Text>
             </View>
-            <TouchableOpacity style={styles.notificationBox}>
+            <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={styles.notificationBox}>
               <Image
                 source={require("../../icons/notifiction_active.png")}
                 style={styles.iconStyling}
