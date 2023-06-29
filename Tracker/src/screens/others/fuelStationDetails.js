@@ -234,7 +234,7 @@ const FuelStationDetails = ({ navigation }) => {
             <BottomSheet
                 isVisible={PriceBottomSheetVisible}
                 onDismiss={closeBottomOption}
-                snapPoints={['50%']}
+                snapPoints={['40%']}
             >
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.buttomsheetheader2}>
@@ -278,24 +278,15 @@ const FuelStationDetails = ({ navigation }) => {
                                 <Text>Option 4</Text>
                             </View>
                         </View>
-                        <TextInput
-                            style={styles.textInput}
-                            keyboardType="numeric"
-                            placeholder="Enter a figure"
-                            onChangeText={handleFigureChange}
-                            value={figure}
-                        />
+                        <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
+                            <TextInput style={styles.searchInput} placeholder='Input Price Option' onFocus={() => navigation.navigate('SearchScreen')} ></TextInput>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </BottomSheet>
         </ScrollView>
     );
 }
-
-
-
-
-
 
 
 
@@ -335,6 +326,24 @@ const styles = StyleSheet.create({
         height: 110,
         paddingHorizontal: '4%',
         flexDirection: 'row'
+    },
+    searchContainer: {
+        width: '100%',
+        height: 50,
+        marginTop: 30,
+        marginBottom: 30
+    },
+    searchInput: {
+        width: '100%',
+        height: '100%',
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: '#ABABAB',
+        borderRadius: 8,
+        paddingLeft: "2.2%",
+        fontFamily: 'Regular',
+        fontSize: 16,
+        color: '#232323',
     },
     stationImage: {
         width: 180,
@@ -506,12 +515,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // Place radio options horizontally
         alignItems: 'center', // Align items vertically within the container
         marginRight: 10, // Adjust the spacing between radio options as needed
-      },
-      radioOption: {
+    },
+    radioOption: {
         flexDirection: 'row', // Align radio button and text horizontally
         alignItems: 'center', // Align items vertically within each option
         marginRight: 10, // Adjust the spacing between radio options as needed
-      },
+    },
 })
 
 
