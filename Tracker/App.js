@@ -10,6 +10,7 @@ import SearchScreen from './src/screens/MainScreen/dashboard/searchScreen';
 import FuelStationDetails from './src/screens/others/fuelStationDetails';
 import StationList from './src/screens/others/stationList';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import NotificationScreen from './src/screens/others/notification';
 
 
 
@@ -43,6 +44,7 @@ export default function App() {
           <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingNavigator} />    
+          <Stack.Screen name="Notification" component={NotificationScreen} />   
         </Stack.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer>

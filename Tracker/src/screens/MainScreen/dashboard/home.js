@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
                         />
                         <Text style={styles.haaderTitle}>Hello Justice👋</Text>
                     </View>
-                    <TouchableOpacity style={styles.notificationBox}>
+                    <TouchableOpacity style={styles.notificationBox} onPress={() => navigation.navigate('Notification')}>
                         <Image
                             source={require('../../../icons/notifiction_active.png')}
                             style={styles.iconStyling}
