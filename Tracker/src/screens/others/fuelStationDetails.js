@@ -501,8 +501,17 @@ const styles = StyleSheet.create({
         minHeight: 70,
         marginTop: 20,
         alignItems: 'center',
-        backgroundColor: "red"
     },
+    radioContainer: {
+        flexDirection: 'row', // Place radio options horizontally
+        alignItems: 'center', // Align items vertically within the container
+        marginRight: 10, // Adjust the spacing between radio options as needed
+      },
+      radioOption: {
+        flexDirection: 'row', // Align radio button and text horizontally
+        alignItems: 'center', // Align items vertically within each option
+        marginRight: 10, // Adjust the spacing between radio options as needed
+      },
 })
 
 
