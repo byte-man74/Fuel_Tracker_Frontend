@@ -122,7 +122,7 @@ const FuelStationDetails = ({ navigation }) => {
                                 Update Price
                             </Text>
                             <Text style={styles.TimeText}>
-                                Last updated 5 mins ago
+                                updated 5 mins ago
                             </Text>
                         </TouchableOpacity>
                     </View>

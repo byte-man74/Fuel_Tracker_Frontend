@@ -50,22 +50,48 @@ const SettingsScreen = ({ navigation }) => {
       </View>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.mainBox}>
-        <View style={styles.homeContainerHeader2}>
-                    <View style={styles.avatarWithName}>
-                        <Image
-                            source={require('../../../images/avatar.png')}
-                            style={styles.avatarStyling}
-                            resizeMode="contain"
-                        />
-                        <Text style={styles.haaderTitleVar}>Hello Justice</Text>
-                    </View>
-                    <TouchableOpacity style={styles.notificationBox}>
-                        <Image
-                            source={require('../../../icons/edit.png')}
-                            style={styles.iconStyling}
-                        />
-                    </TouchableOpacity>
-                </View>
+          <View style={styles.homeContainerHeader2}>
+            <View style={styles.avatarWithName}>
+              <Image
+                source={require('../../../images/avatar.png')}
+                style={styles.avatarStyling}
+                resizeMode="contain"
+              />
+              <Text style={styles.haaderTitleVar}>justice@gmail.com</Text>
+            </View>
+            <TouchableOpacity style={styles.notificationBox}>
+              <Image
+                source={require('../../../icons/edit.png')}
+                style={styles.iconStyling}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.OptionsContainer}>
+              <TouchableOpacity style={styles.optionBox}>
+                  <Text style={styles.Text}>
+                    Notifications
+                  </Text>
+                  <Image style={{ width: 24, height: 24, }} source={require('../../../icons/arrow-right.png')} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.optionBox}>
+                  <Text style={styles.Text}>
+                    Security
+                  </Text>
+                  <Image style={{ width: 24, height: 24, }} source={require('../../../icons/arrow-right.png')} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.optionBox}>
+                  <Text style={styles.Text}>
+                    Help Center
+                  </Text>
+                  <Image style={{ width: 24, height: 24, }} source={require('../../../icons/arrow-right.png')} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.optionBox}>
+                  <Text style={styles.Text}>
+                    Logout
+                  </Text>
+                  <Image style={{ width: 24, height: 24, }} source={require('../../../icons/logout.png')} />
+              </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </>
@@ -101,13 +127,32 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: "white",
   },
+  OptionsContainer: {
+    width: "100%",
+    minHeight: 50,
+    marginTop: 45,
+
+  },
+  optionBox: {
+    width: "100%",
+    height: 40,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 30
+  },
   mainBox: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-start",
-    minHeight: height * 1.23,
+    minHeight: height,
     paddingHorizontal: "4%",
   },
+  Text: {
+    fontFamily: 'Regular',
+    fontSize: 16,
+    color: '#232323',
+},
   avatarWithName: {
     minWidth: "10%",
     height: "100%",
