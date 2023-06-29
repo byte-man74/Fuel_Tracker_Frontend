@@ -3,12 +3,20 @@ import React, { useState } from 'react'
 import BottomSheet from '../../components/bottomSheet';
 import Button from '../../components/button';
 import Overlay from '../../components/overlay';
+import { RadioButton } from 'react-native-paper';
 
 const { height, width } = Dimensions.get('window');
 
 const FuelStationDetails = ({ navigation }) => {
     const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
-    const [PriceBottomSheetVisible, setPriceBottomSheetVisible]  = useState(false)
+    const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false)
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [figure, setFigure] = useState('');
+
+    const handleFigureChange = (text) => {
+        // Handle figure input changes
+        setFigure(text);
+    };
 
     const handlePressOption = () => {
         // Navigate to the sign-in page
@@ -23,7 +31,7 @@ const FuelStationDetails = ({ navigation }) => {
         setOptionBottomSheetVisible(false);
     };
 
-    
+
     const openPriceOptionButton = () => {
         closeBottomOption()
         setPriceBottomSheetVisible(true);
@@ -236,13 +244,60 @@ const FuelStationDetails = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.feedbackContainer}>
-
+                        <View style={styles.radioContainer}>
+                            <View style={styles.radioOption}>
+                                <RadioButton.Android
+                                    value="option1"
+                                    status={selectedOption === 'option1' ? 'checked' : 'unchecked'}
+                                    onPress={() => setSelectedOption('option1')}
+                                />
+                                <Text>Option 1</Text>
+                            </View>
+                            <View style={styles.radioOption}>
+                                <RadioButton.Android
+                                    value="option2"
+                                    status={selectedOption === 'option2' ? 'checked' : 'unchecked'}
+                                    onPress={() => setSelectedOption('option2')}
+                                />
+                                <Text>Option 2</Text>
+                            </View>
+                            <View style={styles.radioOption}>
+                                <RadioButton.Android
+                                    value="option3"
+                                    status={selectedOption === 'option3' ? 'checked' : 'unchecked'}
+                                    onPress={() => setSelectedOption('option3')}
+                                />
+                                <Text>Option 3</Text>
+                            </View>
+                            <View style={styles.radioOption}>
+                                <RadioButton.Android
+                                    value="option4"
+                                    status={selectedOption === 'option4' ? 'checked' : 'unchecked'}
+                                    onPress={() => setSelectedOption('option4')}
+                                />
+                                <Text>Option 4</Text>
+                            </View>
+                        </View>
+                        <TextInput
+                            style={styles.textInput}
+                            keyboardType="numeric"
+                            placeholder="Enter a figure"
+                            onChangeText={handleFigureChange}
+                            value={figure}
+                        />
                     </View>
                 </View>
             </BottomSheet>
         </ScrollView>
     );
 }
+
+
+
+
+
+
+
 
 export default FuelStationDetails
 
