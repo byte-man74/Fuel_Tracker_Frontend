@@ -229,13 +229,14 @@ const FuelStationDetails = ({ navigation }) => {
                 snapPoints={['50%']}
             >
                 <View style={styles.bottomSheetContent}>
-                    <View style={styles.buttomsheetheader}>
-                        <Text>Update Price</Text>
+                    <View style={styles.buttomsheetheader2}>
+                        <Text style={styles.EditText}>Update Price</Text>
                         <TouchableOpacity onPress={closePriceOptionButton}>
                             <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.feedbackContainer}>
+
                     </View>
                 </View>
             </BottomSheet>
@@ -433,10 +434,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
+    buttomsheetheader2: {
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     feedbackContainer: {
         width: '100%',
         minHeight: 70,
+        marginTop: 20,
         alignItems: 'center',
+        backgroundColor: "red"
     },
 })
 
