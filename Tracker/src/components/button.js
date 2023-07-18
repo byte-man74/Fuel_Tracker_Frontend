@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 const Button = ({
     title,
@@ -8,6 +9,7 @@ const Button = ({
     width,
     height,
     imageSource,
+    loading,
     textColor = 'white',
 }) => {
     const buttonStyles = [
@@ -18,8 +20,19 @@ const Button = ({
 
     return (
         <TouchableOpacity style={buttonStyles} onPress={onPress}>
+        {loading ? (
+        <LottieView
+            source={require('../images/laud.json')}
+            autoPlay
+            loop
+            style={styles.carouselItemImage}
+        />
+        ) : (
+            <>
             {imageSource && <Image source={imageSource} style={styles.buttonImage} />}
             <Text style={textStyles}>{title}</Text>
+            </>
+        )}
         </TouchableOpacity>
     );
 };
@@ -39,6 +52,9 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: 'MulishBold',
         fontSize: 14,
+    },
+    carouselItemImage: {
+        width: '30%',
     },
 });
 

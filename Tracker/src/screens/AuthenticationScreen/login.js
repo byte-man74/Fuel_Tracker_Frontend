@@ -5,6 +5,7 @@ import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
 import Checkbox from '../../components/checkbox';
 import TextLink from '../../components/link';
+import axios from 'axios';
 
 const { height, width } = Dimensions.get('window');
 
@@ -12,12 +13,37 @@ const Login = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false)  
 
 
-  const handleSignInPress = () => {
-    // Navigate to the sign-in page
-    navigation.navigate('Onboarding');
+  const handleSignInPress = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post('https://pricewiz.pythonanywhere.com/api/token/obtain/', {
+        email,
+        password,
+      });
+
+      setLoading(false);
+      console.log('Login successful:', response.data);
+
+      // Save the token to AsyncStorage
+      await AsyncStorage.setItem('userToken', response.data.token);
+
+      // Navigate to the Onboarding screen upon successful login
+      navigation.navigate('Onboarding');
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response.data.detail);
+      if (error.response && error.response.data && error.response.data.detail) {
+        setErrorMessage(error.response.data.detail);
+      } else {
+        setErrorMessage('An error occurred during login. Please try again later.');
+      }
+    }
   };
+
   const isButtonDisabled = email === '' || password === '';
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -26,6 +52,15 @@ const Login = ({ navigation }) => {
           source={require('../../images/Background.png')}
           style={styles.backgroundImage}
         >
+        {loading ? (
+          <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        </View>
+        ) : (
+            <>
+            </>
+        )}
+
           <View style={styles.formHeader}>
             <Text style={styles.formHeaderTitle}>
               Login to your account
@@ -84,10 +119,11 @@ const Login = ({ navigation }) => {
             </View>
             <View style={styles.formContainerItem}>
               <Button title="Log in"
-                onPress={() => { console.log('hello') }}
+                onPress={handleSignInPress}
                 disabled={isButtonDisabled}
                 color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
                 textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
+                loading={loading}
                 width={'100%'} // Custom width
                 height={55} />
             </View>
@@ -118,12 +154,13 @@ const Login = ({ navigation }) => {
                 color='#EFEFEF' // Custom color
                 width={'100%'} // Custom width
                 textColor="black"
+                
                 height={55} />
             </View>
             <View style={[styles.formContainerItem, { marginBottom: 0 }]}>
               <Button title="Continue with facebook"
                 imageSource={require('../../images/fb.png')}
-                onPress={() => { crossOriginIsolated.log('hello') }}
+                onPress={() => { console.log('hello') }}
                 color='#EFEFEF' // Custom color
                 width={'100%'} // Custom width
                 textColor="black"
@@ -142,6 +179,21 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+  },
+  errorContainer: {
+    width: "100%",
+    height: 65,
+    backgroundColor: '#EE1B0E',
+    position: "absolute",
+    top: 0,
+    justifyContent: "flex-end",
+    alignItems:  "center",
+    paddingBottom: 1
+  },
+  errorText: {
+    fontFamily: 'MulishBold',
+    fontSize: 14,
+    color: '#fff',
   },
   backgroundImage: {
     flex: 1,
