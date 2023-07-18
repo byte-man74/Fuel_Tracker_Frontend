@@ -44,7 +44,7 @@ export default function App() {
         <Stack.Screen name="Authentication" component={AuthNavigator} />       
           <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-           
+          <Stack.Screen name="StationList" component={StationList} />
           <Stack.Screen name="Notification" component={NotificationScreen} />   
         </Stack.Navigator>
       </BottomSheetModalProvider>

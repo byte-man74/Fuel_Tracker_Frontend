@@ -37,14 +37,14 @@ import {
       <>
         <View style={styles.headerBox}>
           <View style={styles.homeContainerHeader}>
-            <View style={styles.avatarWithName}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.avatarWithName}>
               <Image
-                source={require("../../images/avatar.png")}
+                source={require("../../icons/back.png")}
                 style={styles.avatarStyling}
                 resizeMode="contain"
               />
-              <Text style={styles.haaderTitle}>Hello Justice👋</Text>
-            </View>
+              <Text style={styles.haaderTitle}>Fuel Station Nearby</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={styles.notificationBox}>
               <Image
                 source={require("../../icons/notifiction_active.png")}
@@ -86,7 +86,6 @@ import {
             </TouchableOpacity>
             <View style={styles.nearbyFuelingStationContainer}>
               <View style={styles.nearbyFuelingStationContainerHeader}>
-                <Text style={styles.haaderTitle}>Saved filling stations</Text>
               </View>
               <TouchableOpacity
                 onPress={() => navigation.navigate("FuelStationDetails")}
@@ -285,7 +284,7 @@ import {
     homeContainerHeader: {
       width: "100%",
       height: 50,
-      top: 30,
+      top: 35,
       flexDirection: "row",
       justifyContent: "space-between",
     },
@@ -294,6 +293,7 @@ import {
       backgroundColor: "white",
     },
     mainBox: {
+      top: 10,
       flex: 1,
       resizeMode: "cover",
       justifyContent: "flex-start",
@@ -308,8 +308,8 @@ import {
       alignItems: "center",
     },
     avatarStyling: {
-      width: 40,
-      height: 40,
+      width:30,
+      height: 30,
       borderRadius: 200,
       marginRight: 8,
     },
@@ -321,7 +321,7 @@ import {
       alignItems: "center",
     },
     haaderTitle: {
-      fontFamily: "SemiBold",
+      fontFamily: "MulishBold",
       fontSize: 18,
       color: "#232323",
     },
