@@ -10,6 +10,7 @@ const { height, width } = Dimensions.get('window');
 const FuelStationDetails = ({ navigation }) => {
     const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
     const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false)
+    const [CommentSheetVisible, setCommentSheetVisible] = useState(false)
     const [selectedOption, setSelectedOption] = useState(null);
     const [figure, setFigure] = useState('');
 
@@ -37,14 +38,26 @@ const FuelStationDetails = ({ navigation }) => {
         setPriceBottomSheetVisible(true);
     };
 
+    const openCommentOption = () => {
+        closeBottomOption()
+        setCommentSheetVisible(true)
+
+    }
+
     const closePriceOptionButton = () => {
         setPriceBottomSheetVisible(false);
     };
+
+
+    const closeCommentOptionButton = () => {
+        setCommentSheetVisible(false)
+    }
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {OptionBottomSheetVisible && <Overlay />}
             {PriceBottomSheetVisible && <Overlay />}
+            {CommentSheetVisible && <Overlay />}
             <View style={styles.backgroundImage}>
                 <ImageBackground source={require('../../images/backgrnd.png')} style={styles.fullBackground}>
                     <View style={styles.header}>
@@ -219,7 +232,7 @@ const FuelStationDetails = ({ navigation }) => {
                                 Share
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 10 }}>
+                        <TouchableOpacity onPress={openCommentOption} style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginBottom: 10 }}>
                             <Image style={{ width: 22, height: 22, marginHorizontal: 10 }} source={require('../../icons/comment.png')} />
                             <Text style={styles.Text}>
                                 Comment
@@ -277,8 +290,8 @@ const FuelStationDetails = ({ navigation }) => {
                                 <Text>Option 4</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
-                            <TextInput style={styles.searchInput} placeholder='Input Price Option' onFocus={() => navigation.navigate('SearchScreen')} ></TextInput>
+                        <TouchableOpacity style={styles.searchContainer}>
+                            <TextInput style={styles.searchInput} placeholder='Input Price Option' ></TextInput>
                         </TouchableOpacity>
                         <Button
                             title="Submit"
@@ -295,6 +308,35 @@ const FuelStationDetails = ({ navigation }) => {
             </BottomSheet>
 
             {/* bottom sheet comment box */}
+            <BottomSheet
+                isVisible={CommentSheetVisible}
+                onDismiss={closeBottomOption}
+                snapPoints={['37%']}
+            >
+                <View style={styles.bottomSheetContent}>
+                    <View style={styles.buttomsheetheader2}>
+                        <Text style={styles.EditText}>Comment</Text>
+                        <TouchableOpacity onPress={closeCommentOptionButton}>
+                            <Image style={{ width: 30, height: 30 }} source={require('../../images/Icons.png')} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.feedbackContainer}>
+                        <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
+                            <TextInput style={styles.searchInput} placeholder='Input Price Option' onFocus={() => navigation.navigate('SearchScreen')} ></TextInput>
+                        </TouchableOpacity>
+                        <Button
+                            title="Submit"
+                            onPress={() => console.log('freak')} // Only call handleSubmit when the button is not disabled
+                            disabled={false}
+                            color={ '#1E1E1E'} // Custom color
+                            textColor={'white'}
+                            width={'100%'}
+                     // Custom width
+                            height={55}
+                        />
+                    </View>
+                </View>
+            </BottomSheet>
 
         </ScrollView>
     );
