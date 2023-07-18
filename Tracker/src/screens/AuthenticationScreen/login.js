@@ -6,6 +6,7 @@ import Button from '../../components/button';
 import Checkbox from '../../components/checkbox';
 import TextLink from '../../components/link';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { height, width } = Dimensions.get('window');
 
