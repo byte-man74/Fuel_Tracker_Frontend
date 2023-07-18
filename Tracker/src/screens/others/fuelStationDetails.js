@@ -72,9 +72,8 @@ const FuelStationDetails = ({ navigation }) => {
 
                                     <TouchableOpacity style={styles.upvoteButton}>
                                         <Image source={require('../../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
-                                        <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote | 24</Text>
+                                        <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote price | 24</Text>
                                     </TouchableOpacity>
-                                    <Image source={require('../../icons/share.png')} style={{ width: 43.95, height: "90%", marginRight: 5, objectFit: 'contain' }} />
                                 </View>
                             </View>
                         </View>
@@ -199,7 +198,7 @@ const FuelStationDetails = ({ navigation }) => {
             <BottomSheet
                 isVisible={OptionBottomSheetVisible}
                 onDismiss={closeBottomOption}
-                snapPoints={['27%']}
+                snapPoints={['32%']}
             >
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.buttomsheetheader}>
@@ -398,7 +397,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     upvoteButton: {
-        width: 115,
+        width: 150,
         height: "100%",
         backgroundColor: "#E8E9EE",
         borderRadius: 8,
@@ -418,7 +417,7 @@ const styles = StyleSheet.create({
         marginRight: 8
     },
     openingHours: {
-        width: 150,
+        width: 157,
         height: "100%",
         backgroundColor: "#333333",
         borderRadius: 8,
@@ -514,7 +513,8 @@ const styles = StyleSheet.create({
     radioContainer: {
         flexDirection: 'row', // Place radio options horizontally
         alignItems: 'center', // Align items vertically within the container
-        marginRight: 10, // Adjust the spacing between radio options as needed
+        paddingLeft: 2,
+        marginRight: 6, // Adjust the spacing between radio options as needed
     },
     radioOption: {
         flexDirection: 'row', // Align radio button and text horizontally
