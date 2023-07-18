@@ -280,9 +280,22 @@ const FuelStationDetails = ({ navigation }) => {
                         <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
                             <TextInput style={styles.searchInput} placeholder='Input Price Option' onFocus={() => navigation.navigate('SearchScreen')} ></TextInput>
                         </TouchableOpacity>
+                        <Button
+                            title="Submit"
+                            onPress={() => console.log('freak')} // Only call handleSubmit when the button is not disabled
+                            disabled={false}
+                            color={ '#1E1E1E'} // Custom color
+                            textColor={'white'}
+                            width={'100%'}
+                     // Custom width
+                            height={55}
+                        />
                     </View>
                 </View>
             </BottomSheet>
+
+            {/* bottom sheet comment box */}
+
         </ScrollView>
     );
 }
