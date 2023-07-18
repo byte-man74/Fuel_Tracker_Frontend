@@ -37,6 +37,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
       <Stack.Navigator screenOptions={{ headerShown: false }}> 
         <Stack.Screen name="MainScreen" component={MainScreenTab} />    
@@ -48,6 +49,7 @@ export default function App() {
           <Stack.Screen name="Notification" component={NotificationScreen} />   
         </Stack.Navigator>
       </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </NavigationContainer>
   );
 }
