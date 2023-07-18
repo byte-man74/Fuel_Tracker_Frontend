@@ -26,7 +26,8 @@ function MainScreenTab() {
                     right: 16,
                     left: 16,
                     backgroundColor: 'black',
-                    borderRadius: 30
+                    borderRadius: 30,
+                    paddingBottom: 0
                 }
             }}
         >
