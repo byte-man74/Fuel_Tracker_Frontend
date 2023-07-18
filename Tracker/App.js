@@ -11,7 +11,7 @@ import FuelStationDetails from './src/screens/others/fuelStationDetails';
 import StationList from './src/screens/others/stationList';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import NotificationScreen from './src/screens/others/notification';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 const Stack = createStackNavigator();
@@ -38,12 +38,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>          
-          <Stack.Screen name="MainScreen" component={MainScreenTab} />
-          <Stack.Screen name="Authentication" component={AuthNavigator} /> 
+      <Stack.Navigator screenOptions={{ headerShown: false }}> 
+        <Stack.Screen name="MainScreen" component={MainScreenTab} />    
+        <Stack.Screen name="Onboarding" component={OnboardingNavigator} />   
+        <Stack.Screen name="Authentication" component={AuthNavigator} />       
           <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-          <Stack.Screen name="Onboarding" component={OnboardingNavigator} />    
+           
           <Stack.Screen name="Notification" component={NotificationScreen} />   
         </Stack.Navigator>
       </BottomSheetModalProvider>

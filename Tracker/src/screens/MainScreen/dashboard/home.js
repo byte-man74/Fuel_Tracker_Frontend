@@ -115,15 +115,16 @@ const styles = StyleSheet.create({
     homeContainerHeader: {
         width: "100%",
         height: 50,
-        top: 30,
+        top: 45,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
     container: {
         flexGrow: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     mainBox: {
+        top: 10,
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',

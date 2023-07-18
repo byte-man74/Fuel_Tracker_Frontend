@@ -39,9 +39,8 @@ const Slider = ({ navigation }) => {
                             </View>
                             <TouchableOpacity style={styles.upvoteButton}>
                                 <Image source={require('../icons/upvote.png')} style={{ width: 24, height: 24, marginRight: 5 }} />
-                                <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote | 24</Text>                    
+                                <Text style={{ fontFamily: 'Regular', fontSize: 14 }}>Upvote price | 24</Text>                    
                             </TouchableOpacity>
-                            <Image source={require('../icons/share.png')} style={{ width: 43.95, height: "90%", marginRight: 5, objectFit: 'contain' }} />
                         </View>
                     </View>
                     <View style={styles.lastUpdatedPrice}>
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     upvoteButton: {
-        width: 115,
+        width: 150,
         height: "100%",
         backgroundColor: "#E8E9EE",
         borderRadius: 8,
