@@ -37,9 +37,8 @@ const Login = ({ navigation }) => {
 
       setLoading(false);
       console.log("Login successful:", response.data.access);
-      await AsyncStorage.setItem("userToken", response.data.token);
-
-      // Navigate to the Onboarding screen upon successful login
+      await AsyncStorage.setItem("userAccessToken", response.data.access);
+      await AsyncStorage.setItem("userRefreshToken", response.data.refresh);
       navigation.navigate("Onboarding");
     } catch (error) {
       setLoading(false);
