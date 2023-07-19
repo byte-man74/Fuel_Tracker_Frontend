@@ -40,8 +40,8 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
       <Stack.Navigator screenOptions={{ headerShown: false }}> 
-          <Stack.Screen name="MainScreen" component={MainScreenTab} />  
-          <Stack.Screen name="Authentication" component={AuthNavigator} />    
+          <Stack.Screen name="Authentication" component={AuthNavigator} /> 
+          <Stack.Screen name="MainScreen" component={MainScreenTab} />       
           <Stack.Screen name="Onboarding" component={OnboardingNavigator} />      
           <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />

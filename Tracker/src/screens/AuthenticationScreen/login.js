@@ -30,35 +30,34 @@ const Login = ({ navigation }) => {
   const handleSignInPress = async () => {
     setLoading(true);
     try {
-      const response = await api.post("/api/token/obtain/", {
+      const response = await api.post("token/obtain/", {
         email,
         password,
       });
 
       setLoading(false);
-      console.log("Login successful:", response.data);
-      await AsyncStorage.setItem("userToken", response.data.token);
+      console.log("Login successful:", response.data.access);
+      // await AsyncStorage.setItem("userToken", response.data.token);
 
       // Navigate to the Onboarding screen upon successful login
       navigation.navigate("Onboarding");
     } catch (error) {
       setLoading(false);
-      console.log(error.response.data.detail);
+      console.log(error.response.data)
       if (error.response && error.response.data && error.response.data.detail) {
+        
         setErrorMessage(error.response.data.detail);
-        // Delay the reset of the error state after 3 seconds
         setTimeout(() => {
           setErrorMessage(null);
-        }, 3000);
+        }, 8000);
       } else {
         setErrorMessage(
           "An error occurred during login. Please try again later."
         );
-
         // Delay the reset of the error state after 3 seconds
         setTimeout(() => {
           setErrorMessage(null);
-        }, 3000);
+        }, 8000);
       }
     }
   };
@@ -71,7 +70,7 @@ const Login = ({ navigation }) => {
           source={require("../../images/Background.png")}
           style={styles.backgroundImage}
         >
-          {loading ? (
+          {errorMessage ? (
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>{errorMessage}</Text>
             </View>

@@ -1,6 +1,8 @@
 // api.js
 
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const api = axios.create({
   baseURL: 'https://pricewiz.pythonanywhere.com/api', // Replace with your API base URL

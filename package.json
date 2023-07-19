@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.1",
     "deprecated-react-native-prop-types": "^4.1.0",
     "expo-app-loading": "^2.1.1",
     "expo-font": "^11.1.1",
