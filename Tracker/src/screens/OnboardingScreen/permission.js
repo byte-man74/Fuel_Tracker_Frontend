@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions,
 import LottieView from 'lottie-react-native';
 import Button from '../../components/button';
 import * as Location from 'expo-location';
+import api from "../../services/api";
 
 const { height } = Dimensions.get('window');
 
@@ -23,7 +24,8 @@ const Permission = ({ navigation }) => {
             console.log('Location permission not granted');
             return;
         }
-
+        //fetch data
+        navigation.navigate("MainScreen")
         // Location permission granted, continue with capturing location
         captureLocation();
     };
@@ -48,15 +50,27 @@ const Permission = ({ navigation }) => {
         }
     };
 
+    const fetchStations = async () => {
+        try {
+          const response = await api.get("view_fueling_station_info/21");
+          console.log(response.data);
+          return response.data; // Return the response data if needed
+        } catch (error) {
+          console.error("Error fetching stations:", error);
+          throw error; // Rethrow the error to handle it elsewhere, if needed
+        }
+      };
+      
+    fetchStations()
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View>
                 <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
                     <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />
                     <View style={styles.formHeader}>
-                        <Text style={styles.formHeaderTitle}>Give priceTracker access to your precise location</Text>
+                        <Text style={styles.formHeaderTitle}>Give PriceWiz access to your precise location</Text>
                         <Text style={styles.formHeaderText}>
-                            priceTracker needs your precise location to give you turn-by-turn directions and other useful features.
+                            PriceWiz needs your precise location to give you turn-by-turn directions and other useful features.
                             <Text style={{ fontFamily: 'MulishBold' }}> View Privacy Policy.</Text>
                         </Text>
                         <Text style={[styles.formHeaderText, { marginTop: 30 }]}>
@@ -65,7 +79,7 @@ const Permission = ({ navigation }) => {
                     </View>
                     <View style={styles.bottomCTA}>
                         <Button
-                            title="Submit"
+                            title="Continue"
                             onPress={requestLocationPermission}
                             color="#1E1E1E" // Custom color
                             textColor="white"
@@ -97,6 +111,7 @@ const styles = StyleSheet.create({
     },
     formHeader: {
         paddingHorizontal: 30,
+        marginTop: 20
     },
     formHeaderTitle: {
         fontFamily: 'MulishBold',

@@ -14,7 +14,7 @@ function OnboardingNavigator() {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />
             <Stack.Screen name="TermsAndCondition" component={TermsAndConditions} />
-            <Stack.Screen name="Permissions" component={Permission} />
+
         </Stack.Navigator>
     );
 }

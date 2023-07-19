@@ -36,10 +36,12 @@ const Login = ({ navigation }) => {
       });
 
       setLoading(false);
-      console.log("Login successful:", response.data.access);
       await AsyncStorage.setItem("userAccessToken", response.data.access);
       await AsyncStorage.setItem("userRefreshToken", response.data.refresh);
-      navigation.navigate("Onboarding");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Permissions' }],
+      });
     } catch (error) {
       setLoading(false);
       if (error.response && error.response.data && error.response.data.detail) {

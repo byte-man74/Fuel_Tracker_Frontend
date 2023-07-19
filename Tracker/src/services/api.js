@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const api = axios.create({
-  baseURL: 'https://pricewiz.pythonanywhere.com/api', // Replace with your API base URL
+  baseURL: 'https://pricewiz.pythonanywhere.com/api/', // Replace with your API base URL
 });
 
 // Request interceptor
@@ -16,7 +16,10 @@ api.interceptors.request.use(
 
     if (userToken) {
       // If a token exists, add it as a header to the API request
-      config.headers['Authorization'] = `Bearer ${userToken}`;
+      console.log(userToken)
+      config.headers = {
+        Authorization: `Bearer ${userToken}`,
+      };
     }
 
     return config;
