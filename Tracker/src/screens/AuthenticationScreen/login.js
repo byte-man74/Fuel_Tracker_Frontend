@@ -37,13 +37,12 @@ const Login = ({ navigation }) => {
 
       setLoading(false);
       console.log("Login successful:", response.data.access);
-      // await AsyncStorage.setItem("userToken", response.data.token);
+      await AsyncStorage.setItem("userToken", response.data.token);
 
       // Navigate to the Onboarding screen upon successful login
       navigation.navigate("Onboarding");
     } catch (error) {
       setLoading(false);
-      console.log(error.response.data)
       if (error.response && error.response.data && error.response.data.detail) {
         
         setErrorMessage(error.response.data.detail);
