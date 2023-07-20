@@ -4,19 +4,11 @@ import LottieView from 'lottie-react-native';
 import Button from '../../components/button';
 import * as Location from 'expo-location';
 import api from "../../services/api";
-
+import Overlay from '../../components/overlay';
 const { height } = Dimensions.get('window');
 
 const Permission = ({ navigation }) => {
-    const handleSignInPress = () => {
-        // Navigate to the sign-in page
-        navigation.navigate('PasswordReset');
-    };
-
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-    const [state, setState] = useState('');
-    const [localGovernment, setLocalGovernment] = useState('');
+    const [loading, setLoading] = useState(false)
 
     const requestLocationPermission = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
@@ -24,46 +16,41 @@ const Permission = ({ navigation }) => {
             console.log('Location permission not granted');
             return;
         }
-        //fetch data
-        navigation.navigate("MainScreen")
-        // Location permission granted, continue with capturing location
+        // Fetch user's current location and call update_user_info inside captureLocation
         captureLocation();
     };
-
+    
     const captureLocation = async () => {
+        setLoading(true)
         try {
             const { coords } = await Location.getCurrentPositionAsync();
-            const { latitude, longitude } = coords;
-            setLatitude(latitude);
-            setLongitude(longitude);
-
-            // Get state and local government using Bing Maps Geocoding API
-            const apiKey = 'Ahndh4GZR21tp2mdoH3VYktZS7HeiGs7-UYmNhOk5gD7G7kAVuY6i57lJC8wHjrL';
-            const url = `http://dev.virtualearth.net/REST/v1/Locations/${latitude},${longitude}?o=json&key=${apiKey}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            const address = data.resourceSets[0]?.resources[0]?.address || {};
-            setState(address.adminDistrict);
-            setLocalGovernment(address.adminDistrict2);
+            // After capturing the location and updating latitude and longitude, call update_user_info
+            update_user_info(coords.latitude, coords.longitude);
         } catch (error) {
             console.log('Error:', error.message);
         }
     };
-
-    const fetchStations = async () => {
+    
+    const update_user_info = async (latitude, longitude) => {
+        console.log(latitude)
         try {
-          const response = await api.get("view_fueling_station_info/21");
-          console.log(response.data);
-          return response.data; // Return the response data if needed
+            const response = await api.post("save_user_location", {
+                "latitude": latitude,
+                "longitude": longitude
+              });
+    
+            if (response.status === 200) {
+                console.log("success 🥳");
+            }
         } catch (error) {
-          console.error("Error fetching stations:", error);
-          throw error; // Rethrow the error to handle it elsewhere, if needed
+            console.error(error);
         }
-      };
-      
-    fetchStations()
+    };
+    
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {loading && <Overlay />}
             <View>
                 <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
                     <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />

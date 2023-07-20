@@ -15,12 +15,10 @@ const FuelStationDetails = ({ navigation }) => {
     const [figure, setFigure] = useState('');
 
     const handleFigureChange = (text) => {
-        // Handle figure input changes
         setFigure(text);
     };
 
     const handlePressOption = () => {
-        // Navigate to the sign-in page
         openBottomOption()
     };
 
