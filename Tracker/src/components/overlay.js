@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, Toucha
 
 const { height, width } = Dimensions.get('window');
 
-const Overlay = ({ navigation }) => {
+const Overlay = ({ command }) => {
 
     return (
-        <View style={styles.overlay} />
+        <View style={styles.overlay}>
+            
+        </View>
+
     );
 };
 
@@ -15,6 +18,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
+        justifyContent: "center",
+        alignItems: "center",
         top: 0,
         zIndex: 200,
         backgroundColor: 'rgba(51, 51, 51, 0.54)',
