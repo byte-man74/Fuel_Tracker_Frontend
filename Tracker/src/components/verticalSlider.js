@@ -8,7 +8,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import api from "../services/api";
 
 const { width } = Dimensions.get("window");
@@ -94,11 +93,11 @@ const Slider = ({ navigation }) => {
         onPress={() => navigation.navigate("FuelStationDetails")}
         style={styles.itemContainer}
       >
-        <Image source={item.coverImage} style={styles.image} />
+        <Image source={data[0].coverImage} style={styles.image} />
         <View style={styles.carouselContainer}>
           <View style={styles.carouselContainerExtraInfo}>
             <Image
-              source={item.logo}
+              source={data[0].logo}
               style={{
                 width: 35,
                 height: 35,
@@ -107,8 +106,8 @@ const Slider = ({ navigation }) => {
               }}
             />
             <View style={styles.carouselContainerExtraInfoText}>
-              <Text style={styles.stationText}>{item.name}</Text>
-              <Text style={styles.stationLocation}>{item.location}</Text>
+              <Text style={styles.stationText}>{item.station.name}</Text>
+              <Text style={styles.stationLocation}>{item.station.address}</Text>
             </View>
             <View style={{ position: "absolute", top: "19.5%", right: 0 }}>
               <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
@@ -198,9 +197,9 @@ const Slider = ({ navigation }) => {
           />
       ) : (
         <FlatList
-          data={data}
+          data={stationData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.station.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContentContainer}
@@ -227,15 +226,17 @@ const styles = StyleSheet.create({
   carouselContainer: {
     flex: 1,
     width: "100%",
-    height: 145,
+    minHeight: 145,
     backgroundColor: "#E0E0E0",
     borderRadius: 10,
     marginTop: 10,
+    
   },
   carouselContainerExtraInfo: {
     width: "100%",
     top: 10,
     minHeight: 60,
+    
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#E0E0E0",
@@ -243,11 +244,12 @@ const styles = StyleSheet.create({
   },
   carouselContainerExtraInfoText: {
     minWidth: 50,
-    minHeight: 40,
+    minHeight: 140,
     flexDirection: "column",
     justifyContent: "space-around",
     backgroundColor: "#E0E0E0",
     borderRadius: 4,
+    
   },
   stationTextSkeleton: {
     width: "40%",
@@ -306,6 +308,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: ITEM_WIDTH,
     // Assuming square items, adjust as per your requirements
+    minHeight: 330,
     marginRight: 20,
     borderRadius: 10,
     justifyContent: "center",
@@ -343,11 +346,14 @@ const styles = StyleSheet.create({
     fontFamily: "SemiBold",
     fontSize: 15,
     color: "#232323",
+    width: "70%"
   },
   stationLocation: {
     fontFamily: "Regular",
     fontSize: 14,
     color: "#232323",
+    marginTop: 4,
+    width: "70%"
   },
   bookmarkIconStyling: {
     width: 22,
