@@ -88,6 +88,20 @@ const Slider = ({ navigation }) => {
   }, []);
 
   const renderItem = ({ item }) => {
+    // Create a new Date object from the date-time string
+    const dateTime = new Date(item.price.last_updated);
+
+    // Create a formatter using the Intl.DateTimeFormat API
+    const formatter = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short',
+    });
+    const humanReadableDateTime = formatter.format(dateTime);
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("FuelStationDetails")}
@@ -111,7 +125,7 @@ const Slider = ({ navigation }) => {
             </View>
             <View style={{ position: "absolute", top: "19.5%", right: 0 }}>
               <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                ₦540
+                ₦{item.price.amount}/L
               </Text>
             </View>
           </View>
@@ -145,16 +159,16 @@ const Slider = ({ navigation }) => {
                   style={{ width: 24, height: 24, marginRight: 5 }}
                 />
                 <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                  Upvote price | 24
+                  Upvote price | {item.price.votes}
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.lastUpdatedPrice}>
             <Text
-              style={{ fontFamily: "Regular", fontSize: 16, color: "#333333" }}
+              style={{ fontFamily: "Regular", fontSize: 16, width: "97.5%", color: "#333333" }}
             >
-              Last updated 30mins ago{" "}
+              Last updated {humanReadableDateTime}
             </Text>
           </View>
         </View>
