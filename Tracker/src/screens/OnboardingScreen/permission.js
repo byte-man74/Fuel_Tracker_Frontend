@@ -50,7 +50,7 @@ const Permission = ({ navigation }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {loading && <Overlay />}
+            {loading && <Overlay command={true}/>}
             <View>
                 <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
                     <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />
