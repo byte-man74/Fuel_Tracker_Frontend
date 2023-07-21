@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.avatarStyling}
                             resizeMode="contain"
                         />
-                        <Text style={styles.haaderTitle}>Hello Justice👋</Text>
+                        <Text style={styles.haaderTitle}>Hello👋</Text>
                     </View>
                     <TouchableOpacity style={styles.notificationBox} onPress={() => navigation.navigate('Notification')}>
                         <Image
@@ -51,7 +51,7 @@ const HomeScreen = ({ navigation }) => {
                         <View style={styles.averagePriceBoxContainer}>
                             <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                                 <Text style={styles.priceText}>
-                                    ₦540
+                                    ₦---
                                 </Text>
                                 <Image style={{ width: 24, height: 24, marginLeft: 2 }} source={require('../../../icons/gas.png')} />
                             </View>

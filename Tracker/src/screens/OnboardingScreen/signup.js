@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
+import api from '../../services/api';
 
 const { height, width } = Dimensions.get('window');
 
@@ -11,10 +12,42 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSignInPress = () => {
-    // Navigate to the sign-in page
-    navigation.navigate('Authentication');
+
+  const handleSignInPress = async () => {
+    setLoading(true);
+    try {
+      const response = await api.post("register/", {
+        email,
+        password,
+      });
+
+      setLoading(false);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Authentication' }],
+      });
+    } catch (error) {
+      console.error(error)
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.detail) {
+        
+        setErrorMessage(error.response.data.detail);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 8000);
+      } else {
+        setErrorMessage(
+          "An error occurred during sign up. Please try again later."
+        );
+        // Delay the reset of the error state after 3 seconds
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 8000);
+      }
+    }
   };
   const isButtonDisabled = email === '' || password === '' || password !== confirmPassword;
   return (
@@ -24,11 +57,18 @@ const SignUp = ({ navigation }) => {
           source={require('../../images/Background.png')}
           style={styles.backgroundImage}
         >
+        {errorMessage ? (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{errorMessage}</Text>
+            </View>
+          ) : (
+            <></>
+          )}
           <View style={styles.formHeader}>
             <Text style={styles.formHeaderTitle}>
               Let’s get you signed on
             </Text>
-            <TouchableOpacity onPress={handleSignInPress}>
+            <TouchableOpacity onPress={() => navigation.navigate("Authentication")}>
               <Text style={styles.formHeaderText}>
                 Already have an account? <Text style={{ fontFamily: 'MulishBold' }}>Sign In</Text>
               </Text>
@@ -90,13 +130,16 @@ const SignUp = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.formContainerItem}>
-              <Button title="Sign in"
-                onPress={() => { navigation.navigate('OtpVerification') }}
+              <Button
+                title="Log in"
+                onPress={handleSignInPress}
                 disabled={isButtonDisabled}
-                color={isButtonDisabled ? '#F6F6F6' : '#1E1E1E'} // Custom color
-                textColor={isButtonDisabled ? '#A9A9A9' : 'white'}
-                width={'100%'} // Custom width
-                height={55} />
+                color={isButtonDisabled ? "#F6F6F6" : "#1E1E1E"} // Custom color
+                textColor={isButtonDisabled ? "#A9A9A9" : "white"}
+                loading={loading}
+                width={"100%"} // Custom width
+                height={55}
+              />
             </View>
           </View>
           < View style={styles.otherCTA}>
@@ -204,6 +247,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontFamily: 'Regular',
     fontSize: 16,
+  },
+  errorContainer: {
+    width: "100%",
+    height: 65,
+    backgroundColor: "#EE1B0E",
+    position: "absolute",
+    top: 0,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 1,
+  },
+  errorText: {
+    fontFamily: "MulishBold",
+    fontSize: 14,
+    color: "#fff",
   },
   eyeIconContainer: {
     position: 'absolute',
