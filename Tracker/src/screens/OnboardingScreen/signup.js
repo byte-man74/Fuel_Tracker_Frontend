@@ -148,7 +148,7 @@ const SignUp = ({ navigation }) => {
               />
             </View>
           </View>
-          < View style={styles.otherCTA}>
+          {/* < View style={styles.otherCTA}>
             <View style={styles.orContainer}>
               <Image
                 source={require('../../images/Line.png')}
@@ -185,7 +185,7 @@ const SignUp = ({ navigation }) => {
                 textColor="black"
                 height={55} />
             </View>
-          </View>
+          </View> */}
 
         </ImageBackground>
       </View>

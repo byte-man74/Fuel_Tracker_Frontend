@@ -172,7 +172,7 @@ const Login = ({ navigation, route }) => {
               />
             </View>
           </View>
-          <View style={styles.otherCTA}>
+          {/* <View style={styles.otherCTA}>
             <View style={styles.orContainer}>
               <Image source={require("../../images/Line.png")} />
               <Text style={{ fontFamily: "Regular", fontSize: 14 }}>or</Text>
@@ -217,7 +217,7 @@ const Login = ({ navigation, route }) => {
                 height={55}
               />
             </View>
-          </View>
+          </View> */}
         </ImageBackground>
       </View>
     </ScrollView>
