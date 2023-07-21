@@ -20,12 +20,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { successMessage } = route.params;
 
   const handleSignInPress = async () => {
     setLoading(true);
@@ -78,9 +80,17 @@ const Login = ({ navigation }) => {
             <></>
           )}
 
+          {successMessage ? (
+            <View style={styles.successContainer}>
+              <Text style={styles.errorText}>Account succesfully created</Text>
+            </View>
+          ) : (
+            <></>
+          )}
+
           <View style={styles.formHeader}>
             <Text style={styles.formHeaderTitle}>Login to your account</Text>
-            <TouchableOpacity onPress={handleSignInPress}>
+            <TouchableOpacity onPress={() => navigation.navigate('Onboarding', { screen: 'SignUp' })}>
               <Text style={styles.formHeaderText}>
                 Don't have an account?{" "}
                 <Text style={{ fontFamily: "MulishBold" }}>Sign up</Text>
@@ -231,6 +241,21 @@ const styles = StyleSheet.create({
     paddingBottom: 1,
   },
   errorText: {
+    fontFamily: "MulishBold",
+    fontSize: 14,
+    color: "#fff",
+  },
+  successContainer: {
+    width: "100%",
+    height: 65,
+    backgroundColor: "#90EE90",
+    position: "absolute",
+    top: 0,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 1,
+  },
+  successText: {
     fontFamily: "MulishBold",
     fontSize: 14,
     color: "#fff",

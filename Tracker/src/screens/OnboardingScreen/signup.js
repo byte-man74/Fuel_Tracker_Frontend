@@ -14,6 +14,7 @@ const SignUp = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const successsMessage = true
 
 
   const handleSignInPress = async () => {
@@ -27,8 +28,13 @@ const SignUp = ({ navigation }) => {
       setLoading(false);
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Authentication' }],
-      });
+        routes: [{ 
+          name: 'Authentication',
+          params: {
+            successMessage: successsMessage, // Pass the successMessage variable as a prop
+          },
+        }],
+      });      
     } catch (error) {
       console.error(error)
       setLoading(false);

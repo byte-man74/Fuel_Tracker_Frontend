@@ -6,10 +6,14 @@ import PasswordReset from '../screens/AuthenticationScreen/resetPasssword';
 
 const Stack = createStackNavigator();
 
-function AuthNavigator() {
+function AuthNavigator(props) {
+
+    const { successMessage } = props.route.params ? props.route.params : { successMessage: false };
+
+
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Login" component={Login} initialParams={{ successMessage: successMessage }}  />
             <Stack.Screen name="ForgottenPassword" component={ForgottenPassword} />
             <Stack.Screen name="ResetPasswordOtp" component={ResetPasswordOTP} />
             <Stack.Screen name="PasswordReset" component={PasswordReset} />
