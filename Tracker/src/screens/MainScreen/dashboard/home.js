@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
                     <View style={styles.nearbyFuelingStationContainer}>
                         <Animated.View style={[styles.nearbyFuelingStationContainerHeader, { transform: [{ translateY: slideInAnimation }] }]}>
                             <Text style={styles.haaderTitle}>Fueling stations near you</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('FuelStationDetails')}><Text style={styles.headerText}>view all</Text></TouchableOpacity>
+                            {/* <TouchableOpacity onPress={() => navigation.navigate('FuelStationDetails')}><Text style={styles.headerText}>view all</Text></TouchableOpacity> */}
                         </Animated.View>
                         <Animated.View style={[styles.carouselBox, { opacity: fadeInAnimation }]}>
                             <Slider navigation={navigation} />
@@ -88,8 +88,8 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
                         <View style={styles.nearbyFuelingStationContainerHeader}>
-                            <Text style={styles.haaderTitle}>Saved filling stations</Text>
-                            <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity>
+                            <Text style={styles.haaderTitle}>Saved fueling stations</Text>
+                            {/* <TouchableOpacity><Text style={styles.headerText}>view all</Text></TouchableOpacity> */}
                         </View>
                         <View style={styles.carouselBox}>
                             <Slider />
