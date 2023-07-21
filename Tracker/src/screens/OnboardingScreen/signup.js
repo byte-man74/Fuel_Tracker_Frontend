@@ -137,7 +137,7 @@ const SignUp = ({ navigation }) => {
             </View>
             <View style={styles.formContainerItem}>
               <Button
-                title="Log in"
+                title="Create Account"
                 onPress={handleSignInPress}
                 disabled={isButtonDisabled}
                 color={isButtonDisabled ? "#F6F6F6" : "#1E1E1E"} // Custom color
