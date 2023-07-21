@@ -1,74 +1,74 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
+import api from '../services/api';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
+const customMarkerImage = require('../../assets/fuel.png'); // Replace this with the path to your custom marker image
 
 const MapsComponent = () => {
-    return (
-        <MapView style={{ width: "100%", height: "100%" }} provider={PROVIDER_GOOGLE} customMapStyle={customMapStyle} />
+  const [fuelStations, setFuelStations] = useState([]);
 
+  useEffect(() => {
+    const get_saved_station = async () => {
+      try {
+        const response = await api.get('get_nearby_fueling_stations/');
+        if (response.status === 200) {
+          setFuelStations(response.data.fueling_stations);
+        } else {
+          console.error('Error: Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-    )
-}
+    get_saved_station();
+  }, []);
 
-export default MapsComponent
+  const initialRegion = {
+    latitude: 6.4760061,
+    longitude: 3.5687743,
+    latitudeDelta: 0.02, // Adjust this value for desired zoom level (smaller value = closer zoom)
+    longitudeDelta: 0.02, // Adjust this value for desired zoom level (smaller value = closer zoom)
+  };
 
+  return (
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        customMapStyle={customMapStyle}
+        initialRegion={initialRegion} // Set the initial region here
+      >
+        {fuelStations.map((station) => (
+          <Marker
+            key={station.station.id}
+            coordinate={{
+              latitude: parseFloat(station.position.latitude),
+              longitude: parseFloat(station.position.longitude),
+            }}
+            image={customMarkerImage} // Set the custom marker image here
+          >
+            <Callout>
+              <View>
+                <Text>{station.station.name}</Text>
+                <Text>{station.station.address}</Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))}
+      </MapView>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
-    headerBox: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'flex-start',
-        paddingHorizontal: '4%',
-        backgroundColor: 'rgba(187, 96, 96, 0.0)',
-        minHeight: 90,
-        position: 'absolute',
-        zIndex: 2
-    },
-    homeContainerHeader: {
-        width: "100%",
-        height: 50,
-        top: 30,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    avatarWithName: {
-        minWidth: '10%',
-        height: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
+  },
+});
 
-    },
-    avatarStyling: {
-        width: 40,
-        height: 40,
-        borderRadius: 200,
-        marginRight: 8,
-
-    },
-    notificationBox: {
-        width: '20%',
-        height: '100%',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    iconStyling: {
-        width: 28,
-        height: 28
-    },
-    haaderTitle: {
-        fontFamily: 'SemiBold',
-        fontSize: 18,
-        color: '#232323',
-    },
-    headerText: {
-        fontFamily: 'Regular',
-        fontSize: 14,
-        color: '#232323',
-    },
-
-
-})
-
+export default MapsComponent;
