@@ -18,6 +18,7 @@ const Slider = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.jpg")
+  
  
 
   const real_data = []
@@ -52,7 +53,7 @@ const Slider = ({ navigation }) => {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("FuelStationDetails")}
+        onPress={() => navigation.navigate("FuelStationDetails", { item: item })}
         style={styles.itemContainer}
       >
         <Image source={item.image} style={styles.image} />
@@ -86,21 +87,30 @@ const Slider = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <View style={styles.trafficIndicator}>
-                <Image
-                  source={require("../icons/traffic.png")}
-                  style={{ width: 24, height: 24, marginRight: 5 }}
-                />
-                <Text
-                  style={{
-                    fontFamily: "Regular",
-                    fontSize: 14,
-                    color: "white",
-                  }}
-                >
-                  Traffic
-                </Text>
-              </View>
+          <View
+          style={[
+            styles.trafficIndicator,
+            item.traffic === 1
+              ? { backgroundColor: "red" }     // Apply red background if traffic is 1
+              : item.traffic === 2
+              ? { backgroundColor: "yellow" }  // Apply yellow background if traffic is 2
+              : { backgroundColor: "green" }   // Apply green background if traffic is 3
+          ]}
+        >
+          <Image
+            source={require("../icons/traffic.png")}
+            style={{ width: 24, height: 24, marginRight: 5 }}
+          />
+          <Text
+            style={{
+              fontFamily: "Regular",
+              fontSize: 14,
+              color: "white",
+            }}
+          >
+            Traffic
+          </Text>
+        </View>
               <TouchableOpacity style={styles.upvoteButton}>
                 <Image
                   source={require("../icons/upvote.png")}
@@ -362,3 +372,5 @@ const styles = StyleSheet.create({
 });
 
 export default Slider;
+
+

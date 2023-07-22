@@ -14,19 +14,33 @@ const process_station = (station) => {
         { name: "CONOIL", image: require('../images/BACKGROUNDS/CONOIL.jpg') },
     ];
   
-    const dateTime = new Date(station.price.last_updated);
-
-    // Create a formatter using the Intl.DateTimeFormat API
-    const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    timeZoneName: 'short',
-    });
-    const humanReadableDateTime = formatter.format(dateTime);
+    const timeSinceWithTime = (date) => {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        const intervals = [
+          { label: "year", value: 31536000 },
+          { label: "month", value: 2592000 },
+          { label: "day", value: 86400 },
+          { label: "hour", value: 3600 },
+          { label: "minute", value: 60 },
+        ];
+      
+        for (let i = 0; i < intervals.length; i++) {
+          const { label, value } = intervals[i];
+          const count = Math.floor(seconds / value);
+          if (count >= 1) {
+            const time = new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            return count === 1
+              ? `updated a ${label} ago ${time}`
+              : ` ${count} ${label}s ago... ${time}`;
+          }
+        }
+      
+        return "Last updated just now";
+      };
+      
+      const dateTime = new Date(station.price.last_updated);
+      const humanReadableDateTime = timeSinceWithTime(dateTime);
+      
 
     //? Find the image object with a partial name match
     const matchedImage = images.find((img) => station.station.name.toUpperCase().includes(img.name.toUpperCase()));
