@@ -8,14 +8,52 @@ import {
   TouchableOpacity,
   TextInput,
   Animated,
+  FlatList
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import SkeletonLoader from "../../../components/skeletonui";
+import React, { useEffect, useRef, useState } from "react";
+import api from "../../../services/api";
+import process_station from "../../../api/station_images";
 
 const { height, width } = Dimensions.get("window");
 
 const SavedScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
   const slideInAnimation = useRef(new Animated.Value(100)).current;
+  const [stationData, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const default_logo = require("../../../../assets/shell.jpg")
+  
+ 
+
+  const real_data = []
+  useEffect(() => {
+    const get_saved_station = async () => {
+      try {
+        const response = await api.get("get_nearby_fueling_stations/");
+        if (response.status === 200) {
+          setData(response.data.fueling_stations);
+        } else {
+          console.error("Error: Unexpected response status:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    get_saved_station();
+  }, []);
+
+
+  if (stationData) {
+    
+    stationData.forEach((station) => {
+      const processed_data = process_station(station);
+      real_data.push(processed_data);
+    });
+  }
 
   useEffect(() => {
     const fadeIn = Animated.timing(fadeInAnimation, {
@@ -33,6 +71,98 @@ const SavedScreen = ({ navigation }) => {
 
     Animated.parallel([fadeIn, slideIn]).start();
   }, []);
+
+
+  const Content = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("FuelStationDetails")}
+        style={styles.itemContainer}
+      >
+        <Image
+          source={item.image}
+          style={styles.image}
+        />
+        <View style={styles.carouselContainer}>
+          <View style={styles.carouselContainerExtraInfo}>
+            <Image
+              source={require("../../../../assets/shell.jpg")}
+              style={{
+                width: 35,
+                height: 35,
+                borderRadius: 400,
+                marginRight: 7,
+              }}
+            />
+            <View style={styles.carouselContainerExtraInfoText}>
+              <Text style={styles.stationText}>{item.name}</Text>
+              <Text style={styles.stationLocation}>{item.address}</Text>
+            </View>
+            <View
+              style={{ position: "absolute", top: "19.5%", right: 0 }}
+            >
+              <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
+                ₦540
+              </Text>
+            </View>
+          </View>
+          <View style={styles.extraFunctionsStyling}>
+            <View
+              style={{
+                width: "100%",
+                height: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.trafficIndicator}>
+                <Image
+                  source={require("../../../icons/traffic.png")}
+                  style={{ width: 24, height: 24, marginRight: 5 }}
+                />
+                <Text
+                  style={{
+                    fontFamily: "Regular",
+                    fontSize: 14,
+                    color: "white",
+                  }}
+                >
+                  Traffic
+                </Text>
+              </View>
+              <TouchableOpacity style={styles.upvoteButton}>
+                <Image
+                  source={require("../../../icons/upvote.png")}
+                  style={{ width: 24, height: 24, marginRight: 5 }}
+                />
+                <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
+                  Upvote price | 24
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.lastUpdatedPrice}>
+            <Text
+              style={{
+                fontFamily: "Regular",
+                fontSize: 16,
+                color: "#333333",
+              }}
+            >
+              {item.time_posted}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  
+  const renderItem = ({item}) => {
+    return (
+      < Content item={item}/>
+    )
+  }
+  
   return (
     <>
       <View style={styles.headerBox}>
@@ -43,7 +173,7 @@ const SavedScreen = ({ navigation }) => {
               style={styles.avatarStyling}
               resizeMode="contain"
             />
-            <Text style={styles.haaderTitle}>Hello Justice👋</Text>
+            <Text style={styles.haaderTitle}>Hello👋</Text>
           </View>
           <TouchableOpacity style={styles.notificationBox}>
             <Image
@@ -53,7 +183,6 @@ const SavedScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.mainBox}>
           <TouchableOpacity
             style={styles.searchContainer}
@@ -88,188 +217,27 @@ const SavedScreen = ({ navigation }) => {
             <View style={styles.nearbyFuelingStationContainerHeader}>
               <Text style={styles.haaderTitle}>Saved filling stations</Text>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("FuelStationDetails")}
-              style={styles.itemContainer}
-            >
-              <Image
-                source={require("../../../../assets/image1.jpg")}
-                style={styles.image}
-              />
-              <View style={styles.carouselContainer}>
-                <View style={styles.carouselContainerExtraInfo}>
-                  <Image
-                    source={require("../../../../assets/shell.jpg")}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 400,
-                      marginRight: 7,
-                    }}
-                  />
-                  <View style={styles.carouselContainerExtraInfoText}>
-                    <Text style={styles.stationText}>Shell</Text>
-                    <Text style={styles.stationLocation}>Carwash</Text>
-                  </View>
-                  <View
-                    style={{ position: "absolute", top: "19.5%", right: 0 }}
-                  >
-                    <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                      ₦540
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.extraFunctionsStyling}>
-                  <View
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View style={styles.trafficIndicator}>
-                      <Image
-                        source={require("../../../icons/traffic.png")}
-                        style={{ width: 24, height: 24, marginRight: 5 }}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "Regular",
-                          fontSize: 14,
-                          color: "white",
-                        }}
-                      >
-                        Traffic
-                      </Text>
-                    </View>
-                    <TouchableOpacity style={styles.upvoteButton}>
-                      <Image
-                        source={require("../../../icons/upvote.png")}
-                        style={{ width: 24, height: 24, marginRight: 5 }}
-                      />
-                      <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                        Upvote | 24
-                      </Text>
-                    </TouchableOpacity>
-                    <Image
-                      source={require("../../../icons/share.png")}
-                      style={{
-                        width: 43.95,
-                        height: "90%",
-                        marginRight: 5,
-                        objectFit: "contain",
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={styles.lastUpdatedPrice}>
-                  <Text
-                    style={{
-                      fontFamily: "Regular",
-                      fontSize: 16,
-                      color: "#333333",
-                    }}
-                  >
-                    Last updated 30mins ago{" "}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("FuelStationDetails")}
-              style={styles.itemContainer}
-            >
-              <Image
-                source={require("../../../../assets/image1.jpg")}
-                style={styles.image}
-              />
-              <View style={styles.carouselContainer}>
-                <View style={styles.carouselContainerExtraInfo}>
-                  <Image
-                    source={require("../../../../assets/shell.jpg")}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 400,
-                      marginRight: 7,
-                    }}
-                  />
-                  <View style={styles.carouselContainerExtraInfoText}>
-                    <Text style={styles.stationText}>Shell</Text>
-                    <Text style={styles.stationLocation}>Carwash</Text>
-                  </View>
-                  <View
-                    style={{ position: "absolute", top: "19.5%", right: 0 }}
-                  >
-                    <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                      ₦540
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.extraFunctionsStyling}>
-                  <View
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View style={styles.trafficIndicator}>
-                      <Image
-                        source={require("../../../icons/traffic.png")}
-                        style={{ width: 24, height: 24, marginRight: 5 }}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "Regular",
-                          fontSize: 14,
-                          color: "white",
-                        }}
-                      >
-                        Traffic
-                      </Text>
-                    </View>
-                    <TouchableOpacity style={styles.upvoteButton}>
-                      <Image
-                        source={require("../../../icons/upvote.png")}
-                        style={{ width: 24, height: 24, marginRight: 5 }}
-                      />
-                      <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                        Upvote | 24
-                      </Text>
-                    </TouchableOpacity>
-                    <Image
-                      source={require("../../../icons/share.png")}
-                      style={{
-                        width: 43.95,
-                        height: "90%",
-                        marginRight: 5,
-                        objectFit: "contain",
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={styles.lastUpdatedPrice}>
-                  <Text
-                    style={{
-                      fontFamily: "Regular",
-                      fontSize: 16,
-                      color: "#333333",
-                    }}
-                  >
-                    Last updated 30mins ago{" "}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+            {loading ? (
+              <>
+                <SkeletonLoader />
+                <SkeletonLoader />
+                <SkeletonLoader />
+                <SkeletonLoader />
+              </>
+            ) : (
+              <FlatList
+              data={real_data}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
+            )}
+
           </View>
         </View>
-      </ScrollView>
     </>
   );
 };
+
 
 export default SavedScreen;
 
@@ -285,17 +253,21 @@ const styles = StyleSheet.create({
   homeContainerHeader: {
     width: "100%",
     height: 50,
-    top: 30,
+    top: 40,
     flexDirection: "row",
     justifyContent: "space-between",
+    backgroundColor: "white"
   },
   container: {
     flexGrow: 1,
-    backgroundColor: "white",
+    top: 0,
+    backgroundColor: "red",
   },
   mainBox: {
     flex: 1,
     resizeMode: "cover",
+    backgroundColor: "white",
+
     justifyContent: "flex-start",
     minHeight: height * 1.23,
     paddingHorizontal: "4%",
@@ -387,7 +359,6 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     width: "100%",
-    // Assuming square items, adjust as per your requirements
     marginBottom: 35,
     borderRadius: 10,
     justifyContent: "center",
@@ -411,6 +382,7 @@ const styles = StyleSheet.create({
   nearbyFuelingStationContainer: {
     width: "100%",
     minHeight: 30,
+    flex: 1,
     marginBottom: 40,
   },
   nearbyFuelingStationContainerHeader: {
@@ -455,7 +427,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   upvoteButton: {
-    width: 115,
+    width: 145,
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,
