@@ -26,7 +26,7 @@ export default function App() {
     (async () => {
 
       // Check if token exists in AsyncStorage
-      const userToken = await AsyncStorage.getItem('userAccessToken');
+      const userToken = await AsyncStorage.getItem('userAccesstToken');
       if (userToken) {
         setToken(userToken);
       }
@@ -58,8 +58,6 @@ export default function App() {
         {token ? (
               // If token exists, navigate to MainScreen
               <>
-                <Stack.Screen name="ServerScreen" component={ServerScreen} />
-                <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
                 <Stack.Screen name="MainScreen" component={MainScreenTab} />
                 <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
@@ -74,6 +72,8 @@ export default function App() {
                 <Stack.Screen name="Permissions" component={Permission} />
               </>
             )} 
+              <Stack.Screen name="ServerScreen" component={ServerScreen} />
+              <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
         </Stack.Navigator>
       </BottomSheetModalProvider>
       </GestureHandlerRootView>

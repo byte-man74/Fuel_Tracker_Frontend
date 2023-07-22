@@ -38,6 +38,17 @@ const SignUp = ({ navigation }) => {
     } catch (error) {
       console.error(error)
       setLoading(false);
+      if (!error.response) {
+        // No Internet Connection Error
+        navigation.navigate('NoNetwork');
+        return;
+      }
+  
+      if (error.response.status === 500) {
+        // Server Error
+        navigation.navigate('ServerScreen');
+        return;
+      }
       if (error.response && error.response.data && error.response.data.detail) {
         
         setErrorMessage(error.response.data.detail);

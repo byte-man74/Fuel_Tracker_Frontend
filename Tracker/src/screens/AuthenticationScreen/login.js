@@ -45,6 +45,17 @@ const Login = ({ navigation, route }) => {
         routes: [{ name: 'Permissions' }],
       });
     } catch (error) {
+      if (!error.response) {
+        // No Internet Connection Error
+        navigation.navigate('NoNetwork');
+        return;
+      }
+  
+      if (error.response.status === 500) {
+        // Server Error
+        navigation.navigate('ServerScreen');
+        return;
+      }
       setLoading(false);
       if (error.response && error.response.data && error.response.data.detail) {
         
