@@ -1,10 +1,17 @@
 const process_station = (station) => {
     const images = [
         { name: "default", image: require('../images/BACKGROUNDS/default.jpeg') },
-        { name: "NNPC", image: require('../images/BACKGROUNDS/NNPC Filling stations.jpg') },
+        { name: "NNPC", image: require('../images/BACKGROUNDS/NNPC.jpg') },
         { name: "AMMASCO", image: require('../images/BACKGROUNDS/AMMASCO.jpeg') },
         { name: "A.Y. MAI KIFI OIL AND GAS LTD", image: require('../images/BACKGROUNDS/A.Y. MAI KIFI OIL AND GAS LTD.jpg') },
-        { name: "AA RANO", image: require('../images/BACKGROUNDS/AA RANO_cover.jpg') },
+        { name: "A.A", image: require('../images/BACKGROUNDS/aarano.jpg') },
+        { name: "OANDO", image: require('../images/BACKGROUNDS/OANDO.jpg') },
+        { name: "NIPCO", image: require('../images/BACKGROUNDS/NIPCO.jpg') },
+        { name: "ETERNA", image: require('../images/BACKGROUNDS/ETERNA.jpeg') },
+        { name: "MOBIL", image: require('../images/BACKGROUNDS/MOBIL.jpg') },
+        { name: "TOTAL", image: require('../images/BACKGROUNDS/TOTAL.png') },
+        { name: "AP", image: require('../images/BACKGROUNDS/AP_ARDOVA.jpg') },
+        { name: "CONOIL", image: require('../images/BACKGROUNDS/CONOIL.jpg') },
     ];
   
     const dateTime = new Date(station.price.last_updated);
@@ -22,7 +29,10 @@ const process_station = (station) => {
     const humanReadableDateTime = formatter.format(dateTime);
 
     //? Find the image object with a partial name match
-    const matchedImage = images.find((img) => station.station.name.includes(img.name));
+    const matchedImage = images.find((img) => station.station.name.toUpperCase().includes(img.name.toUpperCase()));
+
+
+
     const maxAddressLength = 20;
     const shortenedAddress = station.station.address.substring(0, maxAddressLength);
 
@@ -48,8 +58,8 @@ const process_station = (station) => {
       
  
     const traffic_status = get_traffic_rating(station.traffic)
-    const activeImage = matchedImage ? matchedImage.image : images[0];
-
+    const activeImage = matchedImage ? matchedImage.image : images[0].image;
+    console.log(activeImage)
   
     const data = {
       id: station.station.id,
@@ -57,7 +67,7 @@ const process_station = (station) => {
       price: station.price.amount,
       address: address, // Shorten this guy
       traffic: traffic_status, // Add a check here 
-      image: activeImage.image,
+      image: activeImage,
       time_posted: humanReadableDateTime,
       votes: station.price.votes
     };

@@ -50,7 +50,6 @@ const Slider = ({ navigation }) => {
   }
   
   const renderItem = ({ item }) => {
-  
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("FuelStationDetails")}
