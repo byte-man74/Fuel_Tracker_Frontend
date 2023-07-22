@@ -26,7 +26,7 @@ export default function App() {
     (async () => {
 
       // Check if token exists in AsyncStorage
-      const userToken = await AsyncStorage.getItem('userAccesstToken');
+      const userToken = await AsyncStorage.getItem('userAccessToken');
       if (userToken) {
         setToken(userToken);
       }
