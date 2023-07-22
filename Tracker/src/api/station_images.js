@@ -7,9 +7,31 @@ const process_station = (station) => {
         { name: "AA RANO", image: require('../images/BACKGROUNDS/AA RANO_cover.jpg') },
     ];
   
-    // Find the image object with a partial name match
-    const matchedImage = images.find((img) => station.name.includes(img.name));
-  
+    const dateTime = new Date(station.price.last_updated);
+
+    // Create a formatter using the Intl.DateTimeFormat API
+    const formatter = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short',
+    });
+    const humanReadableDateTime = formatter.format(dateTime);
+
+    //? Find the image object with a partial name match
+    const matchedImage = images.find((img) => station.station.name.includes(img.name));
+    const maxAddressLength = 20;
+    const shortenedAddress = station.station.address.substring(0, maxAddressLength);
+
+    // Add "..." at the end of the address if it was shortened
+    const address = station.station.address.length > maxAddressLength
+        ? shortenedAddress + "..."
+        : shortenedAddress;
+
+
     const get_traffic_rating = (traffic) => {
         const { terrible, average, good } = traffic;
       
@@ -24,22 +46,24 @@ const process_station = (station) => {
         }
       };
       
+ 
     const traffic_status = get_traffic_rating(station.traffic)
     const activeImage = matchedImage ? matchedImage.image : images[0];
+
   
     const data = {
-      id: station.id,
-      name: station.name,
+      id: station.station.id,
+      name: station.station.name,
       price: station.price.amount,
-      address: station.address, // Shorten this guy
+      address: address, // Shorten this guy
       traffic: traffic_status, // Add a check here 
       image: activeImage.image,
-      time_posted: station.time_posted,
-      votes: station.votes
+      time_posted: humanReadableDateTime,
+      votes: station.price.votes
     };
-  
     // Return the resulting data
     return data;
+
   };
   
   export default process_station

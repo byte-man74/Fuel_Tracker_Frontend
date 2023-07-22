@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import api from "../services/api";
+import process_station from "../api/station_images";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
@@ -16,58 +17,10 @@ const ITEM_WIDTH = width * 0.68;
 const Slider = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const default_logo = require("../../assets/shell.jpg")
+ 
 
-  const data = [
-    {
-      id: 1,
-      coverImage: require("../../assets/image1.jpg"),
-      logo: require("../../assets/shell.jpg"),
-      name: "Oando Station",
-      location: "Lekki Phase 1, Lagos.",
-      price: "₦260",
-    },
-    {
-      id: 2,
-      coverImage: require("../../assets/image2.jpg"),
-      logo: require("../../assets/nnpc.png"),
-      name: "NNPC",
-      location: "wuse zone 3",
-      price: "₦300",
-    },
-    {
-      id: 3,
-      coverImage: require("../../assets/image3.jpg"),
-      logo: require("../../assets/chevron.png"),
-      name: "Chevron",
-      location: "Kuje zone 3",
-      price: "300",
-    },
-    {
-      id: 4,
-      coverImage: require("../../assets/image1.jpg"),
-      logo: require("../../assets/shell.jpg"),
-      name: "Oando Station",
-      location: "Lekki Phase 1, Lagos.",
-      price: "₦260",
-    },
-    {
-      id: 5,
-      coverImage: require("../../assets/image2.jpg"),
-      logo: require("../../assets/nnpc.png"),
-      name: "NNPC",
-      location: "wuse zone 3",
-      price: "₦300",
-    },
-    {
-      id: 6,
-      coverImage: require("../../assets/image3.jpg"),
-      logo: require("../../assets/chevron.png"),
-      name: "Chevron",
-      location: "wuse zone 3",
-      price: "300",
-    },
-    // Add more data items as needed
-  ];
+  const real_data = []
   useEffect(() => {
     const get_saved_station = async () => {
       try {
@@ -87,31 +40,27 @@ const Slider = ({ navigation }) => {
     get_saved_station();
   }, []);
 
-  const renderItem = ({ item }) => {
-    // Create a new Date object from the date-time string
-    const dateTime = new Date(item.price.last_updated);
 
-    // Create a formatter using the Intl.DateTimeFormat API
-    const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    timeZoneName: 'short',
+  if (stationData) {
+    
+    stationData.forEach((station) => {
+      const processed_data = process_station(station);
+      real_data.push(processed_data);
     });
-    const humanReadableDateTime = formatter.format(dateTime);
+  }
+  
+  const renderItem = ({ item }) => {
+  
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("FuelStationDetails")}
         style={styles.itemContainer}
       >
-        <Image source={data[0].coverImage} style={styles.image} />
+        <Image source={item.image} style={styles.image} />
         <View style={styles.carouselContainer}>
           <View style={styles.carouselContainerExtraInfo}>
             <Image
-              source={data[0].logo}
+              source={default_logo}
               style={{
                 width: 35,
                 height: 35,
@@ -120,12 +69,12 @@ const Slider = ({ navigation }) => {
               }}
             />
             <View style={styles.carouselContainerExtraInfoText}>
-              <Text style={styles.stationText}>{item.station.name}</Text>
-              <Text style={styles.stationLocation}>{item.station.address}</Text>
+              <Text style={styles.stationText}>{item.name}</Text>
+              <Text style={styles.stationLocation}>{item.address}</Text>
             </View>
             <View style={{ position: "absolute", top: "19.5%", right: 0 }}>
               <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                ₦{item.price.amount}/L
+                ₦{item.price}/L
               </Text>
             </View>
           </View>
@@ -159,7 +108,7 @@ const Slider = ({ navigation }) => {
                   style={{ width: 24, height: 24, marginRight: 5 }}
                 />
                 <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                  Upvote price | {item.price.votes}
+                  Upvote price | {item.votes}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -168,7 +117,7 @@ const Slider = ({ navigation }) => {
             <Text
               style={{ fontFamily: "Regular", fontSize: 16, width: "97.5%", color: "#333333" }}
             >
-              Last updated {humanReadableDateTime}
+              Last updated {item.time_posted}
             </Text>
           </View>
         </View>
@@ -211,9 +160,9 @@ const Slider = ({ navigation }) => {
           />
       ) : (
         <FlatList
-          data={stationData}
+          data={real_data}
           renderItem={renderItem}
-          keyExtractor={(item) => item.station.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContentContainer}
@@ -360,14 +309,13 @@ const styles = StyleSheet.create({
     fontFamily: "SemiBold",
     fontSize: 15,
     color: "#232323",
-    width: "70%"
+    width: "90%"
   },
   stationLocation: {
     fontFamily: "Regular",
     fontSize: 14,
     color: "#232323",
     marginTop: 4,
-    width: "70%"
   },
   bookmarkIconStyling: {
     width: 22,
