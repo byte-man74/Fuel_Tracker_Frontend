@@ -14,6 +14,8 @@ import NotificationScreen from './src/screens/others/notification';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Permission from './src/screens/OnboardingScreen/permission';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NoNetworkScreen from './src/screens/others/noNetwork';
+import ServerScreen from './src/screens/others/serverError';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +26,7 @@ export default function App() {
     (async () => {
 
       // Check if token exists in AsyncStorage
-      const userToken = await AsyncStorage.getItem('userAcrcessToken');
+      const userToken = await AsyncStorage.getItem('userAccessToken');
       if (userToken) {
         setToken(userToken);
       }
@@ -56,6 +58,8 @@ export default function App() {
         {token ? (
               // If token exists, navigate to MainScreen
               <>
+                <Stack.Screen name="ServerScreen" component={ServerScreen} />
+                <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
                 <Stack.Screen name="MainScreen" component={MainScreenTab} />
                 <Stack.Screen name="FuelStationDetails" component={FuelStationDetails} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
