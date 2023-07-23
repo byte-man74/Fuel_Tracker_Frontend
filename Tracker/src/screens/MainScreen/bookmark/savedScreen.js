@@ -102,7 +102,7 @@ const SavedScreen = ({ navigation }) => {
               style={{ position: "absolute", top: "19.5%", right: 0 }}
             >
               <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                ₦540
+                ₦{item.price}L
               </Text>
             </View>
           </View>
@@ -136,7 +136,7 @@ const SavedScreen = ({ navigation }) => {
                   style={{ width: 24, height: 24, marginRight: 5 }}
                 />
                 <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                  Upvote price | 24
+                  Upvote price | {item.votes}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -175,7 +175,7 @@ const SavedScreen = ({ navigation }) => {
             />
             <Text style={styles.haaderTitle}>Hello👋</Text>
           </View>
-          <TouchableOpacity style={styles.notificationBox}>
+          <TouchableOpacity onPress={() => navigation.navigate("Notification")} style={styles.notificationBox}>
             <Image
               source={require("../../../icons/notifiction_active.png")}
               style={styles.iconStyling}
@@ -215,7 +215,7 @@ const SavedScreen = ({ navigation }) => {
           </TouchableOpacity>
           <View style={styles.nearbyFuelingStationContainer}>
             <View style={styles.nearbyFuelingStationContainerHeader}>
-              <Text style={styles.haaderTitle}>Saved filling stations</Text>
+              <Text style={styles.haaderTitle}>Saved fueling stations</Text>
             </View>
             {loading ? (
               <>
@@ -408,6 +408,7 @@ const styles = StyleSheet.create({
     fontFamily: "SemiBold",
     fontSize: 15,
     color: "#232323",
+    maxWidth: "80%"
   },
   stationLocation: {
     fontFamily: "Regular",
