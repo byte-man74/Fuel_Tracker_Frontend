@@ -7,13 +7,18 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BottomSheet from "../../components/bottomSheet";
 import Button from "../../components/button";
 import Overlay from "../../components/overlay";
 import { RadioButton } from "react-native-paper";
+import CommentItem from "../../components/comment";
+import api from "../../services/api";
+
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -25,6 +30,8 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [figure, setFigure] = useState("");
+  const [comments, setComments] = useState([]);
+  const [Commentloading, setCommentLoading] = useState(true)
   console.log(item);
   const handleFigureChange = (text) => {
     setFigure(text);
@@ -59,6 +66,20 @@ const FuelStationDetails = ({ navigation, route }) => {
   const closeCommentOptionButton = () => {
     setCommentSheetVisible(false);
   };
+
+
+
+  useEffect(() => {
+    api
+      .get(`/get_comments/${item.id}/`)
+      .then((response) => {
+        setComments(response.data.comments);
+        setCommentLoading(false);
+      })
+      .catch((error) => {
+        setCommentLoading(false);
+      });
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -235,7 +256,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   borderRadius: 8,
                 }}
               >
-                <Text style={styles.Text}>330 users approved 👍🏾</Text>
+                <Text style={styles.Text}>{item.votes} users approved 👍🏾</Text>
               </View>
             </View>
             <TouchableOpacity
@@ -299,60 +320,24 @@ const FuelStationDetails = ({ navigation, route }) => {
                 padding: 10,
               }}
             >
-              <View style={styles.commentItem}>
-                <View style={styles.carouselContainerExtraInfo}>
-                  <Image
-                    source={require("../../images/avatar.png")}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 400,
-                      marginRight: 7,
-                    }}
-                  />
-                  <View style={styles.carouselContainerExtraInfoText}>
-                    <Text style={styles.stationText}>Leke Daniel</Text>
-                    <Text style={styles.stationLocation}>3 days ago</Text>
-                  </View>
+              {Commentloading ? (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator size="large" color="#007AFF" />
                 </View>
-                <Text style={styles.Text}>Amazing customer service</Text>
-              </View>
-              <View style={styles.commentItem}>
-                <View style={styles.carouselContainerExtraInfo}>
-                  <Image
-                    source={require("../../images/avatar.png")}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 400,
-                      marginRight: 7,
-                    }}
-                  />
-                  <View style={styles.carouselContainerExtraInfoText}>
-                    <Text style={styles.stationText}>Leke Daniel</Text>
-                    <Text style={styles.stationLocation}>3 days ago</Text>
-                  </View>
+              ) : comments.length === 0 ? (
+                <View style={styles.emptyCommentsContainer}>
+                  <Text style={styles.emptyCommentsText}>No comments available.</Text>
                 </View>
-                <Text style={styles.Text}>Amazing customer service</Text>
-              </View>
-              <View style={styles.commentItem}>
-                <View style={styles.carouselContainerExtraInfo}>
-                  <Image
-                    source={require("../../images/avatar.png")}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 400,
-                      marginRight: 7,
-                    }}
+              ) : (
+                comments.map((comment) => (
+                  <CommentItem
+                    key={comment.id}
+                    name={comment.name}
+                    date={comment.date}
+                    comment={comment.comment}
                   />
-                  <View style={styles.carouselContainerExtraInfoText}>
-                    <Text style={styles.stationText}>Leke Daniel</Text>
-                    <Text style={styles.stationLocation}>3 days ago</Text>
-                  </View>
-                </View>
-                <Text style={styles.Text}>Amazing customer service</Text>
-              </View>
+                ))
+              )}
             </View>
           </View>
         </View>
