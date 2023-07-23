@@ -297,7 +297,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 style={{ width: 18, height: 18, marginHorizontal: 5 }}
                 source={require("../../icons/phone.png")}
               />
-              <Text style={styles.Text}>0817 4509 183</Text>
+              <Text style={styles.Text}>--- --- ---</Text>
             </View>
           </View>
           <View style={styles.secondDetails}>
@@ -309,12 +309,12 @@ const FuelStationDetails = ({ navigation, route }) => {
                 marginBottom: 15,
               }}
             >
-              <Text style={styles.TextBold}>Comments (4)</Text>
+              <Text style={styles.TextBold}>Comments</Text>
             </View>
             <View
               style={{
                 width: "100%",
-                minHeight: 300,
+                minHeight: 100,
                 backgroundColor: "#F4F4F4",
                 borderRadius: 10,
                 padding: 10,
@@ -332,8 +332,8 @@ const FuelStationDetails = ({ navigation, route }) => {
                 comments.map((comment) => (
                   <CommentItem
                     key={comment.id}
-                    name={comment.name}
-                    date={comment.date}
+                    name={comment.user_email}
+                    date={comment.date_time_commented}
                     comment={comment.comment}
                   />
                 ))
@@ -635,6 +635,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     justifyContent: "space-between",
+  },
+  loadingContainer: {
+    width: "100%",
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center"
   },
   upvoteButton: {
     width: 150,
