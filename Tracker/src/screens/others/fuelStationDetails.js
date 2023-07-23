@@ -20,8 +20,7 @@ const { height, width } = Dimensions.get("window");
 const FuelStationDetails = ({ navigation, route }) => {
   const { item } = route.params;
 
-  const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
-    useState(false);
+  const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);

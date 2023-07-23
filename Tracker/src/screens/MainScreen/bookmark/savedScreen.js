@@ -76,7 +76,7 @@ const SavedScreen = ({ navigation }) => {
   const Content = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("FuelStationDetails")}
+        onPress={() => navigation.navigate("FuelStationDetails", { item: item })}
         style={styles.itemContainer}
       >
         <Image
