@@ -59,7 +59,17 @@ const SliderCurrent = ({ navigation }) => {
           console.error("Error: Unexpected response status:", response.status);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (!error.response) {
+            // No Internet Connection Error
+            navigation.navigate('NoNetwork');
+            return;
+          }
+      
+          if (error.response.status === 500 || error.response.status === 502) {
+            // Server Error
+            navigation.navigate('ServerScreen');
+            return;
+          }
       } finally {
         setLoading(false);
       }

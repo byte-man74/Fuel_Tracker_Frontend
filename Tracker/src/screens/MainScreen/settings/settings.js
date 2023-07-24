@@ -67,7 +67,7 @@ const SettingsScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.OptionsContainer}>
-              <TouchableOpacity style={styles.optionBox}>
+              {/* <TouchableOpacity style={styles.optionBox}>
                   <Text style={styles.Text}>
                     Notifications
                   </Text>
@@ -84,7 +84,7 @@ const SettingsScreen = ({ navigation }) => {
                     Help Center
                   </Text>
                   <Image style={{ width: 24, height: 24, }} source={require('../../../icons/arrow-right.png')} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity style={styles.optionBox}>
                   <Text style={styles.Text}>
                     Logout
