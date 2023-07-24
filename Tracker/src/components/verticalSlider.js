@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   FlatList,
@@ -8,19 +8,49 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import api from "../services/api";
+import process_station from "../api/station_images";
 import LottieView from 'lottie-react-native';
-
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const Slider = ({ navigation, loading, data }) => {
-
+const Slider = ({ navigation }) => {
+  const [stationData, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.jpg")
+  const e_data = []
   
  
 
+  const real_data = []
+  useEffect(() => {
+    const get_saved_station = async () => {
+      try {
+        const response = await api.get("get_nearby_fueling_stations/");
+        if (response.status === 200) {
+          setData(response.data.fueling_stations);
+        } else {
+          console.error("Error: Unexpected response status:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    get_saved_station();
+  }, []);
+
+
+  if (stationData) {
+    
+    stationData.forEach((station) => {
+      const processed_data = process_station(station);
+      real_data.push(processed_data);
+    });
+  }
   
   const renderItem = ({ item }) => {
     return (
@@ -139,21 +169,20 @@ const Slider = ({ navigation, loading, data }) => {
             snapToInterval={ITEM_WIDTH}
             decelerationRate="fast"
           />
-      ) : data == null ? (
-        // Show UI for empty data array
-        <View style={styles.emptyDataContainer}>
-          <LottieView
-            source={require('../images/emptypage.json')}
-            autoPlay
-            loop
-            style={styles.carouselItemImage}
-          />
-          <Text style={styles.emptyDataText}>No data available.</Text>
-        </View>
+          ) : e_data.length === 0 ? (
+            // Show UI for empty data array
+            <View style={styles.emptyDataContainer}>
+              <LottieView
+                source={require('../images/emptypage.json')}
+                autoPlay
+                loop
+                style={styles.carouselItemImage}
+              />
+              <Text style={styles.emptyDataText}>No fueling station in your location has been registered on our database.</Text>
+            </View>
       ) : (
-        // Show data items if data array is not empty
         <FlatList
-          data={data}
+          data={real_data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           horizontal
@@ -367,6 +396,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Regular",
     color: "#666666",
+    textAlign: "center"
   },
   carouselItemImage: {
     width: '70%',
