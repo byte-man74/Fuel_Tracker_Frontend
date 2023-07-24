@@ -8,6 +8,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import LottieView from 'lottie-react-native';
+
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
@@ -140,6 +142,12 @@ const Slider = ({ navigation, loading, data }) => {
       ) : data == null ? (
         // Show UI for empty data array
         <View style={styles.emptyDataContainer}>
+          <LottieView
+            source={require('../images/emptypage.json')}
+            autoPlay
+            loop
+            style={styles.carouselItemImage}
+          />
           <Text style={styles.emptyDataText}>No data available.</Text>
         </View>
       ) : (
@@ -349,15 +357,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
     padding: 20,
     width: "100%",
     height: "100%",
-    backgroundColor: "red"
+    backgroundColor: "#F4F4F4"
   },
   emptyDataText: {
     fontSize: 16,
     fontFamily: "Regular",
     color: "#666666",
+  },
+  carouselItemImage: {
+    width: '70%',
+    aspectRatio: 1,
   },
 });
 
