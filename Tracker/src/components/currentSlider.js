@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -11,15 +12,36 @@ import {
 import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from 'lottie-react-native';
+import * as Location from 'expo-location';
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const SliderSaved = ({ navigation }) => {
+const SliderCurrent = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.jpg")
-  const e_data = []
+  const [currentLocation, setCurrentLocation] = useState(null);
+
+  const getCurrentLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Location permission denied');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+      setCurrentLocation({ latitude, longitude });
+    } catch (error) {
+      console.log('Error getting location:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
   
  
 
@@ -27,7 +49,10 @@ const SliderSaved = ({ navigation }) => {
   useEffect(() => {
     const get_saved_station = async () => {
       try {
-        const response = await api.get("get_nearby_fueling_stations/");
+        const response = await api.post("closest_station/", {
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude
+        });
         if (response.status === 200) {
           setData(response.data.fueling_stations);
         } else {
@@ -40,8 +65,10 @@ const SliderSaved = ({ navigation }) => {
       }
     };
 
-    get_saved_station();
-  }, []);
+    if (currentLocation){
+        get_saved_station();
+    }
+  }, [currentLocation]);
 
 
   if (stationData) {
@@ -404,6 +431,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SliderSaved;
+export default SliderCurrent;
 
 

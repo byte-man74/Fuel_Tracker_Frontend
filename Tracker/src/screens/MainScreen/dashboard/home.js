@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
 import React, { useEffect, useRef,useState} from 'react'
-import Slider from '../../../components/verticalSlider';
+import SliderCurrent from '../../../components/currentSlider';
 import api from '../../../services/api';
 import process_station from '../../../api/station_images';
+import SliderSaved from '../../../components/verticalSlider';
 
 
 const { height} = Dimensions.get('window');
@@ -117,7 +118,7 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}><Text style={styles.headerText}>view all</Text></TouchableOpacity> 
                         </Animated.View>
                         <Animated.View style={[styles.carouselBox, { opacity: fadeInAnimation }]}>
-                            <Slider navigation={navigation}/>
+                            <SliderCurrent navigation={navigation}/>
                         </Animated.View>
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
@@ -126,11 +127,7 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('Saved')}><Text style={styles.headerText}>view all</Text></TouchableOpacity>
                         </View>
                         <View style={styles.carouselBox}>
-                        <Slider 
-                            navigation={navigation} 
-                            data={real_data} 
-                            loading={currentLocationLoading} 
-                        />
+                            <SliderSaved navigation={navigation}/>
                         </View>
                     </View>
                 </View>
