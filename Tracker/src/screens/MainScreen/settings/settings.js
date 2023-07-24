@@ -10,7 +10,7 @@ import {
   Animated,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
-
+import Overlay from "../../../components/overlay";
 const { height, width } = Dimensions.get("window");
 
 const SettingsScreen = ({ navigation }) => {
@@ -35,6 +35,7 @@ const SettingsScreen = ({ navigation }) => {
   }, []);
   return (
     <>
+        <Overlay command={true}/>
       <View style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
