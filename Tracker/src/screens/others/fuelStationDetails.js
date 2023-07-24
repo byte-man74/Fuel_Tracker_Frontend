@@ -157,12 +157,6 @@ const FuelStationDetails = ({ navigation, route }) => {
                 </View>
               </View>
             </View>
-            <TouchableOpacity>
-              <Image
-                source={require("../../icons/bookmark_black.png")}
-                style={{ width: 25, height: 25 }}
-              />
-            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.main}>
@@ -422,7 +416,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       <BottomSheet
         isVisible={PriceBottomSheetVisible}
         onDismiss={closeBottomOption}
-        snapPoints={["40%"]}
+        snapPoints={["35%"]}
       >
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
@@ -435,48 +429,6 @@ const FuelStationDetails = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.feedbackContainer}>
-            <View style={styles.radioContainer}>
-              <View style={styles.radioOption}>
-                <RadioButton.Android
-                  value="option1"
-                  status={
-                    selectedOption === "option1" ? "checked" : "unchecked"
-                  }
-                  onPress={() => setSelectedOption("option1")}
-                />
-                <Text>Option 1</Text>
-              </View>
-              <View style={styles.radioOption}>
-                <RadioButton.Android
-                  value="option2"
-                  status={
-                    selectedOption === "option2" ? "checked" : "unchecked"
-                  }
-                  onPress={() => setSelectedOption("option2")}
-                />
-                <Text>Option 2</Text>
-              </View>
-              <View style={styles.radioOption}>
-                <RadioButton.Android
-                  value="option3"
-                  status={
-                    selectedOption === "option3" ? "checked" : "unchecked"
-                  }
-                  onPress={() => setSelectedOption("option3")}
-                />
-                <Text>Option 3</Text>
-              </View>
-              <View style={styles.radioOption}>
-                <RadioButton.Android
-                  value="option4"
-                  status={
-                    selectedOption === "option4" ? "checked" : "unchecked"
-                  }
-                  onPress={() => setSelectedOption("option4")}
-                />
-                <Text>Option 4</Text>
-              </View>
-            </View>
             <TouchableOpacity style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
@@ -520,7 +472,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               <TextInput
                 style={styles.searchInput}
-                placeholder="Input Price Option"
+                placeholder="Comment on fueling station"
                 onFocus={() => navigation.navigate("SearchScreen")}
               ></TextInput>
             </TouchableOpacity>
@@ -580,7 +532,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: "100%",
-    height: 50,
+    height: 60,
     marginTop: 30,
     marginBottom: 30,
   },
