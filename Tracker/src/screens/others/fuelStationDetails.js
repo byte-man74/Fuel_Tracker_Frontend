@@ -20,6 +20,7 @@ import api from "../../services/api";
 
 
 
+
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {

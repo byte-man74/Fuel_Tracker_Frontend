@@ -3,7 +3,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import LinearGradient from 'react-native-linear-gradient';
+
 
 const LinearGradientSkeleton = () => (
   <SkeletonPlaceholder>

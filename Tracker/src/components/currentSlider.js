@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -11,8 +10,9 @@ import {
 } from "react-native";
 import api from "../services/api";
 import process_station from "../api/station_images";
-import LottieView from 'lottie-react-native';
-import * as Location from 'expo-location';
+import LottieView from "lottie-react-native";
+import * as Location from "expo-location";
+
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
@@ -20,14 +20,14 @@ const ITEM_WIDTH = width * 0.68;
 const SliderCurrent = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const default_logo = require("../../assets/shell.jpg")
+  const default_logo = require("../../assets/shell.jpg");
   const [currentLocation, setCurrentLocation] = useState(null);
 
   const getCurrentLocation = async () => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Location permission denied');
+      if (status !== "granted") {
+        console.log("Location permission denied");
         return;
       }
 
@@ -35,23 +35,21 @@ const SliderCurrent = ({ navigation }) => {
       const { latitude, longitude } = location.coords;
       setCurrentLocation({ latitude, longitude });
     } catch (error) {
-      console.log('Error getting location:', error);
+      console.log("Error getting location:", error);
     }
   };
 
   useEffect(() => {
     getCurrentLocation();
   }, []);
-  
- 
 
-  const real_data = []
+  const real_data = [];
   useEffect(() => {
     const get_saved_station = async () => {
       try {
         const response = await api.post("closest_station/", {
-            latitude: currentLocation.latitude,
-            longitude: currentLocation.longitude
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
         });
         if (response.status === 200) {
           setData(response.data.fueling_stations);
@@ -60,39 +58,39 @@ const SliderCurrent = ({ navigation }) => {
         }
       } catch (error) {
         if (!error.response) {
-            // No Internet Connection Error
-            navigation.navigate('NoNetwork');
-            return;
-          }
-      
-          if (error.response.status === 500 || error.response.status === 502) {
-            // Server Error
-            navigation.navigate('ServerScreen');
-            return;
-          }
+          // No Internet Connection Error
+          navigation.navigate("NoNetwork");
+          return;
+        }
+
+        if (error.response.status === 500 || error.response.status === 502) {
+          // Server Error
+          navigation.navigate("ServerScreen");
+          return;
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    if (currentLocation){
-        get_saved_station();
+    if (currentLocation) {
+      get_saved_station();
     }
   }, [currentLocation]);
 
-
   if (stationData) {
-    
     stationData.forEach((station) => {
       const processed_data = process_station(station);
       real_data.push(processed_data);
     });
   }
-  
+
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("FuelStationDetails", { item: item })}
+        onPress={() =>
+          navigation.navigate("FuelStationDetails", { item: item })
+        }
         style={styles.itemContainer}
       >
         <Image source={item.image} style={styles.image} />
@@ -126,30 +124,30 @@ const SliderCurrent = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-          <View
-          style={[
-            styles.trafficIndicator,
-            item.traffic === 1
-              ? { backgroundColor: "red" }     // Apply red background if traffic is 1
-              : item.traffic === 2
-              ? { backgroundColor: "yellow" }  // Apply yellow background if traffic is 2
-              : { backgroundColor: "green" }   // Apply green background if traffic is 3
-          ]}
-        >
-          <Image
-            source={require("../icons/traffic.png")}
-            style={{ width: 24, height: 24, marginRight: 5 }}
-          />
-          <Text
-            style={{
-              fontFamily: "Regular",
-              fontSize: 14,
-              color: "white",
-            }}
-          >
-            Traffic
-          </Text>
-        </View>
+              <View
+                style={[
+                  styles.trafficIndicator,
+                  item.traffic === 1
+                    ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                    : item.traffic === 2
+                    ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
+                    : { backgroundColor: "green" }, // Apply green background if traffic is 3
+                ]}
+              >
+                <Image
+                  source={require("../icons/traffic.png")}
+                  style={{ width: 24, height: 24, marginRight: 5 }}
+                />
+                <Text
+                  style={{
+                    fontFamily: "Regular",
+                    fontSize: 14,
+                    color: "white",
+                  }}
+                >
+                  Traffic
+                </Text>
+              </View>
               <TouchableOpacity style={styles.upvoteButton}>
                 <Image
                   source={require("../icons/upvote.png")}
@@ -163,7 +161,12 @@ const SliderCurrent = ({ navigation }) => {
           </View>
           <View style={styles.lastUpdatedPrice}>
             <Text
-              style={{ fontFamily: "Regular", fontSize: 16, width: "97.5%", color: "#333333" }}
+              style={{
+                fontFamily: "Regular",
+                fontSize: 16,
+                width: "97.5%",
+                color: "#333333",
+              }}
             >
               Last updated {item.time_posted}
             </Text>
@@ -176,11 +179,10 @@ const SliderCurrent = ({ navigation }) => {
   return (
     <View style={styles.sliderContainer}>
       {loading ? (
-          <FlatList
-            data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
-            renderItem={() => (
-              <View style={styles.itemContainer}>
-                {/* Placeholder for your skeleton UI */}
+        <FlatList
+          data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
+          renderItem={() => (
+            <View style={styles.itemContainer}>
                 <View style={styles.imageSkeleton} />
                 <View style={styles.carouselContainer}>
                   <View style={styles.carouselContainerExtraInfo}>
@@ -197,26 +199,30 @@ const SliderCurrent = ({ navigation }) => {
                   </View>
                   <View style={styles.lastUpdatedPriceSkeleton} />
                 </View>
-              </View>
-            )}
-            keyExtractor={(item) => item.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatListContentContainer}
-            snapToInterval={ITEM_WIDTH}
-            decelerationRate="fast"
-          />
-          ) : real_data.length === 0 ? (
-            // Show UI for empty data array
-            <View style={styles.emptyDataContainer}>
-              <LottieView
-                source={require('../images/emptypage.json')}
-                autoPlay
-                loop
-                style={styles.carouselItemImage}
-              />
-              <Text style={styles.emptyDataText}>No fueling station in your location has been registered on our database.</Text>
+       
             </View>
+          )}
+          keyExtractor={(item) => item.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContentContainer}
+          snapToInterval={ITEM_WIDTH}
+          decelerationRate="fast"
+        />
+      ) : real_data.length === 0 ? (
+        // Show UI for empty data array
+        <View style={styles.emptyDataContainer}>
+          <LottieView
+            source={require("../images/emptypage.json")}
+            autoPlay
+            loop
+            style={styles.carouselItemImage}
+          />
+          <Text style={styles.emptyDataText}>
+            No fueling station in your location has been registered on our
+            database.
+          </Text>
+        </View>
       ) : (
         <FlatList
           data={real_data}
@@ -252,13 +258,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     borderRadius: 10,
     marginTop: 10,
-    
   },
   carouselContainerExtraInfo: {
     width: "100%",
     top: 10,
     minHeight: 60,
-    
+
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#E0E0E0",
@@ -271,7 +276,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     backgroundColor: "#E0E0E0",
     borderRadius: 4,
-    
   },
   stationTextSkeleton: {
     width: "40%",
@@ -368,7 +372,7 @@ const styles = StyleSheet.create({
     fontFamily: "SemiBold",
     fontSize: 15,
     color: "#232323",
-    width: "90%"
+    width: "90%",
   },
   stationLocation: {
     fontFamily: "Regular",
@@ -401,7 +405,7 @@ const styles = StyleSheet.create({
   bigContainer: {
     width: 70,
     height: 40,
-    backgroundColor: 'red'
+    backgroundColor: "red",
   },
 
   trafficIndicator: {
@@ -427,20 +431,18 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
     height: "100%",
-    backgroundColor: "#F4F4F4"
+    backgroundColor: "#F4F4F4",
   },
   emptyDataText: {
     fontSize: 16,
     fontFamily: "Regular",
     color: "#666666",
-    textAlign: "center"
+    textAlign: "center",
   },
   carouselItemImage: {
-    width: '70%',
+    width: "70%",
     aspectRatio: 1,
   },
 });
 
 export default SliderCurrent;
-
-
