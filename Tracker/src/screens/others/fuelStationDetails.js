@@ -34,7 +34,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [figure, setFigure] = useState("");
   const [price, setPrice] = useState(null)
   const [comments, setComments] = useState([]);
-  const [commentText, setCommentText] = useState('test')
+  const [commentText, setCommentText] = useState('')
   const [Commentloading, setCommentLoading] = useState(true)
 
 
@@ -115,6 +115,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   }, []);
 
   const add_comment = () => {
+    setcommentActivityLoading(true)
     api
     .post(`/add_comments/${item.id}/`, {
       "comment": commentText
@@ -139,6 +140,11 @@ const FuelStationDetails = ({ navigation, route }) => {
   
   }
   
+  const handleTextChange = (newText) => {
+    // Update the state with the new text value
+    setCommentText(newText);
+    console.log(commentText)
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -524,16 +530,13 @@ const FuelStationDetails = ({ navigation, route }) => {
               <TextInput
                 style={styles.searchInput}
                 placeholder="Comment on fueling station"
-                onChangeText={() => {setCommentText()}}
+                value={commentText}
+                onChangeText={handleTextChange}
               ></TextInput>
             </TouchableOpacity>
             <Button
               title="Submit"
-              onPress={() => {
-                console.log('process');
-                setcommentActivityLoading(true)
-                add_comment()
-              }} // Only call handleSubmit when the button is not disabled
+              onPress={add_comment} // Only call handleSubmit when the button is not disabled
               disabled={false}
               color={"#1E1E1E"} // Custom color
               textColor={"white"}
