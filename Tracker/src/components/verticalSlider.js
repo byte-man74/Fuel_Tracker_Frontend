@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   View,
   FlatList,
@@ -8,47 +8,17 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import api from "../services/api";
-import process_station from "../api/station_images";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const Slider = ({ navigation }) => {
-  const [stationData, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Slider = ({ navigation, loading, data }) => {
+
   const default_logo = require("../../assets/shell.jpg")
   
  
 
-  const real_data = []
-  useEffect(() => {
-    const get_saved_station = async () => {
-      try {
-        const response = await api.get("get_nearby_fueling_stations/");
-        if (response.status === 200) {
-          setData(response.data.fueling_stations);
-        } else {
-          console.error("Error: Unexpected response status:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    get_saved_station();
-  }, []);
-
-
-  if (stationData) {
-    
-    stationData.forEach((station) => {
-      const processed_data = process_station(station);
-      real_data.push(processed_data);
-    });
-  }
   
   const renderItem = ({ item }) => {
     return (
@@ -167,9 +137,15 @@ const Slider = ({ navigation }) => {
             snapToInterval={ITEM_WIDTH}
             decelerationRate="fast"
           />
+      ) : data == null ? (
+        // Show UI for empty data array
+        <View style={styles.emptyDataContainer}>
+          <Text style={styles.emptyDataText}>No data available.</Text>
+        </View>
       ) : (
+        // Show data items if data array is not empty
         <FlatList
-          data={real_data}
+          data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           horizontal
@@ -368,6 +344,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     width: "100%",
     height: 35,
+  },
+  emptyDataContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red"
+  },
+  emptyDataText: {
+    fontSize: 16,
+    fontFamily: "Regular",
+    color: "#666666",
   },
 });
 

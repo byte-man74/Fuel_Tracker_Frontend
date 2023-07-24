@@ -1,13 +1,47 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef,useState} from 'react'
 import Slider from '../../../components/verticalSlider';
+import api from '../../../services/api';
+import process_station from '../../../api/station_images';
 
-const { height, width } = Dimensions.get('window');
+
+const { height} = Dimensions.get('window');
 
 
 const HomeScreen = ({ navigation }) => {
     const fadeInAnimation = useRef(new Animated.Value(0)).current;
     const slideInAnimation = useRef(new Animated.Value(100)).current;
+    const [currentLocationLoading, setcurrentLocationLoading] = useState(true);
+    const [stationData, setData] = useState([]);
+
+    const real_data = []
+    useEffect(() => {
+      const get_saved_station = async () => {
+        try {
+          const response = await api.get("get_nearby_fueling_stations/");
+          if (response.status === 200) {
+            setData(response.data.fueling_stations);
+          } else {
+            console.error("Error: Unexpected response status:", response.status);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+            setcurrentLocationLoading(false);
+        }
+      };
+  
+      get_saved_station();
+    }, []);
+  
+  
+    if (stationData) {
+      
+      stationData.forEach((station) => {
+        const processed_data = process_station(station);
+        real_data.push(processed_data);
+      });
+    }
 
     useEffect(() => {
         const fadeIn = Animated.timing(fadeInAnimation, {
@@ -83,7 +117,7 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}><Text style={styles.headerText}>view all</Text></TouchableOpacity> 
                         </Animated.View>
                         <Animated.View style={[styles.carouselBox, { opacity: fadeInAnimation }]}>
-                            <Slider navigation={navigation} />
+                            <Slider navigation={navigation}/>
                         </Animated.View>
                     </View>
                     <View style={styles.nearbyFuelingStationContainer}>
@@ -92,7 +126,11 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('Saved')}><Text style={styles.headerText}>view all</Text></TouchableOpacity>
                         </View>
                         <View style={styles.carouselBox}>
-                            <Slider navigation={navigation}/>
+                        <Slider 
+                            navigation={navigation} 
+                            data={real_data} 
+                            loading={currentLocationLoading} 
+                        />
                         </View>
                     </View>
                 </View>
