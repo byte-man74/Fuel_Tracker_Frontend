@@ -40,6 +40,7 @@ const Permission = ({ navigation }) => {
               });
     
             if (response.status === 200) {
+                console.log(response)
                 navigation.navigate("MainScreen")
             }
         } catch (error) {

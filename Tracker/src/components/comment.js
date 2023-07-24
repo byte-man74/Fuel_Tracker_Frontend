@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const CommentItem = ({ name, date, comment }) => {
+const CommentItem = ({ date, comment, name}) => {
+  console.log(comment)
   return (
     <View style={styles.commentItem}>
       <View style={styles.carouselContainerExtraInfo}>

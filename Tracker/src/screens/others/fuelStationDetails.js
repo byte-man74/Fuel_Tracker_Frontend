@@ -30,18 +30,16 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [commentActivityLoading, setcommentActivityLoading] = useState(false)
   const [figure, setFigure] = useState("");
+  const [price, setPrice] = useState(null)
   const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('test')
   const [Commentloading, setCommentLoading] = useState(true)
-  console.log(item);
-  const handleFigureChange = (text) => {
-    setFigure(text);
-  };
 
-  const handlePressOption = () => {
-    openBottomOption();
-  };
 
+
+ 
   const openBottomOption = () => {
     setOptionBottomSheetVisible(true);
   };
@@ -69,7 +67,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   };
 
 
-
+//get comment
   useEffect(() => {
     api
       .get(`/get_comments/${item.id}/`)
@@ -91,7 +89,56 @@ const FuelStationDetails = ({ navigation, route }) => {
         }
         setCommentLoading(false);
       });
+  }, [commentText]);
+
+//get price
+  useEffect(() => {
+    api
+      .get(`/get_current_price/${item.id}/`)
+      .then((response) => {
+        setPrice(response.data.amount);
+      })
+      .catch((error) => {
+        if (!error.response) {
+          // No Internet Connection Error
+          navigation.navigate('NoNetwork');
+          return;
+        }
+    
+        if (error.response.status === 500 || error.response.status === 502 ) {
+          // Server Error
+          navigation.navigate('ServerScreen');
+          return;
+        }
+        setCommentLoading(false);
+      });
   }, []);
+
+  const add_comment = () => {
+    api
+    .post(`/add_comments/${item.id}/`, {
+      "comment": commentText
+    })
+    .then((response) => {
+      setCommentText(response.data.amount);
+      setcommentActivityLoading(false)
+    })
+    .catch((error) => {
+      if (!error.response) {
+        // No Internet Connection Error
+        navigation.navigate('NoNetwork');
+        return;
+      }
+      if (error.response.status === 500 || error.response.status === 502 ) {
+        // Server Error
+        navigation.navigate('ServerScreen');
+        return;
+      }
+      setcommentActivityLoading(false)
+    });
+  
+  }
+  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -273,7 +320,12 @@ const FuelStationDetails = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.EditText}>₦{item.price}L</Text>
+              {price ? (
+                <Text style={styles.EditText}>₦{price}L</Text>
+              ) : (
+                <ActivityIndicator />
+              )
+              }
               <Image
                 style={{ width: 18, height: 18, marginHorizontal: 5 }}
                 source={require("../../icons/edit.png")}
@@ -468,20 +520,24 @@ const FuelStationDetails = ({ navigation, route }) => {
           <View style={styles.feedbackContainer}>
             <TouchableOpacity
               style={styles.searchContainer}
-              onPress={() => navigation.navigate("SearchScreen")}
             >
               <TextInput
                 style={styles.searchInput}
                 placeholder="Comment on fueling station"
-                onFocus={() => navigation.navigate("SearchScreen")}
+                onChangeText={() => {setCommentText()}}
               ></TextInput>
             </TouchableOpacity>
             <Button
               title="Submit"
-              onPress={() => console.log("freak")} // Only call handleSubmit when the button is not disabled
+              onPress={() => {
+                console.log('process');
+                setcommentActivityLoading(true)
+                add_comment()
+              }} // Only call handleSubmit when the button is not disabled
               disabled={false}
               color={"#1E1E1E"} // Custom color
               textColor={"white"}
+              loading={commentActivityLoading}
               width={"100%"}
               // Custom width
               height={55}
