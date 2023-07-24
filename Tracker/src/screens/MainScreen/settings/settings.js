@@ -9,13 +9,15 @@ import {
   TextInput,
   Animated,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Overlay from "../../../components/overlay";
 const { height, width } = Dimensions.get("window");
+import LogoutModal from "../../../components/logoutmodal";
 
 const SettingsScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
   const slideInAnimation = useRef(new Animated.Value(100)).current;
+  const [openModal, setModal] = useState(false)
 
   useEffect(() => {
     const fadeIn = Animated.timing(fadeInAnimation, {
@@ -35,13 +37,17 @@ const SettingsScreen = ({ navigation }) => {
   }, []);
   return (
     <>
-        <Overlay command={true}/>
+    { openModal ? (
+        <LogoutModal navigation={navigation} setModal={setModal} />
+    ) : (
+      <></>
+    )}
       <View style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
             <Text style={styles.haaderTitle}>Settings</Text>
           </View>
-          <TouchableOpacity style={styles.notificationBox}>
+          <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={styles.notificationBox}>
             <Image
               source={require("../../../icons/notifiction_active.png")}
               style={styles.iconStyling}
@@ -86,7 +92,7 @@ const SettingsScreen = ({ navigation }) => {
                   </Text>
                   <Image style={{ width: 24, height: 24, }} source={require('../../../icons/arrow-right.png')} />
               </TouchableOpacity> */}
-              <TouchableOpacity style={styles.optionBox}>
+              <TouchableOpacity onPress={() => {setModal(true)}} style={styles.optionBox}>
                   <Text style={styles.Text}>
                     Logout
                   </Text>
