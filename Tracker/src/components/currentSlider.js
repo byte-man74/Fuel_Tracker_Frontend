@@ -45,6 +45,7 @@ const SliderCurrent = ({ navigation }) => {
 
   const real_data = [];
   useEffect(() => {
+    console.log (currentLocation)
     const get_saved_station = async () => {
       try {
         const response = await api.post("closest_station/", {
@@ -183,7 +184,15 @@ const SliderCurrent = ({ navigation }) => {
           data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
           renderItem={() => (
             <View style={styles.itemContainer}>
-                <View style={styles.imageSkeleton} />
+                <View style={styles.imageSkeleton}>
+                  <Text style={styles.emptyDataText}>Finding fueling station 8KM near you</Text>
+                  <LottieView
+                    source={require("../images/mapload.json")}
+                    autoPlay
+                    loop
+                    style={styles.load}
+                  />
+                </View>
                 <View style={styles.carouselContainer}>
                   <View style={styles.carouselContainerExtraInfo}>
                     <View style={styles.logoSkeleton} />
@@ -192,10 +201,6 @@ const SliderCurrent = ({ navigation }) => {
                       <View style={styles.stationLocationSkeleton} />
                     </View>
                     <View style={styles.priceSkeleton} />
-                  </View>
-                  <View style={styles.extraFunctionsStylingSkeleton}>
-                    <View style={styles.trafficIndicatorSkeleton} />
-                    <View style={styles.upvoteButtonSkeleton} />
                   </View>
                   <View style={styles.lastUpdatedPriceSkeleton} />
                 </View>
@@ -248,8 +253,11 @@ const styles = StyleSheet.create({
   imageSkeleton: {
     width: "100%",
     height: 170,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 8,
     backgroundColor: "#E0E0E0",
+    paddingHorizontal: "7%"
   },
   carouselContainer: {
     flex: 1,
@@ -380,6 +388,12 @@ const styles = StyleSheet.create({
     color: "#232323",
     marginTop: 4,
   },
+    stationLocation: {
+    fontFamily: "Regular",
+    fontSize: 14,
+    color: "#232323",
+    marginTop: 4,
+  },
   bookmarkIconStyling: {
     width: 22,
     height: 22,
@@ -443,6 +457,10 @@ const styles = StyleSheet.create({
     width: "70%",
     aspectRatio: 1,
   },
+  load: {
+    width: 100,
+    objectFit: "contain"
+  }
 });
 
 export default SliderCurrent;
