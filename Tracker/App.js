@@ -67,13 +67,12 @@ export default function App() {
             ) : (
               // If token doesn't exist, navigate to Onboarding
               <>
+                <Stack.Screen name="Authentication" component={AuthNavigator} />
                 <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
                 <Stack.Screen name="Permissions" component={Permission} />
               </>
             )} 
-              <Stack.Screen name="Authentication" component={AuthNavigator} />
               <Stack.Screen name="ServerScreen" component={ServerScreen} />
-              <Stack.Screen name="Permissions" component={Permission} />
               <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
         </Stack.Navigator>
       </BottomSheetModalProvider>

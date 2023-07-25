@@ -13,11 +13,46 @@ import React, { useEffect, useRef, useState } from "react";
 import Overlay from "../../../components/overlay";
 const { height, width } = Dimensions.get("window");
 import LogoutModal from "../../../components/logoutmodal";
+import { ActivityIndicator } from "react-native";
+import api from "../../../services/api";
 
 const SettingsScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
   const slideInAnimation = useRef(new Animated.Value(100)).current;
   const [openModal, setModal] = useState(false)
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const get_email = async () => {
+      try {
+        const response = await api.get("get_email/");
+        if (response.status === 200) {
+          setEmail(response.data.email);
+        } else {
+          console.error("Error: Unexpected response status:", response.status);
+        }
+      } catch (error) {
+        console.error(error)
+        if (!error.response) {
+          // No Internet Connection Error
+          
+          navigation.navigate('NoNetwork');
+          return;
+        }
+    
+        if (error.response.status === 500 || error.response.status === 502 ) {
+          // Server Error
+          navigation.navigate('ServerScreen');
+          return;
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    get_email();
+  }, []);
 
   useEffect(() => {
     const fadeIn = Animated.timing(fadeInAnimation, {
@@ -64,7 +99,14 @@ const SettingsScreen = ({ navigation }) => {
                 style={styles.avatarStyling}
                 resizeMode="contain"
               />
-              <Text style={styles.haaderTitleVar}>justice@gmail.com</Text>
+              {
+                loading ? 
+                (
+                  <ActivityIndicator />
+                ) : (
+                  <Text style={styles.haaderTitleVar}>{email}</Text>
+                )
+              }
             </View>
             <TouchableOpacity style={styles.notificationBox}>
               <Image

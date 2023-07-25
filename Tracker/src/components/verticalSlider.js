@@ -154,7 +154,14 @@ const SliderSaved = ({ navigation }) => {
             renderItem={() => (
               <View style={styles.itemContainer}>
                 {/* Placeholder for your skeleton UI */}
-                <View style={styles.imageSkeleton} />
+                <View style={styles.imageSkeleton}>
+                <LottieView
+                    source={require("../images/mapload.json")}
+                    autoPlay
+                    loop
+                    style={styles.load}
+                  />
+                </View>
                 <View style={styles.carouselContainer}>
                   <View style={styles.carouselContainerExtraInfo}>
                     <View style={styles.logoSkeleton} />
@@ -214,9 +221,12 @@ const styles = StyleSheet.create({
   flatListContentContainer: {},
   imageSkeleton: {
     width: "100%",
-    height: 170,
+    height: 210,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 8,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
+    paddingHorizontal: "7%"
   },
   carouselContainer: {
     flex: 1,
@@ -249,19 +259,19 @@ const styles = StyleSheet.create({
   stationTextSkeleton: {
     width: "40%",
     height: 14,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   stationLocationSkeleton: {
     width: "80%",
     height: 14,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   priceSkeleton: {
     width: 40,
     height: 20,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   logoSkeleton: {
@@ -269,7 +279,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 400,
     marginRight: 7,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
   },
   extraFunctionsStylingSkeleton: {
     width: "100%",
@@ -278,26 +288,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   trafficIndicatorSkeleton: {
     width: 85,
     height: "100%",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   upvoteButtonSkeleton: {
     width: 150,
     height: "100%",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   lastUpdatedPriceSkeleton: {
     justifyContent: "flex-end",
     width: "100%",
     height: 35,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   itemContainer: {
@@ -412,6 +422,10 @@ const styles = StyleSheet.create({
     width: '70%',
     aspectRatio: 1,
   },
+  load: {
+    width: 300,
+    objectFit: "contain"
+  }
 });
 
 export default SliderSaved;

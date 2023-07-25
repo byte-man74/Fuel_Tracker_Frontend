@@ -185,7 +185,6 @@ const SliderCurrent = ({ navigation }) => {
           renderItem={() => (
             <View style={styles.itemContainer}>
                 <View style={styles.imageSkeleton}>
-                  <Text style={styles.emptyDataText}>Finding fueling station 8KM near you</Text>
                   <LottieView
                     source={require("../images/mapload.json")}
                     autoPlay
@@ -202,6 +201,7 @@ const SliderCurrent = ({ navigation }) => {
                     </View>
                     <View style={styles.priceSkeleton} />
                   </View>
+                  <View style={styles.lastUpdatedPriceSkeleton} />
                   <View style={styles.lastUpdatedPriceSkeleton} />
                 </View>
        
@@ -252,11 +252,11 @@ const styles = StyleSheet.create({
   flatListContentContainer: {},
   imageSkeleton: {
     width: "100%",
-    height: 170,
+    height: 210,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     paddingHorizontal: "7%"
   },
   carouselContainer: {
@@ -288,19 +288,19 @@ const styles = StyleSheet.create({
   stationTextSkeleton: {
     width: "40%",
     height: 14,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   stationLocationSkeleton: {
     width: "80%",
     height: 14,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   priceSkeleton: {
     width: 40,
     height: 20,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   logoSkeleton: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 400,
     marginRight: 7,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
   },
   extraFunctionsStylingSkeleton: {
     width: "100%",
@@ -317,26 +317,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666680",
     borderRadius: 4,
   },
   trafficIndicatorSkeleton: {
     width: 85,
     height: "100%",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666680",
     borderRadius: 4,
   },
   upvoteButtonSkeleton: {
     width: 150,
     height: "100%",
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   lastUpdatedPriceSkeleton: {
     justifyContent: "flex-end",
     width: "100%",
     height: 35,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#66666610",
     borderRadius: 4,
   },
   itemContainer: {
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
   emptyDataText: {
     fontSize: 16,
     fontFamily: "Regular",
-    color: "#666666",
+    color: "#999999",
     textAlign: "center",
   },
   carouselItemImage: {
@@ -458,7 +458,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   load: {
-    width: 100,
+    width: 300,
     objectFit: "contain"
   }
 });

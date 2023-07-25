@@ -9,7 +9,10 @@ const LogoutModal = ({ setModal, navigation }) => {
 
     const handleLogout = async () => {
         await AsyncStorage.removeItem("userAccessToken");
-        navigation.navigate('Authentication')
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Authentication' }],
+          });
     }
 
     return (
