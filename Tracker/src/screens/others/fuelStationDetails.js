@@ -216,7 +216,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           <View style={styles.otherDetails}>
             <View style={styles.carouselContainerExtraInfo}>
               <Image
-                source={require("../../../assets/shell.jpg")}
+                source={require("../../../assets/shell.png")}
                 style={{
                   width: 35,
                   height: 35,

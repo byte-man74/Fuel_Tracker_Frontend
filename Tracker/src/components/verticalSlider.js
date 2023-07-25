@@ -18,7 +18,7 @@ const ITEM_WIDTH = width * 0.68;
 const SliderSaved = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const default_logo = require("../../assets/shell.jpg")
+  const default_logo = require("../../assets/shell.png")
   const e_data = []
   
  

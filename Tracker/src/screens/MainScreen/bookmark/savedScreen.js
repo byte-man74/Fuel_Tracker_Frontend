@@ -86,7 +86,7 @@ const SavedScreen = ({ navigation }) => {
         <View style={styles.carouselContainer}>
           <View style={styles.carouselContainerExtraInfo}>
             <Image
-              source={require("../../../../assets/shell.jpg")}
+              source={require("../../../../assets/shell.png")}
               style={{
                 width: 35,
                 height: 35,
