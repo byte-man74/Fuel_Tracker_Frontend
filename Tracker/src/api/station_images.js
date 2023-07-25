@@ -79,6 +79,8 @@ const process_station = (station) => {
       id: station.station.id,
       name: station.station.name,
       price: station.price.amount,
+      latitude: station.position.latitude,
+      longitude: station.position.longitude,
       address: address, // Shorten this guy
       traffic: traffic_status, // Add a check here 
       image: activeImage,
