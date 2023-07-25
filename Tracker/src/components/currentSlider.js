@@ -259,32 +259,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#66666610",
     paddingHorizontal: "7%"
   },
-  carouselContainer: {
-    flex: 1,
-    width: "100%",
-    minHeight: 145,
-    backgroundColor: "#E0E0E0",
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  carouselContainerExtraInfo: {
-    width: "100%",
-    top: 10,
-    minHeight: 60,
-
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#E0E0E0",
-    borderRadius: 4,
-  },
-  carouselContainerExtraInfoText: {
-    minWidth: 50,
-    minHeight: 140,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    backgroundColor: "#E0E0E0",
-    borderRadius: 4,
-  },
   stationTextSkeleton: {
     width: "40%",
     height: 14,

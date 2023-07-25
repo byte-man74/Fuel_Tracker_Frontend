@@ -22,7 +22,7 @@ const SavedScreen = ({ navigation }) => {
   const slideInAnimation = useRef(new Animated.Value(100)).current;
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const default_logo = require("../../../../assets/shell.jpg")
+
   
  
 
