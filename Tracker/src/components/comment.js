@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
       color: "#232323",
     },
-    stationLocation: {
+   stationLocation : {
       fontFamily: "Regular",
       fontSize: 14,
       color: "#232323",
