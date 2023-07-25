@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
         width: '100%',
-        paddingVertical: 6,
         height: 100,
         paddingVertical: 12,
         borderBottomWidth: 1,
