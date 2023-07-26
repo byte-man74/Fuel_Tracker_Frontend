@@ -261,13 +261,13 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     top: 0,
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
   mainBox: {
     flex: 1,
     resizeMode: "cover",
     backgroundColor: "white",
-
+    paddingBottom: "80%",
     justifyContent: "flex-start",
     minHeight: height * 1.23,
     paddingHorizontal: "4%",
