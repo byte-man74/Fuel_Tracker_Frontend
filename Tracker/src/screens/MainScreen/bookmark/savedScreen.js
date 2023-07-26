@@ -8,12 +8,15 @@ import {
   TouchableOpacity,
   TextInput,
   Animated,
-  FlatList
+  FlatList,
+  SafeAreaView
 } from "react-native";
 import SkeletonLoader from "../../../components/skeletonui";
 import React, { useEffect, useRef, useState } from "react";
 import api from "../../../services/api";
 import process_station from "../../../api/station_images";
+import LottieView from 'lottie-react-native';
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -166,7 +169,7 @@ const SavedScreen = ({ navigation }) => {
   return (
     <>
       <View style={styles.headerBox}>
-        <View style={styles.homeContainerHeader}>
+        <SafeAreaView style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
             <Image
               source={require("../../../images/avatar.png")}
@@ -181,7 +184,7 @@ const SavedScreen = ({ navigation }) => {
               style={styles.iconStyling}
             />
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </View>
         <View style={styles.mainBox}>
           <TouchableOpacity
@@ -224,6 +227,20 @@ const SavedScreen = ({ navigation }) => {
                 <SkeletonLoader />
                 <SkeletonLoader />
               </>
+            ) : real_data.length === 0 ? (
+              // Show UI for empty data array
+              <View style={styles.emptyDataContainer}>
+                <LottieView
+                  source={require("../../../images/emptypage.json")}
+                  autoPlay
+                  loop
+                  style={styles.carouselItemImage}
+                />
+                <Text style={styles.emptyDataText}>
+                  No fueling station in your location has been registered on our
+                  database.
+                </Text>
+              </View>
             ) : (
               <FlatList
               data={real_data}
@@ -253,7 +270,6 @@ const styles = StyleSheet.create({
   homeContainerHeader: {
     width: "100%",
     height: 50,
-    top: 40,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "white"
@@ -332,7 +348,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     width: "100%",
     height: 50,
-    marginTop: 10,
     marginBottom: 30,
   },
   searchInput: {

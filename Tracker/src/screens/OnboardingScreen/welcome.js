@@ -12,25 +12,26 @@ const Welcome = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../images/Background.png')}
-      style={styles.backgroundImage}
-    >
-      <SafeAreaView style={styles.container}>
-        <Slider />
-        <View style={styles.content}>
-          <Button title="Get Started"
-            onPress={handleButtonPress}
-            color='#1E1E1E' // Custom color
-            width={180} // Custom width
-            height={50} />
-        </View>
-      </SafeAreaView>
-      <Image
-        source={require('../../images/bottom_image.png')}
-        style={styles.bottomImage}
-      />
-    </ImageBackground>
+      <ImageBackground
+        source={require('../../images/Background.png')}
+        style={styles.backgroundImage}
+      >
+        <SafeAreaView style={styles.container}>
+          <Slider />
+          <View style={styles.content}>
+            <Button title="Get Started"
+              onPress={handleButtonPress}
+              color='#1E1E1E' // Custom color
+              width={180} // Custom width
+              height={50} />
+          </View>
+        </SafeAreaView>
+        <Image
+          source={require('../../images/bottom_image.png')}
+          style={styles.bottomImage}
+        />
+      </ImageBackground>
+
   );
 };
 

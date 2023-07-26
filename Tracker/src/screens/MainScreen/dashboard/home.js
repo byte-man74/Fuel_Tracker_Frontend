@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Platform, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
 import React, { useEffect, useRef,useState} from 'react'
 import SliderCurrent from '../../../components/currentSlider';
 import api from '../../../services/api';
 import process_station from '../../../api/station_images';
 import SliderSaved from '../../../components/verticalSlider';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const { height} = Dimensions.get('window');
@@ -62,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
     }, []);
     return (
         <>
-            <View style={styles.headerBox}>
+            <SafeAreaView style={styles.headerBox}>
                 <View style={styles.homeContainerHeader}>
                     <View style={styles.avatarWithName}>
                         <Image
@@ -79,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
+            </SafeAreaView>
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.mainBox}>
                     <View style={styles.averagePriceBox}>
@@ -146,14 +147,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingHorizontal: '4%',
         backgroundColor: '#FFFFFF',
-        minHeight: 90
+        minHeight: 90,
     },
     homeContainerHeader: {
         width: "100%",
-        height: 50,
-        top: 45,
+        height: 30,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        paddingHorizontal: "4%",
+        justifyContent: 'space-between',
+        
     },
     container: {
         flexGrow: 1,

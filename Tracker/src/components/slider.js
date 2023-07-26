@@ -5,7 +5,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LottieView from 'lottie-react-native';
 
 const { height, width } = Dimensions.get('window');
-const statusBarHeight = StatusBar.currentHeight || 0;
 
 const paragraphOne = 'The tracker constantly monitors fuel prices and updates them in real-time to reflect the current market conditions accurately.';
 const paragraphTwo = 'Just turn on your location and you will find the nearest filling station around you.';
@@ -68,7 +67,7 @@ Slider.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        top: -statusBarHeight,
+        top: "3.5%",
         minHeight: height * 0.6,
         width: width,
     },

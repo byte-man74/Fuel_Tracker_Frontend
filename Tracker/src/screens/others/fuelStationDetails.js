@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+  SafeAreaView
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../components/bottomSheet";
@@ -156,7 +157,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           source={require("../../images/backgrnd.png")}
           style={styles.fullBackground}
         >
-          <View style={styles.header}>
+          <SafeAreaView style={styles.header}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
                 style={{ width: 32, height: 30 }}
@@ -169,7 +170,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 source={require("../../icons/options.png")}
               />
             </TouchableOpacity>
-          </View>
+          </SafeAreaView>
         </ImageBackground>
         <View style={styles.stationInfo}>
           <Image style={styles.stationImage} source={item.image} />
@@ -236,6 +237,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   height: "100%",
                   flexDirection: "row",
                   alignItems: "center",
+                  flexWrap: "wrap"
                 }}
               >
                 <TouchableOpacity style={styles.dirButton}>
@@ -578,7 +580,7 @@ const styles = StyleSheet.create({
   header: {
     width: "100%",
     height: 40,
-    top: 30,
+    top: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -704,10 +706,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginRight: 8,
+    marginTop: "5%"
   },
   otherDetails: {
     width: "94%",
-    minHeight: 120,
+    minHeight: 160,
     borderBottomColor: "#D9D9D9",
     borderBottomWidth: 1,
     marginBottom: 20,

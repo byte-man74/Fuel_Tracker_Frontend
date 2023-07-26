@@ -119,7 +119,7 @@ const SkeletonLoader = () => {
   };
 
   return (
-    <TouchableOpacity
+    <View
       onPress={() => navigation.navigate("FuelStationDetails")}
       style={skeletonContainerStyle}
     >
@@ -260,7 +260,7 @@ const SkeletonLoader = () => {
           },
         ]}
       />
-    </TouchableOpacity>
+    </View>
   );
 };
 

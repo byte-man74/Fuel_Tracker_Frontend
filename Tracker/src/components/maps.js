@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps';
 import api from '../services/api';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
