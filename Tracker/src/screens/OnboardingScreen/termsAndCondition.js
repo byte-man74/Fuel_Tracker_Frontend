@@ -20,7 +20,7 @@ const TermsAndConditions = ({ navigation }) => {
                 >
                     <View style={styles.formHeader}>
                         <Text style={styles.formHeaderTitle}>
-                            Accept price Tracker Terms & Condition
+                            Accept PriceWiz Terms & Condition
                         </Text>
                         <Text style={styles.formHeaderText}>
                             By selecting “I Agree” below, I have reviewed and agree to the<Text style={{ fontFamily: 'MulishBold' }}>Terms of Use </Text>and acknowledge the <Text style={{ fontFamily: 'MulishBold' }}>Privacy Policy</Text>.

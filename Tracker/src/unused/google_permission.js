@@ -85,9 +85,9 @@ const Permission = ({ navigation }) => {
                 <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
                     <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />
                     <View style={styles.formHeader}>
-                        <Text style={styles.formHeaderTitle}>Give priceTracker access to your precise location</Text>
+                        <Text style={styles.formHeaderTitle}>Give pricewiz access to your precise location</Text>
                         <Text style={styles.formHeaderText}>
-                            priceTracker needs your precise location to give you turn-by-turn directions and other useful features.
+                            pricewiz needs your precise location to give you turn-by-turn directions and other useful features.
                             <Text style={{ fontFamily: 'MulishBold' }}> View Privacy Policy.</Text>
                         </Text>
                         <Text style={[styles.formHeaderText, { marginTop: 30 }]}>
