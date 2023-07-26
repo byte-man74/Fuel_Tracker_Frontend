@@ -49,14 +49,15 @@ const styles = StyleSheet.create({
     width: width,
     marginTop: -40,
     height: 80,
-    justifyContent: 'center',
+    justifyContent: 'center', 
     alignItems: 'center',
   },
   bottomImage: {
-    position: 'absolute',
-    bottom: 0,
+    position: 'relative',
+    bottom: "8%",
     alignSelf: 'center',
     width: '100%',
+    zIndex: 1
   },
 });
 

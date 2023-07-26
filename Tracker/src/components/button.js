@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 40,
         borderRadius: 8,
+        position: "relative",
+        zIndex: 1000,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',

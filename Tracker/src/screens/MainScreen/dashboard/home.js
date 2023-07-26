@@ -121,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
                             <SliderCurrent navigation={navigation}/>
                         </Animated.View>
                     </View>
-                    <View style={styles.nearbyFuelingStationContainer}>
+                    <View style={{ ...styles.nearbyFuelingStationContainer, marginBottom: 0 }}>
                         <View style={styles.nearbyFuelingStationContainerHeader}>
                             <Text style={styles.haaderTitle}>Saved fueling stations</Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Saved')}><Text style={styles.headerText}>view all</Text></TouchableOpacity>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: 'white',
+        paddingBottom: "3%"
     },
     mainBox: {
         top: 10,
@@ -165,7 +166,8 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'flex-start',
         minHeight: height * 1.23,
-        paddingHorizontal: '4%'
+        paddingHorizontal: '4%',
+
     },
     avatarWithName: {
         minWidth: '10%',
@@ -247,7 +249,7 @@ const styles = StyleSheet.create({
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
-        marginBottom: 40
+        marginBottom: "14%"
     },
     nearbyFuelingStationContainerHeader: {
         width: '100%',
