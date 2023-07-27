@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     mainBox: {
-        top: 10,
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
