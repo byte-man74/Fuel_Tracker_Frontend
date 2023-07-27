@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingHorizontal: '4%',
         backgroundColor: '#FFFFFF',
-        minHeight: 90,
+        minHeight: 70,
     },
     homeContainerHeader: {
         width: "100%",
@@ -160,14 +160,13 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: 'white',
-        paddingBottom: "3%"
     },
     mainBox: {
         top: 10,
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height * 1.23,
+        minHeight: height * 1.34,
         paddingHorizontal: '4%',
 
     },

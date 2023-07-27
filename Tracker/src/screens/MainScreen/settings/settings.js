@@ -15,6 +15,7 @@ const { height, width } = Dimensions.get("window");
 import LogoutModal from "../../../components/logoutmodal";
 import { ActivityIndicator } from "react-native";
 import api from "../../../services/api";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -77,7 +78,7 @@ const SettingsScreen = ({ navigation }) => {
     ) : (
       <></>
     )}
-      <View style={styles.headerBox}>
+      <SafeAreaView style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
             <Text style={styles.haaderTitle}>Settings</Text>
@@ -89,7 +90,7 @@ const SettingsScreen = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.mainBox}>
           <View style={styles.homeContainerHeader2}>
@@ -161,14 +162,13 @@ const styles = StyleSheet.create({
   homeContainerHeader: {
     width: "100%",
     height: 50,
-    top: 30,
     flexDirection: "row",
+    paddingHorizontal: "4%",
     justifyContent: "space-between",
   },
   homeContainerHeader2: {
     width: "100%",
     height: 50,
-    top: 5,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   averagePriceBox: {
     width: "100%",
     miHeight: 50,
-    top: 4,
+    top: 74,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",

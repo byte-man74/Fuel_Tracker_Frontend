@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
-  SafeAreaView
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../components/bottomSheet";
@@ -18,7 +17,7 @@ import Overlay from "../../components/overlay";
 import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/comment";
 import api from "../../services/api";
-
+import { SafeAreaView } from "react-native";
 
 
 

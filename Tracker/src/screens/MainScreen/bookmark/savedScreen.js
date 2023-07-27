@@ -9,14 +9,13 @@ import {
   TextInput,
   Animated,
   FlatList,
-  SafeAreaView
 } from "react-native";
 import SkeletonLoader from "../../../components/skeletonui";
 import React, { useEffect, useRef, useState } from "react";
 import api from "../../../services/api";
 import process_station from "../../../api/station_images";
 import LottieView from 'lottie-react-native';
-
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height, width } = Dimensions.get("window");
 
@@ -168,8 +167,8 @@ const SavedScreen = ({ navigation }) => {
   
   return (
     <>
-      <View style={styles.headerBox}>
-        <SafeAreaView style={styles.homeContainerHeader}>
+      <SafeAreaView  style={styles.headerBox}>
+        <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
             <Image
               source={require("../../../images/avatar.png")}
@@ -184,8 +183,8 @@ const SavedScreen = ({ navigation }) => {
               style={styles.iconStyling}
             />
           </TouchableOpacity>
-        </SafeAreaView>
-      </View>
+        </View>
+      </SafeAreaView >
         <View style={styles.mainBox}>
           <TouchableOpacity
             style={styles.searchContainer}
@@ -261,22 +260,21 @@ export default SavedScreen;
 const styles = StyleSheet.create({
   headerBox: {
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "flex-start",
-    paddingHorizontal: "4%",
-    backgroundColor: "#FFFFFF",
-    minHeight: 90,
-  },
-  homeContainerHeader: {
+    resizeMode: 'cover',
+    justifyContent: 'flex-start',
+    backgroundColor: '#FFFFFF',
+    minHeight: 70,
+},
+homeContainerHeader: {
     width: "100%",
-    height: 50,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "white"
-  },
+    height: 30,
+    flexDirection: 'row',
+    paddingHorizontal: "4%",
+    justifyContent: 'space-between',
+    
+},
   container: {
     flexGrow: 1,
-    top: 0,
     backgroundColor: "white",
   },
   mainBox: {
@@ -285,8 +283,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingBottom: "80%",
     justifyContent: "flex-start",
-    minHeight: height * 1.23,
+    minHeight: height * 1.3,
     paddingHorizontal: "4%",
+    paddingBottom: "90%"
   },
   avatarWithName: {
     minWidth: "10%",
@@ -347,6 +346,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: "100%",
+    top: 20,
     height: 50,
     marginBottom: 30,
   },

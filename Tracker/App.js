@@ -16,7 +16,7 @@ import Permission from "./src/screens/OnboardingScreen/permission";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoNetworkScreen from "./src/screens/others/noNetwork";
 import ServerScreen from "./src/screens/others/serverError";
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -52,6 +52,7 @@ export default function App() {
     <NavigationContainer>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
+          <SafeAreaProvider>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {token ? (
               // If token exists, navigate to MainScreen
@@ -78,6 +79,7 @@ export default function App() {
             <Stack.Screen name="Permissions" component={Permission} />
             <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
           </Stack.Navigator>
+          </SafeAreaProvider>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </NavigationContainer>
