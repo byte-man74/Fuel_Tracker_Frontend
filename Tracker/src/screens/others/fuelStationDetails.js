@@ -17,7 +17,7 @@ import Overlay from "../../components/overlay";
 import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/comment";
 import api from "../../services/api";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 
 
 
@@ -115,30 +115,21 @@ const FuelStationDetails = ({ navigation, route }) => {
   }, []);
 
   const add_comment = () => {
-    setcommentActivityLoading(true)
+    setcommentActivityLoading(true);
     api
-    .post(`/add_comments/${item.id}/`, {
-      "comment": commentText
-    })
-    .then((response) => {
-      setCommentText(response.data.amount);
-      setcommentActivityLoading(false)
-    })
-    .catch((error) => {
-      if (!error.response) {
-        // No Internet Connection Error
-        navigation.navigate('NoNetwork');
-        return;
-      }
-      if (error.response.status === 500 || error.response.status === 502 ) {
-        // Server Error
-        navigation.navigate('ServerScreen');
-        return;
-      }
-      setcommentActivityLoading(false)
-    });
-  
-  }
+      .post(`/add_comments/${item.id}/`, {
+        comment: commentText,
+      })
+      .then((response) => {
+        setComments((prevComments) => [...prevComments, response.data]);
+        setCommentText('');
+        setcommentActivityLoading(false);
+      })
+      .catch((error) => {
+        // Error handling code
+        setcommentActivityLoading(false);
+      });
+  };
   
   const handleTextChange = (newText) => {
     // Update the state with the new text value
@@ -579,7 +570,7 @@ const styles = StyleSheet.create({
   header: {
     width: "100%",
     height: 40,
-    top: 10,
+    top: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

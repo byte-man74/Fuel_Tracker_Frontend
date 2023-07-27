@@ -346,7 +346,7 @@ homeContainerHeader: {
   },
   searchContainer: {
     width: "100%",
-    top: 5,
+    top: 15,
     height: 50,
     marginBottom: 30,
   },
