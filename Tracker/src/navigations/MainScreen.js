@@ -3,11 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainDashboardNavigator from './MainScreenDashboardNavigation';
 import SavedScreen from '../screens/MainScreen/bookmark/savedScreen';
 import SettingsScreen from '../screens/MainScreen/settings/settings';
+import SearchScreen from '../screens/MainScreen/dashboard/searchScreen';
 
 
 
 const TabArr = [
     { route: 'Dashboard', label: 'Home', activeIcon: require('../icons/home_active.png'), inActiveIcon: require('../icons/home.png'), component: MainDashboardNavigator },
+    { route: 'Maps', label: 'Map', activeIcon: require('../icons/maps_active.png'), inActiveIcon: require('../icons/maps.png'), component: SearchScreen },
     { route: 'Saved', label: 'Saved', activeIcon: require('../icons/bookmark_active.png'), inActiveIcon: require('../icons/bookmark.png'), component: SavedScreen },
     { route: 'Settings', label: 'Settings', activeIcon: require('../icons/settings_active.png'), inActiveIcon: require('../icons/settings.png'), component: SettingsScreen },
 ];
