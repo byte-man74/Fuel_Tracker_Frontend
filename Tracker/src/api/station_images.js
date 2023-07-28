@@ -73,7 +73,6 @@ const process_station = (station) => {
  
     const traffic_status = get_traffic_rating(station.traffic)
     const activeImage = matchedImage ? matchedImage.image : images[0].image;
-    console.log(activeImage)
   
     const data = {
       id: station.station.id,

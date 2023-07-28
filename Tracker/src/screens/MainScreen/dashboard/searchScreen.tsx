@@ -1,7 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Animated, PanResponder, Platform, StyleSheet, View, Dimensions, Keyboard, UIManager } from 'react-native';
 import MapsComponent from '../../../components/maps';
 import SearchItemComponent from '../../../components/searchItemComponent';
+import api from '../../../services/api';
+import process_station from '../../../api/station_images';
 
 const { height } = Dimensions.get('window');
 
@@ -43,6 +45,44 @@ const SearchScreen = ({ navigation }) => {
       },
     })
   ).current;
+  const [fuelStations, setFuelStations] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const real_data = []
+
+  useEffect(() => {
+    const get_saved_station = async () => {
+      try {
+        const response = await api.get('get_nearby_fueling_stations/');
+        if (response.status === 200) {
+          setFuelStations(response.data.fueling_stations);
+          setLoading(false);
+        } else {
+          console.error('Error: Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        if (!error.response) {
+          // No Internet Connection Error
+          navigation.navigate('NoNetwork');
+          return;
+        }
+    
+        if (error.response.status === 500 || error.response.status === 502 ) {
+          // Server Error
+          navigation.navigate('ServerScreen');
+          return;
+        }
+      }
+    };
+
+    get_saved_station();
+  }, []);
+  if (fuelStations) {
+    
+    fuelStations.forEach((station) => {
+      const processed_data = process_station(station);
+      real_data.push(processed_data);
+    });
+  }
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', handleKeyboardDidShow);
@@ -99,12 +139,12 @@ const SearchScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <MapsComponent />
+      <MapsComponent loading={loading} navigation={navigation} data={real_data} />
       <Animated.View style={[styles.bottomSheet, bottomSheetAnimation]}>
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
         </View>
-        <SearchItemComponent navigation={navigation} />
+        <SearchItemComponent  navigation={navigation} />
       </Animated.View>
     </View>
   );
