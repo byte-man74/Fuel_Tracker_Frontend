@@ -63,7 +63,7 @@ const MapsComponent = ({loading, navigation, data}) => {
               <Callout>
                 <View>
                   <Text>{station.name}</Text>
-                  <Text>{station.amount}</Text>
+                  <Text>{station.price}/L</Text>
                 </View>
               </Callout>
             </Marker>
