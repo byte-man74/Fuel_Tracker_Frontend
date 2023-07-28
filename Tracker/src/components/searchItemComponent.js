@@ -16,7 +16,7 @@ const SearchItemComponent = ({ navigation, data, loading}) => {
                 <View style={{ justifyContent: 'space-between', height: '100%' }}>
                     <Text style={styles.stationText}>{item.name}</Text>
                     <Text style={styles.stationLocation}>{item.address}</Text>
-                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>{item.amount}</Text> | {item.time_posted}</Text>
+                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>₦{item.price}/L</Text> | {item.time_posted}</Text>
                 </View>
             </View>
         </TouchableOpacity>

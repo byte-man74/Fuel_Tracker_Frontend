@@ -147,19 +147,21 @@ const FuelStationDetails = ({ navigation, route }) => {
           source={require("../../images/backgrnd.png")}
           style={styles.fullBackground}
         >
-          <SafeAreaView style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+          <SafeAreaView>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Image
+                  style={{ width: 32, height: 30 }}
+                  source={require("../../icons/back.png")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={openBottomOption}>
               <Image
-                style={{ width: 32, height: 30 }}
-                source={require("../../icons/back.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openBottomOption}>
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../icons/options.png")}
-              />
-            </TouchableOpacity>
+                  style={{ width: 30, height: 30 }}
+                  source={require("../../icons/options.png")}
+                />
+              </TouchableOpacity>
+            </View>
           </SafeAreaView>
         </ImageBackground>
         <View style={styles.stationInfo}>
@@ -570,10 +572,8 @@ const styles = StyleSheet.create({
   header: {
     width: "100%",
     height: 40,
-    top: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
   stationInfo: {
     width: "100%",
