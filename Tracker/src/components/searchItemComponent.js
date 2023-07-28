@@ -1,32 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 
 const yodata = [
     { id: 1, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.png'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260", time_posted: "3 days ago" },
-    { id: 2, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300", time_posted: "3 days ago" },
-    { id: 3, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "Kuje zone 3", price: "300", time_posted: "3 days ago" },
-    { id: 4, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.png'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260", time_posted: "3 days ago" },
-    { id: 5, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300", time_posted: "3 days ago" },
-    { id: 6, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "wuse zone 3", price: "300", time_posted: "3 days ago" },
-    { id: 7, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.png'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260", time_posted: "3 days ago" },
-    { id: 8, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300", time_posted: "3 days ago" },
-    { id: 9, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "Kuje zone 3", price: "300", time_posted: "3 days ago" },
-    { id: 10, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.png'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260", time_posted: "3 days ago" },
-    { id: 11, coverImage: require('../../assets/image2.jpg'), logo: require('../../assets/nnpc.png'), name: 'NNPC', location: "wuse zone 3", price: "₦300", time_posted: "3 days ago" },
-    { id: 12, coverImage: require('../../assets/image3.jpg'), logo: require('../../assets/chevron.png'), name: 'Chevron', location: "wuse zone 3", price: "300", time_posted: "3 days ago" },
     // Add more data items as needed
 ];
 
-const SearchItemComponent = ({ navigation }) => {
+const SearchItemComponent = ({ navigation, data, loading}) => {
+
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer}>
             <View style={styles.stationDetails}>
-                <Image source={item.logo} style={styles.stationImage} />
+                <Image source={yodata[0].logo} style={styles.stationImage} />
                 <View style={{ justifyContent: 'space-between', height: '100%' }}>
                     <Text style={styles.stationText}>{item.name}</Text>
-                    <Text style={styles.stationLocation}>{item.location}</Text>
-                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>{item.price}</Text> | {item.time_posted}</Text>
+                    <Text style={styles.stationLocation}>{item.address}</Text>
+                    <Text style={styles.stationLocation}> <Text style={{ fontFamily: 'MulishBold'}}>{item.amount}</Text> | {item.time_posted}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -55,11 +45,19 @@ const SearchItemComponent = ({ navigation }) => {
                         <Image style={styles.headerLinkIcon} source={require('../icons/switch.png')} />
                     </TouchableOpacity>
                 </View>
-                <FlatList
-                    data={yodata}
+                {loading ? (
+                    <View style={styles.loadingContainer} >
+                        <ActivityIndicator size="large" color="orange" />
+                    </View>
+                    
+                ): (
+                    <FlatList
+                    data={data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id.toString()}
-                />
+                    />
+                )
+                }
             </View>
         </View>
     );
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
-        marginBottom: 80,
+        paddingBottom: 280,
     },
     nearbyFuelingStationContainerHeader: {
         width: '100%',
@@ -135,6 +133,7 @@ const styles = StyleSheet.create({
     stationImage: {
         width: 50,
         height: 50,
+        borderRadius: "50%",
         marginRight: 10
     },
     stationText: {
@@ -147,4 +146,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#232323',
     },
+    loadingContainer: {
+        width: "100%",
+        height: "100%",
+        paddingTop: 40
+    }
 });

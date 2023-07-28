@@ -144,7 +144,7 @@ const SearchScreen = ({ navigation }) => {
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
         </View>
-        <SearchItemComponent  navigation={navigation} />
+        <SearchItemComponent data={real_data} loading={loading} navigation={navigation} />
       </Animated.View>
     </View>
   );
