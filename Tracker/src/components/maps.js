@@ -25,8 +25,8 @@ const MapsComponent = ({loading, navigation, data}) => {
       setInitialRegion({
         latitude,
         longitude,
-        latitudeDelta: 0.2,
-        longitudeDelta: 0.2,
+        latitudeDelta: 0.4,
+        longitudeDelta: 0.4,
       });
     })();
   }, []);
