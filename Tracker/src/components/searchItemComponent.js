@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 
 const yodata = [
@@ -7,10 +7,19 @@ const yodata = [
 ];
 
 const SearchItemComponent = ({ navigation, data, loading}) => {
+    const [searchText, setSearchText] = useState('');
+    const [filteredData, setFilteredData] = useState(data);
 
+    useEffect(() => {
+        // Filter the data based on the search text
+        const filteredData = data.filter((item) =>
+          item.name.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setFilteredData(filteredData);
+      }, [searchText, data]);
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.itemContainer}>
+        <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate("FuelStationDetails", { item: item })}>
             <View style={styles.stationDetails}>
                 <Image source={yodata[0].logo} style={styles.stationImage} />
                 <View style={{ justifyContent: 'space-between', height: '100%' }}>
@@ -29,17 +38,22 @@ const SearchItemComponent = ({ navigation, data, loading}) => {
                     source={require('../icons/search.png')}
                     style={{ width: 28, height: 28, position: 'absolute', top: '22.5%', left: '3%' }}
                 />
-                <TextInput style={styles.searchInput} placeholder='Search' />
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder='Search'
+                    value={searchText}
+                    onChangeText={(text) => setSearchText(text)}
+                />
                 <TouchableOpacity
                     style={{ position: 'absolute', top: '22.5%', right: '3%' }}
                     onPress={() => navigation.navigate('SearchScreen')}
                 >
-                    <Image source={require('../icons/filter.png')} style={{ width: 28, height: 28 }} />
+                    {/* <Image source={require('../icons/filter.png')} style={{ width: 28, height: 28 }} /> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.nearbyFuelingStationContainer}>
                 <View style={styles.nearbyFuelingStationContainerHeader}>
-                    <Text style={styles.headerTitle}>Fueling stations near you</Text>
+                    <Text style={styles.headerTitle}>Fueling stations 500M near you</Text>
                     <TouchableOpacity style={styles.headerLinkContainer} onPress={() => navigation.navigate('MainScreen')}>
                         <Text style={styles.headerLink}>Grid view</Text>
                         <Image style={styles.headerLinkIcon} source={require('../icons/switch.png')} />
@@ -52,9 +66,9 @@ const SearchItemComponent = ({ navigation, data, loading}) => {
                     
                 ): (
                     <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id.toString()}
+                        data={filteredData}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id.toString()}
                     />
                 )
                 }
