@@ -4,6 +4,7 @@ import MapsComponent from '../../../components/maps';
 import SearchItemComponent from '../../../components/searchItemComponent';
 import api from '../../../services/api';
 import process_station from '../../../api/station_images';
+import * as Location from "expo-location";
 
 const { height } = Dimensions.get('window');
 
@@ -47,35 +48,64 @@ const SearchScreen = ({ navigation }) => {
   ).current;
   const [fuelStations, setFuelStations] = useState([]);
   const [loading, setLoading] = useState(true)
-  const real_data = []
+  const real_data = [];
+  const [currentLocation, setCurrentLocation] = useState(null);
+
+  const getCurrentLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Location permission denied");
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+      setCurrentLocation({ latitude, longitude });
+    } catch (error) {
+      console.log("Error getting location:", error);
+    }
+  };
 
   useEffect(() => {
+    getCurrentLocation();
+  }, []);
+
+  useEffect(() => {
+    console.log (currentLocation)
     const get_saved_station = async () => {
       try {
-        const response = await api.get('get_nearby_fueling_stations/');
+        const response = await api.post("closest_station/", {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+        });
         if (response.status === 200) {
           setFuelStations(response.data.fueling_stations);
-          setLoading(false);
         } else {
-          console.error('Error: Unexpected response status:', response.status);
+          console.error("Error: Unexpected response status:", response.status);
         }
       } catch (error) {
         if (!error.response) {
           // No Internet Connection Error
-          navigation.navigate('NoNetwork');
+          navigation.navigate("NoNetwork");
           return;
         }
-    
-        if (error.response.status === 500 || error.response.status === 502 ) {
+
+        if (error.response.status === 500 || error.response.status === 502) {
           // Server Error
-          navigation.navigate('ServerScreen');
+          navigation.navigate("ServerScreen");
           return;
         }
+      } finally {
+        setLoading(false);
       }
     };
 
-    get_saved_station();
-  }, []);
+    if (currentLocation) {
+      get_saved_station();
+    }
+  }, [currentLocation]);
+
   if (fuelStations) {
     
     fuelStations.forEach((station) => {

@@ -45,7 +45,6 @@ const SliderCurrent = ({ navigation }) => {
 
   const real_data = [];
   useEffect(() => {
-    console.log (currentLocation)
     const get_saved_station = async () => {
       try {
         const response = await api.post("closest_station/", {
