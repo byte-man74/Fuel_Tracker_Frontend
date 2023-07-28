@@ -53,7 +53,7 @@ const SearchItemComponent = ({ navigation, data, loading}) => {
             </View>
             <View style={styles.nearbyFuelingStationContainer}>
                 <View style={styles.nearbyFuelingStationContainerHeader}>
-                    <Text style={styles.headerTitle}>Fueling stations 500M near you</Text>
+                    <Text style={styles.headerTitle}>Fueling stations 10KM near you</Text>
                     <TouchableOpacity style={styles.headerLinkContainer} onPress={() => navigation.navigate('MainScreen')}>
                         <Text style={styles.headerLink}>Grid view</Text>
                         <Image style={styles.headerLinkIcon} source={require('../icons/switch.png')} />
