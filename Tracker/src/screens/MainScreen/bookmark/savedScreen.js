@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'flex-start',
     backgroundColor: '#FFFFFF',
-    minHeight: 70,x
+    minHeight: 70,
 },
 homeContainerHeader: {
     width: "100%",
