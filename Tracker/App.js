@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoNetworkScreen from "./src/screens/others/noNetwork";
 import ServerScreen from "./src/screens/others/serverError";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import DirectionScreen from "./src/screens/others/directions";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -78,6 +79,7 @@ export default function App() {
             <Stack.Screen name="ServerScreen" component={ServerScreen} />
             <Stack.Screen name="Permissions" component={Permission} />
             <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
+            <Stack.Screen name="Directions" component={DirectionScreen} />
           </Stack.Navigator>
           </SafeAreaProvider>
         </BottomSheetModalProvider>

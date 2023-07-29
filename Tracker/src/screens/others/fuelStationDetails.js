@@ -232,7 +232,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   flexWrap: "wrap"
                 }}
               >
-                <TouchableOpacity style={styles.dirButton}>
+                <TouchableOpacity style={styles.dirButton} onPress={() => navigation.navigate("Directions", { item: item })}>
                   <Image
                     source={require("../../icons/maps.png")}
                     style={{ width: 24, height: 24, marginRight: 5 }}
