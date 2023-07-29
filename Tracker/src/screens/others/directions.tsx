@@ -6,8 +6,8 @@ import DetailsComponent from '../../components/detailsComponent';
 
 const { height } = Dimensions.get('window');
 
-const BOTTOM_SHEET_MAX_HEIGHT = height * 0.55;
-const BOTTOM_SHEET_MIN_HEIGHT = height * 0.3;
+const BOTTOM_SHEET_MAX_HEIGHT = height * 0.25;
+const BOTTOM_SHEET_MIN_HEIGHT = height * 0.15;
 const MAX_UPWARD_TRANSLATE_Y = BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT;
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
 const DRAG_THRESHOLD = 50;

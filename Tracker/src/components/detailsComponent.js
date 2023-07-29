@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 
-const yodata = [
-    { id: 1, coverImage: require('../../assets/image1.jpg'), logo: require('../../assets/shell.png'), name: 'Ooando Station', location: "Lekki Phase 1, Lagos.", price: "₦260", time_posted: "3 days ago" },
-    // Add more data items as needed
-];
 
 const DetailsComponent = ({ navigation, data}) => {
 
@@ -14,13 +10,47 @@ const DetailsComponent = ({ navigation, data}) => {
                 <View style={styles.nearbyFuelingStationContainerHeader}>
                     <Text style={styles.headerTitle}>{data.name}</Text>
                     <TouchableOpacity style={styles.headerLinkContainer} onPress={() => navigation.navigate('MainScreen')}>
-                        <Text style={styles.headerLink}>Grid view</Text>
+                        <Text style={styles.headerLink}>Go back</Text>
                         <Image style={styles.headerLinkIcon} source={require('../icons/switch.png')} />
                     </TouchableOpacity>
                 </View>
-                    <View style={styles.loadingContainer} >
-                        <ActivityIndicator size="large" color="orange" />
+                <View style={{alignItems: "center"}}>
+                    <View style={styles.secondDetails}>
+                        <View
+                        style={{
+                            flexDirection: "row",
+                            width: "100%",
+                            alignItems: "center",
+                        }}
+                        >
+                        <Text style={styles.TextBold}>Fuel Price / Liter (₦)</Text>
+                        <View
+                            style={{
+                            width: 180,
+                            height: 30,
+                            backgroundColor: "#F6CA63",
+                            marginLeft: 10,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 8,
+                            }}
+                        >
+                            <Text style={styles.Text}>{data.votes} users approved 👍🏾</Text>
+                        </View>
+                        </View>
+                        <View
+                        style={{
+                            flexDirection: "row",
+                            width: "100%",
+                            alignItems: "center",
+                        }}
+                        >
+
+                            <Text style={styles.EditText}>₦{data.price}L</Text>
+                        <Text style={styles.TimeText}>{data.time_posted}</Text>
+                        </View>
                     </View>
+                </View>
             </View>
         </View>
     );
@@ -112,6 +142,37 @@ const styles = StyleSheet.create({
     loadingContainer: {
         width: "100%",
         height: "100%",
-        paddingTop: 40
-    }
+        paddingTop: 0
+    },
+    secondDetails: {
+        width: "94%",
+        minHeight: 90,
+        borderBottomColor: "#D9D9D9",
+        borderBottomWidth: 1,
+        marginBottom: 20,
+        justifyContent: "space-around",
+      },
+      TextBold: {
+        fontFamily: "SemiBold",
+        fontSize: 18,
+        color: "#232323",
+      },
+      Text: {
+        fontFamily: "Regular",
+        fontSize: 16,
+        color: "#232323",
+      },
+      TimeText: {
+        fontFamily: "Regular",
+        fontSize: 16,
+        color: "#232323",
+        position: "absolute",
+        right: 0,
+      },
+      EditText: {
+        fontFamily: "MulishBold",
+        fontSize: 18,
+        color: "#232323",
+        marginRight: 10,
+      },
 });
