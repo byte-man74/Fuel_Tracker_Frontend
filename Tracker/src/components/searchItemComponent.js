@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     stationImage: {
         width: 50,
         height: 50,
-        borderRadius: "50%",
+        borderRadius: 900,
         marginRight: 10
     },
     stationText: {

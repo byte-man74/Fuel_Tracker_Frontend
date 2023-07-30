@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+  KeyboardAvoidingView, 
+  Platform
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../components/bottomSheet";
@@ -29,13 +31,14 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [commentActivityLoading, setcommentActivityLoading] = useState(false)
   const [figure, setFigure] = useState("");
   const [price, setPrice] = useState(null)
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('')
   const [Commentloading, setCommentLoading] = useState(true)
+  const [priceValue, setPriceValue] = useState("")
+  const [priceActivityLoading, setPriceActivityLoading] = useState(false)
 
 
 
@@ -66,6 +69,10 @@ const FuelStationDetails = ({ navigation, route }) => {
     setCommentSheetVisible(false);
   };
 
+  const handlePriceTextChange = (newText) => {
+    setPriceValue(newText)
+    console.log(newText)
+  };
 
 //get comment
   useEffect(() => {
@@ -129,6 +136,24 @@ const FuelStationDetails = ({ navigation, route }) => {
         // Error handling code
         setcommentActivityLoading(false);
       });
+  };
+
+  const edit_price = () => {
+    setPriceActivityLoading (true);
+    api
+    .post(`/add_comments/${item.id}/`, {
+      vote: false,
+      price: priceValue
+    })
+    .then((response) => {
+      setComments((prevComments) => [...prevComments, response.data]);
+      setCommentText('');
+      setPriceActivityLoading(false);
+    })
+    .catch((error) => {
+      // Error handling code
+      setPriceActivityLoading(false);
+    });
   };
   
   const handleTextChange = (newText) => {
@@ -485,14 +510,18 @@ const FuelStationDetails = ({ navigation, route }) => {
               <TextInput
                 style={styles.searchInput}
                 placeholder="Input Price Option"
+                value={priceValue}
+                keyboardType = 'numeric'
+                onChangeText={handlePriceTextChange}
               ></TextInput>
             </TouchableOpacity>
             <Button
               title="Submit"
-              onPress={() => console.log("freak")} // Only call handleSubmit when the button is not disabled
+              onPress={edit_price} // Only call handleSubmit when the button is not disabled
               disabled={false}
               color={"#1E1E1E"} // Custom color
               textColor={"white"}
+              loading={priceActivityLoading}
               width={"100%"}
               // Custom width
               height={55}
@@ -507,6 +536,11 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["37%"]}
       >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"} // This sets the keyboard behavior for iOS and Android
+        style={{ flex: 1 }} // Make sure the component takes the full available space
+      >
+
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
             <Text style={styles.EditText}>Comment</Text>
@@ -541,6 +575,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             />
           </View>
         </View>
+        </KeyboardAvoidingView>
       </BottomSheet>
     </ScrollView>
   );
