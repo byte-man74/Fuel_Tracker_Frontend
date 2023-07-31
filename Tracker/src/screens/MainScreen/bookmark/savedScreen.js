@@ -281,7 +281,6 @@ homeContainerHeader: {
     flex: 1,
     resizeMode: "cover",
     backgroundColor: "white",
-    paddingBottom: "80%",
     justifyContent: "flex-start",
     minHeight: height * 1.3,
     paddingHorizontal: "4%",

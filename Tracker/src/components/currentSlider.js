@@ -355,12 +355,6 @@ const styles = StyleSheet.create({
     color: "#232323",
     width: "90%",
   },
-  stationLocation: {
-    fontFamily: "Regular",
-    fontSize: 14,
-    color: "#232323",
-    marginTop: 4,
-  },
     stationLocation: {
     fontFamily: "Regular",
     fontSize: 14,
