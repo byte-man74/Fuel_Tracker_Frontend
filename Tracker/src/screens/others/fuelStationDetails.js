@@ -219,7 +219,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   <TouchableOpacity style={styles.upvoteButton}>
                     <Image
                       source={require("../../icons/upvote.png")}
-                      style={{ width: 24, height: 24, marginRight: 5 }}
+                      style={{ width: 20, height: 20, marginRight: 5 }}
                     />
                     <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
                       Upvote price | {item.votes}
@@ -322,10 +322,11 @@ const FuelStationDetails = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.TextBold}>Fuel Price / Liter (₦)</Text>
+              <Text style={styles.TextBold}>Fuel Price</Text>
               <View
                 style={{
-                  width: 180,
+                  minWidth: 225,
+                  padding: 3,
                   height: 30,
                   backgroundColor: "#F6CA63",
                   marginLeft: 10,
@@ -334,7 +335,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   borderRadius: 8,
                 }}
               >
-                <Text style={styles.Text}>{item.votes} users approved 👍🏾</Text>
+                <Text style={styles.Text}>{item.votes} users agreed with price 👍🏾</Text>
               </View>
             </View>
             <TouchableOpacity
@@ -343,6 +344,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 flexDirection: "row",
                 width: "100%",
                 alignItems: "center",
+                flexWrap: 'wrap'
               }}
             >
               {price ? (
@@ -651,7 +653,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontFamily: "Regular",
-    fontSize: 16,
+    fontSize: 15,
     color: "#232323",
   },
   EditText: {
@@ -673,7 +675,7 @@ const styles = StyleSheet.create({
   },
   TimeText: {
     fontFamily: "Regular",
-    fontSize: 16,
+    fontSize: 15,
     color: "#232323",
     position: "absolute",
     right: 0,
@@ -762,8 +764,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   stationText: {
-    fontFamily: "SemiBold",
-    fontSize: 15,
+    fontFamily: "MulishBold",
+    fontSize: 14,
     color: "#232323",
   },
   stationLocation: {
