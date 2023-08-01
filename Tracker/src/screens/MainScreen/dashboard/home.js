@@ -5,6 +5,7 @@ import api from '../../../services/api';
 import process_station from '../../../api/station_images';
 import SliderSaved from '../../../components/verticalSlider';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 
 const { height} = Dimensions.get('window');
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     },
     priceText: {
         fontFamily: 'MulishBold',
-        fontSize: 28,
+        fontSize: RFValue(24),
         color: '#232323',
         letterSpacing: 0.4
     },
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
     nearbyFuelingStationContainer: {
         width: '100%',
         minHeight: 30,
-        marginBottom: "14%"
+        marginBottom: "8%"
     },
     nearbyFuelingStationContainerHeader: {
         width: '100%',

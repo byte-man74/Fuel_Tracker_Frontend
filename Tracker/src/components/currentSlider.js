@@ -12,7 +12,7 @@ import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
 import * as Location from "expo-location";
-
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
@@ -151,9 +151,9 @@ const SliderCurrent = ({ navigation }) => {
               <TouchableOpacity style={styles.upvoteButton}>
                 <Image
                   source={require("../icons/upvote.png")}
-                  style={{ width: 24, height: 24, marginRight: 5 }}
+                  style={{ width: "15%", height: "65%", objectFit: "contain", marginRight: 5 }}
                 />
-                <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
+                <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
                   Upvote price | {item.votes}
                 </Text>
               </TouchableOpacity>
@@ -161,12 +161,7 @@ const SliderCurrent = ({ navigation }) => {
           </View>
           <View style={styles.lastUpdatedPrice}>
             <Text
-              style={{
-                fontFamily: "Regular",
-                fontSize: 16,
-                width: "97.5%",
-                color: "#333333",
-              }}
+              style={{ fontFamily: "Regular", fontSize: RFValue(12), width: "97.5%", color: "#333333" }}
             >
               Last updated {item.time_posted}
             </Text>
@@ -355,9 +350,9 @@ const styles = StyleSheet.create({
     color: "#232323",
     width: "90%",
   },
-    stationLocation: {
+  stationLocation: {
     fontFamily: "Regular",
-    fontSize: 14,
+    fontSize: RFValue(12),
     color: "#232323",
     marginTop: 4,
   },

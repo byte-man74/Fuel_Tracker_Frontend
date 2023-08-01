@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, Text,  ActivityIndicator  } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout,} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout, PROVIDER_DEFAULT,} from 'react-native-maps';
 import * as Location from 'expo-location';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
@@ -39,7 +39,7 @@ const MapsComponent = ({loading, navigation, data}) => {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          provider={PROVIDER_GOOGLE}
+          provider={PROVIDER_DEFAULT}
           customMapStyle={customMapStyle}
           initialRegion={initialRegion} // Set the initial region here
         >
