@@ -160,12 +160,13 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: 'white',
+        paddingBottom: "24%",
     },
     mainBox: {
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'flex-start',
-        minHeight: height * 1.34,
+        minHeight: height * 1,
         paddingHorizontal: '4%',
 
     },
