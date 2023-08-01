@@ -4,8 +4,8 @@ import MapView, {  PROVIDER_GOOGLE, Marker, Callout, Polyline } from 'react-nati
 import * as Location from 'expo-location';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
-const customMarkerImage = require('../../assets/fuel.png'); // Replace this with the path to your custom marker image
-const myImage = require('../../assets/map.png');
+const customMarkerImage = require('../../assets/pump.png'); // Replace this with the path to your custom marker image
+const myImage = require('../../assets/user_image.png');
 
 const DirectionComponent = ({ navigation, data }) => {
   const [initialRegion, setInitialRegion] = useState(null);
