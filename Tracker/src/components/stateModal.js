@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SectionList } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const StateModal = ({ setModal, navigation }) => {
@@ -11,24 +11,34 @@ const StateModal = ({ setModal, navigation }) => {
     { label: 'Banana', value: 'banana' }
   ]);
 
+  const sections = [
+    { title: 'Dropdown List', data: items }, // Add more sections if needed
+  ];
+
   return (
     <View style={styles.overlay}>
-      <View style={styles.loading}>
-        <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          onChangeValue={(itemValue) => setLGA(itemValue)}
-          style={styles.picker}
-          dropDownContainerStyle={styles.dropDownContainer}
-          containerStyle={styles.pickerContainer}
-          labelStyle={styles.labelStyle}
-        />
-        {lga !== '' && <Text>You selected: {lga}</Text>}
-      </View>
+      <SectionList
+        sections={sections}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => (
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={item.data}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onChangeValue={(itemValue) => setLGA(itemValue)}
+            style={styles.picker}
+            dropDownContainerStyle={styles.dropDownContainer}
+            containerStyle={styles.pickerContainer}
+            labelStyle={styles.labelStyle}
+            placeholder="Enter your current state"
+          />
+        )}
+        renderSectionHeader={({ section: { title } }) => <Text style={styles.sectionHeader}>{title}</Text>}
+      />
+      {lga !== '' && <Text>You selected: {lga}</Text>}
     </View>
   );
 };

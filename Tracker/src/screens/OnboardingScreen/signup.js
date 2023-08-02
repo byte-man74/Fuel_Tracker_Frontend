@@ -83,7 +83,7 @@ const SignUp = ({ navigation }) => {
           )}
           <View style={styles.formHeader}>
             <Text style={styles.formHeaderTitle}>
-              Let’s get you signed on
+              Let’s get you started
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Authentication")}>
               <Text style={styles.formHeaderText}>
