@@ -22,7 +22,6 @@ import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
-
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
@@ -39,6 +38,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [Commentloading, setCommentLoading] = useState(true)
   const [priceValue, setPriceValue] = useState("")
   const [priceActivityLoading, setPriceActivityLoading] = useState(false)
+
 
 
 

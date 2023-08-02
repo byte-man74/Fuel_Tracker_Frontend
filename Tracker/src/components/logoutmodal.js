@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     ctaContainer: {
-        height: 135,
+        minHeight: 135,
         width: "70%",
         marginTop: 20,
         justifyContent: "space-around"

@@ -5,10 +5,12 @@ import Button from '../../components/button';
 import * as Location from 'expo-location';
 import api from "../../services/api";
 import Overlay from '../../components/overlay';
+import StateModal from '../../components/stateModal';
 const { height } = Dimensions.get('window');
 
 const Permission = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
+    const [openStateModal, setStateModal] = useState(true)
 
     const requestLocationPermission = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
@@ -52,6 +54,7 @@ const Permission = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {loading && <Overlay command={true}/>}
+            {openStateModal && <StateModal/>}
             <View>
                 <ImageBackground source={require('../../images/Background.png')} style={styles.backgroundImage}>
                     <LottieView source={require('../../images/new_map.json')} autoPlay loop style={styles.carouselItemImage} />
