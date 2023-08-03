@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import api from "../services/api";
 import process_station from "../api/station_images";
-import LottieView from 'lottie-react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import LottieView from "lottie-react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
@@ -20,9 +20,9 @@ const ITEM_WIDTH = width * 0.68;
 const SliderSaved = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const default_logo = require("../../assets/shell.png")
+  const default_logo = require("../../assets/shell.png");
   const [upvoteStates, setUpvoteStates] = useState([]);
-  const real_data = []
+  const real_data = [];
 
   useEffect(() => {
     const get_saved_station = async () => {
@@ -45,7 +45,7 @@ const SliderSaved = ({ navigation }) => {
 
       // Save the upvote state in AsyncStorage
       await saveUpvoteState(newUpvoteStates);
-      await api.post(`add_votes/${id}/`)
+      await api.post(`add_votes/${id}/`);
     } catch (error) {
       console.error("Error upvoting:", error);
     }
@@ -89,13 +89,13 @@ const SliderSaved = ({ navigation }) => {
       } catch (error) {
         if (!error.response) {
           // No Internet Connection Error
-          navigation.navigate('NoNetwork');
+          navigation.navigate("NoNetwork");
           return;
         }
-    
-        if (error.response.status === 500 || error.response.status === 502 ) {
+
+        if (error.response.status === 500 || error.response.status === 502) {
           // Server Error
-          navigation.navigate('ServerScreen');
+          navigation.navigate("ServerScreen");
           return;
         }
       } finally {
@@ -106,19 +106,19 @@ const SliderSaved = ({ navigation }) => {
     get_saved_station();
   }, []);
 
-
   if (stationData) {
-    
     stationData.forEach((station) => {
       const processed_data = process_station(station);
       real_data.push(processed_data);
     });
   }
-  
-  const renderItem = ({ item , index}) => {
+
+  const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("FuelStationDetails", { item: item })}
+        onPress={() =>
+          navigation.navigate("FuelStationDetails", { item: item })
+        }
         style={styles.itemContainer}
       >
         <Image source={item.image} style={styles.image} />
@@ -152,37 +152,50 @@ const SliderSaved = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-          <View
-          style={[
-            styles.trafficIndicator,
-            item.traffic === 1
-              ? { backgroundColor: "red" }     // Apply red background if traffic is 1
-              : item.traffic === 2
-              ? { backgroundColor: "yellow" }  // Apply yellow background if traffic is 2
-              : { backgroundColor: "green" }   // Apply green background if traffic is 3
-          ]}
-        >
-          <Image
-            source={require("../icons/traffic.png")}
-            style={{ width: "30%", height: "65%", objectFit: "contain", marginRight: 5 }}
-          />
-          <Text
-            style={{
-              fontFamily: "Regular",
-              fontSize: 14,
-              color: "white",
-            }}
-          >
-            Traffic
-          </Text>
-        </View>
-              <TouchableOpacity   
-              style={[styles.upvoteButton, upvoteStates[index] ? styles.upvotedButton : null]}
-              onPress={() => handleUpvote(index, item.id)} 
+              <View
+                style={[
+                  styles.trafficIndicator,
+                  item.traffic === 1
+                    ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                    : item.traffic === 2
+                    ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
+                    : { backgroundColor: "green" }, // Apply green background if traffic is 3
+                ]}
+              >
+                <Image
+                  source={require("../icons/traffic.png")}
+                  style={{
+                    width: "30%",
+                    height: "65%",
+                    objectFit: "contain",
+                    marginRight: 5,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontFamily: "Regular",
+                    fontSize: 14,
+                    color: "white",
+                  }}
+                >
+                  Traffic
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.upvoteButton,
+                  upvoteStates[index] ? styles.upvotedButton : null,
+                ]}
+                onPress={() => handleUpvote(index, item.id)}
               >
                 <Image
                   source={require("../icons/upvote.png")}
-                  style={{ width: "15%", height: "65%", objectFit: "contain", marginRight: 5 }}
+                  style={{
+                    width: "15%",
+                    height: "65%",
+                    objectFit: "contain",
+                    marginRight: 5,
+                  }}
                 />
                 <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
                   Upvote price | {item.votes}
@@ -192,7 +205,12 @@ const SliderSaved = ({ navigation }) => {
           </View>
           <View style={styles.lastUpdatedPrice}>
             <Text
-              style={{ fontFamily: "Regular", fontSize: RFValue(12), width: "97.5%", color: "#333333" }}
+              style={{
+                fontFamily: "Regular",
+                fontSize: RFValue(12),
+                width: "97.5%",
+                color: "#333333",
+              }}
             >
               Last updated {item.time_posted}
             </Text>
@@ -205,54 +223,57 @@ const SliderSaved = ({ navigation }) => {
   return (
     <View style={styles.sliderContainer}>
       {loading ? (
-          <FlatList
-            data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
-            renderItem={() => (
-              <View style={styles.itemContainer}>
-                {/* Placeholder for your skeleton UI */}
-                <View style={styles.imageSkeleton}>
+        <FlatList
+          data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
+          renderItem={() => (
+            <View style={styles.itemContainer}>
+              {/* Placeholder for your skeleton UI */}
+              <View style={styles.imageSkeleton}>
                 <LottieView
-                    source={require("../images/mapload.json")}
-                    autoPlay
-                    loop
-                    style={styles.load}
-                  />
-                </View>
-                <View style={styles.carouselContainer}>
-                  <View style={styles.carouselContainerExtraInfo}>
-                    <View style={styles.logoSkeleton} />
-                    <View style={styles.carouselContainerExtraInfoText}>
-                      <View style={styles.stationTextSkeleton} />
-                      <View style={styles.stationLocationSkeleton} />
-                    </View>
-                    <View style={styles.priceSkeleton} />
-                  </View>
-                  <View style={styles.extraFunctionsStylingSkeleton}>
-                    <View style={styles.trafficIndicatorSkeleton} />
-                    <View style={styles.upvoteButtonSkeleton} />
-                  </View>
-                  <View style={styles.lastUpdatedPriceSkeleton} />
-                </View>
+                  source={require("../images/mapload.json")}
+                  autoPlay
+                  loop
+                  style={styles.load}
+                />
               </View>
-            )}
-            keyExtractor={(item) => item.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatListContentContainer}
-            snapToInterval={ITEM_WIDTH}
-            decelerationRate="fast"
-          />
-          ) : real_data.length === 0 ? (
-            // Show UI for empty data array
-            <View style={styles.emptyDataContainer}>
-              <LottieView
-                source={require('../images/emptypage.json')}
-                autoPlay
-                loop
-                style={styles.carouselItemImage}
-              />
-              <Text style={styles.emptyDataText}>No fueling station in your location has been registered on our database.</Text>
+              <View style={styles.carouselContainer}>
+                <View style={styles.carouselContainerExtraInfo}>
+                  <View style={styles.logoSkeleton} />
+                  <View style={styles.carouselContainerExtraInfoText}>
+                    <View style={styles.stationTextSkeleton} />
+                    <View style={styles.stationLocationSkeleton} />
+                  </View>
+                  <View style={styles.priceSkeleton} />
+                </View>
+                <View style={styles.extraFunctionsStylingSkeleton}>
+                  <View style={styles.trafficIndicatorSkeleton} />
+                  <View style={styles.upvoteButtonSkeleton} />
+                </View>
+                <View style={styles.lastUpdatedPriceSkeleton} />
+              </View>
             </View>
+          )}
+          keyExtractor={(item) => item.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContentContainer}
+          snapToInterval={ITEM_WIDTH}
+          decelerationRate="fast"
+        />
+      ) : real_data.length === 0 ? (
+        // Show UI for empty data array
+        <View style={styles.emptyDataContainer}>
+          <LottieView
+            source={require("../images/emptypage.json")}
+            autoPlay
+            loop
+            style={styles.carouselItemImage}
+          />
+          <Text style={styles.emptyDataText}>
+            No fueling station in your location has been registered on our
+            database.
+          </Text>
+        </View>
       ) : (
         <FlatList
           data={real_data}
@@ -282,7 +303,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     backgroundColor: "#66666610",
-    paddingHorizontal: "7%"
+    paddingHorizontal: "7%",
   },
   stationTextSkeleton: {
     width: "40%",
@@ -382,7 +403,7 @@ const styles = StyleSheet.create({
     fontFamily: "SemiBold",
     fontSize: RFValue(14),
     color: "#232323",
-    width: "70%"
+    width: "70%",
   },
   stationLocation: {
     fontFamily: "Regular",
@@ -415,7 +436,7 @@ const styles = StyleSheet.create({
   bigContainer: {
     width: 70,
     height: 40,
-    backgroundColor: 'red'
+    backgroundColor: "red",
   },
 
   trafficIndicator: {
@@ -441,24 +462,22 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
     height: "100%",
-    backgroundColor: "#F4F4F4"
+    backgroundColor: "#F4F4F4",
   },
   emptyDataText: {
     fontSize: 16,
     fontFamily: "Regular",
     color: "#666666",
-    textAlign: "center"
+    textAlign: "center",
   },
   carouselItemImage: {
-    width: '70%',
+    width: "70%",
     aspectRatio: 1,
   },
   load: {
     width: 300,
-    objectFit: "contain"
-  }
+    objectFit: "contain",
+  },
 });
 
 export default SliderSaved;
-
-

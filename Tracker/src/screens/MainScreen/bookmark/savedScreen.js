@@ -116,10 +116,24 @@ const SavedScreen = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <View style={styles.trafficIndicator}>
+              <View
+                style={[
+                  styles.trafficIndicator,
+                  item.traffic === 1
+                    ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                    : item.traffic === 2
+                    ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
+                    : { backgroundColor: "green" }, // Apply green background if traffic is 3
+                ]}
+              >
                 <Image
                   source={require("../../../icons/traffic.png")}
-                  style={{ width: 24, height: 24, marginRight: 5 }}
+                  style={{
+                    width: "30%",
+                    height: "65%",
+                    objectFit: "contain",
+                    marginRight: 5,
+                  }}
                 />
                 <Text
                   style={{
