@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   upvotedButton: {
-    backgroundColor: "orange", // Change the color to your desired upvoted state color
+    backgroundColor: "rgba(255, 165, 0, 0.5)", // Change the color to your desired upvoted state color
   },
   stationLocationSkeleton: {
     width: "80%",
