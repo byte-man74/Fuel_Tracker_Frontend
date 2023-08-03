@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
-  KeyboardAvoidingView, 
-  Platform
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../components/bottomSheet";
