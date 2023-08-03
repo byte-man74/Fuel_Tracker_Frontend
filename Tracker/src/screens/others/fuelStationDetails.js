@@ -538,11 +538,6 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["37%"]}
       >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // This sets the keyboard behavior for iOS and Android
-        style={{ flex: 1 }} // Make sure the component takes the full available space
-      >
-
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
             <Text style={styles.EditText}>Comment</Text>
@@ -577,7 +572,6 @@ const FuelStationDetails = ({ navigation, route }) => {
             />
           </View>
         </View>
-        </KeyboardAvoidingView>
       </BottomSheet>
     </ScrollView>
   );
