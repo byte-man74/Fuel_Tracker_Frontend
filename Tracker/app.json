@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PriceWiz (Beta)",
-    "slug": "pricewiz-beta",
+    "slug": "pricewiz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
