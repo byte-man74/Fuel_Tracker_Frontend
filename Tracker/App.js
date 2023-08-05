@@ -18,6 +18,8 @@ import NoNetworkScreen from "./src/screens/others/noNetwork";
 import ServerScreen from "./src/screens/others/serverError";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DirectionScreen from "./src/screens/others/directions";
+
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -54,33 +56,36 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
           <SafeAreaProvider>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {token ? (
-              // If token exists, navigate to MainScreen
-              <></>
-            ) : (
-              // If token doesn't exist, navigate to Onboarding
-              <>
-                <Stack.Screen
-                  name="Onboarding"
-                  component={OnboardingNavigator}
-                />
-              </>
-            )}
-            <Stack.Screen name="MainScreen" component={MainScreenTab} />
-            <Stack.Screen
-              name="FuelStationDetails"
-              component={FuelStationDetails}
-            />
-            <Stack.Screen name="SearchScreen" component={SearchScreen} />
-            <Stack.Screen name="StationList" component={StationList} />
-            <Stack.Screen name="Notification" component={NotificationScreen} />
-            <Stack.Screen name="Authentication" component={AuthNavigator} />
-            <Stack.Screen name="ServerScreen" component={ServerScreen} />
-            <Stack.Screen name="Permissions" component={Permission} />
-            <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
-            <Stack.Screen name="Directions" component={DirectionScreen} />
-          </Stack.Navigator>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              {token ? (
+                // If token exists, navigate to MainScreen
+                <></>
+              ) : (
+                // If token doesn't exist, navigate to Onboarding
+                <>
+                  <Stack.Screen
+                    name="Onboarding"
+                    component={OnboardingNavigator}
+                  />
+                </>
+              )}
+              <Stack.Screen name="MainScreen" component={MainScreenTab} />
+              <Stack.Screen
+                name="FuelStationDetails"
+                component={FuelStationDetails}
+              />
+              <Stack.Screen name="SearchScreen" component={SearchScreen} />
+              <Stack.Screen name="StationList" component={StationList} />
+              <Stack.Screen
+                name="Notification"
+                component={NotificationScreen}
+              />
+              <Stack.Screen name="Authentication" component={AuthNavigator} />
+              <Stack.Screen name="ServerScreen" component={ServerScreen} />
+              <Stack.Screen name="Permissions" component={Permission} />
+              <Stack.Screen name="NoNetwork" component={NoNetworkScreen} />
+              <Stack.Screen name="Directions" component={DirectionScreen} />
+            </Stack.Navigator>
           </SafeAreaProvider>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
