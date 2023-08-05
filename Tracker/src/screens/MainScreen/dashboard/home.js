@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Dimensions, Platform, ScrollView, TouchableOpacity, TextInput, Animated } from 'react-native'
 import React, { useEffect, useRef,useState} from 'react'
-import SliderCurrent from '../../../components/currentSlider';
+import StationSlider from '../../../components/CurrentStationSlider';
 import api from '../../../services/api';
 import process_station from '../../../api/station_images';
 import SliderSaved from '../../../components/verticalSlider';
@@ -120,7 +120,7 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}><Text style={styles.headerText}>view all</Text></TouchableOpacity> 
                         </Animated.View>
                         <Animated.View style={[styles.carouselBox, { opacity: fadeInAnimation }]}>
-                            <SliderCurrent navigation={navigation}/>
+                            <StationSlider navigation={navigation}/>
                         </Animated.View>
                     </View>
                     <View style={{ ...styles.nearbyFuelingStationContainer, marginBottom: 0 }}>

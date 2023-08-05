@@ -14,11 +14,12 @@ import LottieView from "lottie-react-native";
 import * as Location from "expo-location";
 import { RFValue } from 'react-native-responsive-fontsize';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SkeletonItem from "./Pages/HomePage/Skeleton";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const SliderCurrent = ({ navigation }) => {
+const StationSlider = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
@@ -233,39 +234,15 @@ const SliderCurrent = ({ navigation }) => {
     <View style={styles.sliderContainer}>
       {loading ? (
         <FlatList
-          data={[1, 2, 3, 4, 5]} // Set an array of any length here for skeleton placeholders
-          renderItem={() => (
-            <View style={styles.itemContainer}>
-                <View style={styles.imageSkeleton}>
-                  <LottieView
-                    source={require("../images/mapload.json")}
-                    autoPlay
-                    loop
-                    style={styles.load}
-                  />
-                </View>
-                <View style={styles.carouselContainer}>
-                  <View style={styles.carouselContainerExtraInfo}>
-                    <View style={styles.logoSkeleton} />
-                    <View style={styles.carouselContainerExtraInfoText}>
-                      <View style={styles.stationTextSkeleton} />
-                      <View style={styles.stationLocationSkeleton} />
-                    </View>
-                    <View style={styles.priceSkeleton} />
-                  </View>
-                  <View style={styles.lastUpdatedPriceSkeleton} />
-                  <View style={styles.lastUpdatedPriceSkeleton} />
-                </View>
-       
-            </View>
-          )}
-          keyExtractor={(item) => item.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.flatListContentContainer}
-          snapToInterval={ITEM_WIDTH}
-          decelerationRate="fast"
-        />
+        data={[1, 2, 3, 4, 5]}
+        renderItem={() => <SkeletonItem containerWidth={ITEM_WIDTH} />}
+        keyExtractor={(item) => item.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContentContainer}
+        snapToInterval={ITEM_WIDTH}
+        decelerationRate="fast"
+      />
       ) : real_data.length === 0 ? (
         // Show UI for empty data array
         <View style={styles.emptyDataContainer}>
@@ -486,4 +463,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SliderCurrent;
+export default StationSlider;
