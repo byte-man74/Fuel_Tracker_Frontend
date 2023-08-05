@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   upvotedButton: {
-    backgroundColor: "rgba(255, 165, 0, 0.5)", // Change the color to your desired upvoted state color
+    backgroundColor: "#F5A855", // Change the color to your desired upvoted state color
   },
   priceSkeleton: {
     width: 40,
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   upvoteButton: {
-    width: 150,
+    minWidth: 100,
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,

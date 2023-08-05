@@ -118,7 +118,7 @@ const SliderSaved = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("FuelStationDetails", { item: item })
+          navigation.navigate("FuelStationDetails", { item: item, index: index })
         }
         style={styles.itemContainer}
       >
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   upvotedButton: {
-    backgroundColor: "rgba(255, 165, 0, 0.5)", // Change the color to your desired upvoted state color
+    backgroundColor: "#F5A855", // Change the color to your desired upvoted state color
   },
   stationLocationSkeleton: {
     width: "80%",
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   upvoteButton: {
-    width: 150,
+    minWidth: 120,
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,

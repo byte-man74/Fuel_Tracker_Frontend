@@ -18,28 +18,68 @@ import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
-  const { item } = route.params;
+  const { item, index } = route.params;
+  
 
-  const [OptionBottomSheetVisible, setOptionBottomSheetVisible] = useState(false);
+  const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
+    useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
-  const [commentActivityLoading, setcommentActivityLoading] = useState(false)
-  const [price, setPrice] = useState(null)
+  const [commentActivityLoading, setcommentActivityLoading] = useState(false);
+  const [price, setPrice] = useState(null);
   const [comments, setComments] = useState([]);
-  const [commentText, setCommentText] = useState('')
-  const [Commentloading, setCommentLoading] = useState(true)
-  const [priceValue, setPriceValue] = useState("")
-  const [priceActivityLoading, setPriceActivityLoading] = useState(false)
+  const [commentText, setCommentText] = useState("");
+  const [Commentloading, setCommentLoading] = useState(true);
+  const [priceValue, setPriceValue] = useState("");
+  const [priceActivityLoading, setPriceActivityLoading] = useState(false);
+  const [upvoteStates, setUpvoteStates] = useState([]);
 
+  const handleUpvote = async (index, id) => {
+    try {
+      // Update the upvote status for the item at the specified index
+      const newUpvoteStates = [...upvoteStates];
+      newUpvoteStates[index] = !newUpvoteStates[index];
+      setUpvoteStates(newUpvoteStates);
 
+      // Save the upvote state in AsyncStorage
+      await saveUpvoteState(newUpvoteStates);
+      await api.post(`add_votes/${id}/`);
+    } catch (error) {
+      console.error("Error upvoting:", error);
+    }
+  };
 
+  const saveUpvoteState = async (upvoteStates) => {
+    try {
+      // Save the upvote states array in AsyncStorage
+      await AsyncStorage.setItem("upvoteStates", JSON.stringify(upvoteStates));
+    } catch (error) {
+      console.error("Error saving upvote states:", error);
+    }
+  };
 
- 
+  const retrieveUpvoteStates = async () => {
+    try {
+      // Retrieve the upvote states array from AsyncStorage
+      const upvoteStates = await AsyncStorage.getItem("upvoteStates");
+      if (upvoteStates !== null) {
+        setUpvoteStates(JSON.parse(upvoteStates));
+      }
+    } catch (error) {
+      console.error("Error retrieving upvote states:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Load the upvote states array from AsyncStorage when the component mounts
+    retrieveUpvoteStates();
+  }, []);
+
   const openBottomOption = () => {
     setOptionBottomSheetVisible(true);
   };
@@ -67,11 +107,11 @@ const FuelStationDetails = ({ navigation, route }) => {
   };
 
   const handlePriceTextChange = (newText) => {
-    setPriceValue(newText)
-    console.log(newText)
+    setPriceValue(newText);
+    console.log(newText);
   };
 
-//get comment
+  //get comment
   useEffect(() => {
     api
       .get(`/get_comments/${item.id}/`)
@@ -82,20 +122,20 @@ const FuelStationDetails = ({ navigation, route }) => {
       .catch((error) => {
         if (!error.response) {
           // No Internet Connection Error
-          navigation.navigate('NoNetwork');
+          navigation.navigate("NoNetwork");
           return;
         }
-    
-        if (error.response.status === 500 || error.response.status === 502 ) {
+
+        if (error.response.status === 500 || error.response.status === 502) {
           // Server Error
-          navigation.navigate('ServerScreen');
+          navigation.navigate("ServerScreen");
           return;
         }
         setCommentLoading(false);
       });
   }, [commentText]);
 
-//get price
+  //get price
   useEffect(() => {
     api
       .get(`/get_current_price/${item.id}/`)
@@ -105,13 +145,13 @@ const FuelStationDetails = ({ navigation, route }) => {
       .catch((error) => {
         if (!error.response) {
           // No Internet Connection Error
-          navigation.navigate('NoNetwork');
+          navigation.navigate("NoNetwork");
           return;
         }
-    
-        if (error.response.status === 500 || error.response.status === 502 ) {
+
+        if (error.response.status === 500 || error.response.status === 502) {
           // Server Error
-          navigation.navigate('ServerScreen');
+          navigation.navigate("ServerScreen");
           return;
         }
         setCommentLoading(false);
@@ -126,7 +166,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       })
       .then((response) => {
         setComments((prevComments) => [...prevComments, response.data]);
-        setCommentText('');
+        setCommentText("");
         setcommentActivityLoading(false);
       })
       .catch((error) => {
@@ -136,28 +176,27 @@ const FuelStationDetails = ({ navigation, route }) => {
   };
 
   const edit_price = () => {
-    setPriceActivityLoading (true);
+    setPriceActivityLoading(true);
     api
-    .post(`edit_price/get_options/${item.id}/`, {
-      vote: false,
-      price: priceValue
-    })
-    .then((response) => {
-      console.log(response)
-      setPriceValue('');
-      setPriceActivityLoading(false);
-    })
-    .catch((error) => {
-      // Error handling code
-      console.error(error.message)
-      setPriceActivityLoading(false);
-    });
+      .post(`edit_price/get_options/${item.id}/`, {
+        vote: false,
+        price: priceValue,
+      })
+      .then((response) => {
+        setPriceValue("");
+        setPriceActivityLoading(false);
+      })
+      .catch((error) => {
+        // Error handling code
+        console.error(error.message);
+        setPriceActivityLoading(false);
+      });
   };
-  
+
   const handleTextChange = (newText) => {
     // Update the state with the new text value
     setCommentText(newText);
-    console.log(commentText)
+    console.log(commentText);
   };
 
   return (
@@ -179,7 +218,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={openBottomOption}>
-              <Image
+                <Image
                   style={{ width: 30, height: 30 }}
                   source={require("../../icons/options.png")}
                 />
@@ -214,7 +253,13 @@ const FuelStationDetails = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <TouchableOpacity style={styles.upvoteButton}>
+                  <TouchableOpacity
+                    style={[
+                      styles.upvoteButton,
+                      upvoteStates[index] ? styles.upvotedButton : null,
+                    ]}
+                    onPress={() => handleUpvote(index, item.id)}
+                  >
                     <Image
                       source={require("../../icons/upvote.png")}
                       style={{ width: 20, height: 20, marginRight: 5 }}
@@ -252,10 +297,14 @@ const FuelStationDetails = ({ navigation, route }) => {
                   height: "100%",
                   flexDirection: "row",
                   alignItems: "center",
-                  flexWrap: "wrap"
                 }}
               >
-                <TouchableOpacity style={styles.dirButton} onPress={() => navigation.navigate("Directions", { item: item })}>
+                <TouchableOpacity
+                  style={styles.dirButton}
+                  onPress={() =>
+                    navigation.navigate("Directions", { item: item })
+                  }
+                >
                   <Image
                     source={require("../../icons/maps.png")}
                     style={{ width: 24, height: 24, marginRight: 5 }}
@@ -282,7 +331,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                       color: "white",
                     }}
                   >
-                    From 7am - 11pm
+                    Open now
                   </Text>
                 </View>
                 <View
@@ -333,7 +382,9 @@ const FuelStationDetails = ({ navigation, route }) => {
                   borderRadius: 8,
                 }}
               >
-                <Text style={styles.Text}>{item.votes} users agreed with price 👍🏾</Text>
+                <Text style={styles.Text}>
+                  {item.votes} users agreed with price 👍🏾
+                </Text>
               </View>
             </View>
             <TouchableOpacity
@@ -342,15 +393,14 @@ const FuelStationDetails = ({ navigation, route }) => {
                 flexDirection: "row",
                 width: "100%",
                 alignItems: "center",
-                flexWrap: 'wrap'
+                flexWrap: "wrap",
               }}
             >
               {price ? (
                 <Text style={styles.EditText}>₦{price}L</Text>
               ) : (
                 <ActivityIndicator />
-              )
-              }
+              )}
               <Image
                 style={{ width: 18, height: 18, marginHorizontal: 5 }}
                 source={require("../../icons/edit.png")}
@@ -409,7 +459,9 @@ const FuelStationDetails = ({ navigation, route }) => {
                 </View>
               ) : comments.length === 0 ? (
                 <View style={styles.emptyCommentsContainer}>
-                  <Text style={styles.emptyCommentsText}>No comments available.</Text>
+                  <Text style={styles.emptyCommentsText}>
+                    No comments available.
+                  </Text>
                 </View>
               ) : (
                 comments.map((comment) => (
@@ -511,7 +563,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 style={styles.searchInput}
                 placeholder="Input Price Option"
                 value={priceValue}
-                keyboardType = 'numeric'
+                keyboardType="numeric"
                 onChangeText={handlePriceTextChange}
               ></TextInput>
             </TouchableOpacity>
@@ -547,9 +599,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.feedbackContainer}>
-            <TouchableOpacity
-              style={styles.searchContainer}
-            >
+            <TouchableOpacity style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
                 placeholder="Comment on fueling station"
@@ -654,6 +704,9 @@ const styles = StyleSheet.create({
     color: "#232323",
     marginRight: 10,
   },
+  upvotedButton: {
+    backgroundColor: "#F5A855", // Change the color to your desired upvoted state color
+  },
   Text_link: {
     fontFamily: "Regular",
     fontSize: 16,
@@ -684,14 +737,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   upvoteButton: {
-    width: 150,
+    minWidth: 100,
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,
-    paddingHorizontal: 4,
+    paddingHorizontal: 42,
     alignItems: "center",
     flexDirection: "row",
     marginRight: 8,
@@ -707,7 +760,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   openingHours: {
-    width: 157,
+    width: 110,
     height: "100%",
     backgroundColor: "#333333",
     borderRadius: 8,
@@ -725,11 +778,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginRight: 8,
-    marginTop: "5%"
+  },
+  upvoteButton: {
+    minWidth: 140,
+    height: "100%",
+    backgroundColor: "#E8E9EE",
+    borderRadius: 8,
+    paddingHorizontal: 4,
+    alignItems: "center",
+    flexDirection: "row",
+    marginRight: 8,
   },
   otherDetails: {
     width: "94%",
-    minHeight: 160,
+    minHeight: 120,
     borderBottomColor: "#D9D9D9",
     borderBottomWidth: 1,
     marginBottom: 20,
