@@ -34,7 +34,7 @@ const Button = ({
     <TouchableOpacity style={containerStyles} onPress={onPress}>
       {loading ? (
         <LottieView
-          source={require('../images/laud.json')}
+          source={require('../../images/laud.json')}
           autoPlay
           loop
           style={styles.animation}

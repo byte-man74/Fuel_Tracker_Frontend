@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, TextInput, Image } from 'react-native';
-import Button from './button';
+import Button from './GlobalComponents/button';
 const { height, width } = Dimensions.get('window');
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

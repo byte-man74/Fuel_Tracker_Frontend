@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
-import Button from '../../components/button';
+import Button from '../../components/GlobalComponents/button';
 import * as Location from 'expo-location';
 import api from "../../services/api";
 import Overlay from '../../components/overlay';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View, SafeAreaView, Image, Dimensions, StatusBar } from 'react-native';
 import Slider from '../../components/slider';
-import Button from '../../components/button';
+import Button from '../../components/GlobalComponents/button';
 
 const { height, width } = Dimensions.get('window');
 

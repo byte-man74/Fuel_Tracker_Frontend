@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import LottieView from 'lottie-react-native';
 import BottomSheet from '../../components/GlobalComponents/bottomSheet';
-import Button from '../../components/button';
+import Button from '../../components/GlobalComponents/button';
 import Overlay from '../../components/overlay';
 
 const { height, width } = Dimensions.get('window');

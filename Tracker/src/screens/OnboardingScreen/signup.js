@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
-import Button from '../../components/button';
+import Button from '../../components/GlobalComponents/button';
 import api from '../../services/api';
 
 const { height, width } = Dimensions.get('window');
