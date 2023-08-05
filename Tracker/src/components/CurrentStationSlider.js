@@ -28,8 +28,6 @@ const StationSlider = ({ navigation }) => {
 
   useEffect(() => {
     const get_saved_station = async () => {
-      // ... (Previous code)
-
       // Initialize the upvote states array with the same length as stationData
       const initialUpvoteStates = new Array(stationData.length).fill(false);
       setUpvoteStates(initialUpvoteStates);

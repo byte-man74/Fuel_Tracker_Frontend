@@ -29,7 +29,6 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [commentActivityLoading, setcommentActivityLoading] = useState(false)
-  const [figure, setFigure] = useState("");
   const [price, setPrice] = useState(null)
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('')
@@ -139,17 +138,18 @@ const FuelStationDetails = ({ navigation, route }) => {
   const edit_price = () => {
     setPriceActivityLoading (true);
     api
-    .post(`/add_comments/${item.id}/`, {
+    .post(`edit_price/get_options/${item.id}/`, {
       vote: false,
       price: priceValue
     })
     .then((response) => {
-      setComments((prevComments) => [...prevComments, response.data]);
-      setCommentText('');
+      console.log(response)
+      setPriceValue('');
       setPriceActivityLoading(false);
     })
     .catch((error) => {
       // Error handling code
+      console.error(error.message)
       setPriceActivityLoading(false);
     });
   };
