@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, Text,  ActivityIndicator  } from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_DEFAULT,} from 'react-native-maps';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE,} from 'react-native-maps';
 import * as Location from 'expo-location';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
@@ -9,6 +9,12 @@ const myImage = require('../../assets/user_image.png');
 
 const MapsComponent = ({loading, navigation, data}) => {
   const [initialRegion, setInitialRegion] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
+
+  const handleMarkerPress = (region) => {
+    // Set the selected marker's region to zoom to
+    setSelectedRegion(region);
+  };
 
   useEffect(() => {
     (async () => {
@@ -39,9 +45,10 @@ const MapsComponent = ({loading, navigation, data}) => {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          provider={PROVIDER_DEFAULT}
+          provider={PROVIDER_GOOGLE}
           customMapStyle={customMapStyle}
           initialRegion={initialRegion} // Set the initial region here
+          region={selectedRegion}
         >
         {initialRegion && (
           <Marker
@@ -59,6 +66,12 @@ const MapsComponent = ({loading, navigation, data}) => {
                 longitude: parseFloat(station.longitude),
               }}
               image={customMarkerImage} // Set the custom marker image here
+              onPress={() => handleMarkerPress({
+                latitude: parseFloat(station.latitude),
+                longitude: parseFloat(station.longitude),
+                latitudeDelta: 0.04, // Adjust these values to control the zoom level
+                longitudeDelta: 0.04,
+              })}
             >
               <Callout>
                 <View>
