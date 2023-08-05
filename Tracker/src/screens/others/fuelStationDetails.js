@@ -15,7 +15,7 @@ import BottomSheet from "../../components/bottomSheet";
 import Button from "../../components/button";
 import Overlay from "../../components/overlay";
 import { RadioButton } from "react-native-paper";
-import CommentItem from "../../components/comment";
+import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 

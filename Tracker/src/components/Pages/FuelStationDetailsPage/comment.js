@@ -7,7 +7,7 @@ const CommentItem = ({ date, comment, name}) => {
     <View style={styles.commentItem}>
       <View style={styles.carouselContainerExtraInfo}>
         <Image
-          source={require('../images/avatar.png')}
+          source={require('../../../images/avatar.png')}
           style={{
             width: 35,
             height: 35,
