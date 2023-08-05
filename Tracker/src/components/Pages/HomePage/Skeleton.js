@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   load: {
-    width: "90%",
+    width: "100%",
     aspectRatio: 1,
   },
 });
