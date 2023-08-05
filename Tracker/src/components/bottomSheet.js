@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Change the color and opacity here
+    backgroundColor: 'rgba(0, 0, 0, 0.9)', // Change the color and opacity here
   },
 });
