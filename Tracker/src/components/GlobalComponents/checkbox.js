@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 
+/**
+ * A customizable checkbox component.
+ * 
+ * @param {function} onCheckboxClick - Callback function when the checkbox is clicked.
+ */
 const Checkbox = ({ onCheckboxClick }) => {
+    // State to track whether the checkbox is checked
     const [isChecked, setIsChecked] = useState(false);
 
+    // Function to handle checkbox press
     const handleCheckboxPress = () => {
         setIsChecked(!isChecked);
+        // Call the optional prop function if provided
         if (onCheckboxClick) {
-            onCheckboxClick(!isChecked); // Call the optional prop function if provided
+            onCheckboxClick(!isChecked);
         }
     };
 
@@ -17,6 +25,7 @@ const Checkbox = ({ onCheckboxClick }) => {
             style={[styles.checkboxContainer, isChecked && styles.checkedCheckbox]}
             onPress={handleCheckboxPress}
         >
+            {/* Display checkmark icon if the checkbox is checked */}
             {isChecked && <Ionicons name="checkmark-sharp" size={16} color="#FFFFFF" />}
         </TouchableOpacity>
     );

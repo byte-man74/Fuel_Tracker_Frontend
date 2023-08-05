@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, ScrollView, Dimensions, TouchableOpacity, TextInput } from 'react-native';
-import Checkbox from '../../components/checkbox';
+import Checkbox from '../../components/GlobalComponents/checkbox';
 
 
 const { height, width } = Dimensions.get('window');

@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import Button from "../../components/GlobalComponents/button";
-import Checkbox from "../../components/checkbox";
+import Checkbox from "../../components/GlobalComponents/checkbox";
 import TextLink from "../../components/link";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
