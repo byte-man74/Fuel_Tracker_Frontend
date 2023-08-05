@@ -14,7 +14,7 @@ import { Ionicons } from 'react-native-vector-icons';
 import Button from '../../components/button';
 import Overlay from '../../components/overlay';
 import LottieView from 'lottie-react-native';
-import BottomSheet from '../../components/bottomSheet';
+import BottomSheet from '../../components/GlobalComponents/bottomSheet';
 
 
 

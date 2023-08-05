@@ -11,7 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import BottomSheet from "../../components/bottomSheet";
+import BottomSheet from "../../components/GlobalComponents/bottomSheet";
 import Button from "../../components/button";
 import Overlay from "../../components/overlay";
 import { RadioButton } from "react-native-paper";

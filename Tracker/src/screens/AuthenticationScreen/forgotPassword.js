@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, Dimensions, TouchableOpacity, TextInput, Image } from 'react-native';
 import Button from '../../components/button';
-import BottomSheet from '../../components/bottomSheet';
+import BottomSheet from '../../components/GlobalComponents/bottomSheet';
 import LottieView from 'lottie-react-native';
 import Overlay from '../../components/overlay';
 
