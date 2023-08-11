@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, ActivityIndicator, Alert } from 'react-native';
-import MapView, {  PROVIDER_DEFAULT, Marker, Callout, Polyline } from 'react-native-maps';
+import MapView, {  PROVIDER_GOOGLE, Marker, Callout, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 const customMapStyle = require('../../assets/maps/configuration.json');
@@ -38,7 +38,7 @@ const DirectionComponent = ({ navigation, data }) => {
   // Function to fetch route coordinates from the Google Maps Directions API
   const getRouteCoordinates = async (originLatitude, originLongitude, destinationLatitude, destinationLongitude) => {
     try {
-      const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+      const apiKey = 'AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpytvpOk';
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${originLatitude},${originLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${apiKey}`
       );
@@ -83,7 +83,7 @@ const DirectionComponent = ({ navigation, data }) => {
   if (initialRegion != null) {
     return (
       <View style={styles.container}>
-        <MapView style={styles.map} provider={PROVIDER_DEFAULT} customMapStyle={customMapStyle} initialRegion={initialRegion}>
+        <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={customMapStyle} initialRegion={initialRegion}>
           {routeCoordinates.length > 0 && (
             <Polyline
               coordinates={routeCoordinates}
