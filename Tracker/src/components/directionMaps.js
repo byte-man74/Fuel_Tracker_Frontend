@@ -38,7 +38,7 @@ const DirectionComponent = ({ navigation, data }) => {
   // Function to fetch route coordinates from the Google Maps Directions API
   const getRouteCoordinates = async (originLatitude, originLongitude, destinationLatitude, destinationLongitude) => {
     try {
-      const apiKey = 'AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpytvpOk';
+      const apiKey = 'AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpyvpOk';
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${originLatitude},${originLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${apiKey}`
       );
