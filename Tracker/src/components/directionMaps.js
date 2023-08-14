@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, ActivityIndicator, Alert } from 'react-native';
-import MapView, {  PROVIDER_GOOGLE, Marker, Callout, Polyline } from 'react-native-maps';
-import * as Location from 'expo-location';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, ActivityIndicator, Alert, Image } from "react-native";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  Polyline,
+} from "react-native-maps";
+import * as Location from "expo-location";
 
-const customMapStyle = require('../../assets/maps/configuration.json');
-const customMarkerImage = require('../../assets/pump.png'); // Replace this with the path to your custom marker image
-const myImage = require('../../assets/user_image.png');
+const customMapStyle = require("../../assets/maps/configuration.json");
+const customMarkerImage = require("../../assets/pump.png"); // Replace this with the path to your custom marker image
+const myImage = require("../../assets/user_image.png");
 
 const DirectionComponent = ({ navigation, data }) => {
   const [initialRegion, setInitialRegion] = useState(null);
@@ -15,8 +20,8 @@ const DirectionComponent = ({ navigation, data }) => {
     (async () => {
       // Check and request for location permissions
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.error('Location permission not granted.');
+      if (status !== "granted") {
+        console.error("Location permission not granted.");
         return;
       }
 
@@ -36,30 +41,40 @@ const DirectionComponent = ({ navigation, data }) => {
   }, []);
 
   // Function to fetch route coordinates from the Google Maps Directions API
-  const getRouteCoordinates = async (originLatitude, originLongitude, destinationLatitude, destinationLongitude) => {
+  const getRouteCoordinates = async (
+    originLatitude,
+    originLongitude,
+    destinationLatitude,
+    destinationLongitude
+  ) => {
     try {
-      const apiKey = 'AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpyvpOk';
+      const apiKey = "AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpyvpOk";
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${originLatitude},${originLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${apiKey}`
       );
-      console.log(response)
       const data = await response.json();
-  
-      if (response.ok && data.status === 'OK') {
+
+      if (response.ok && data.status === "OK") {
         if (data.routes && data.routes.length > 0) {
           // Extract the route coordinates from the API response
           const polylinePoints = data.routes[0].overview_polyline.points;
           const decodedPoints = decodePolyline(polylinePoints);
           setRouteCoordinates(decodedPoints);
         } else {
-          Alert.alert('Error', 'No route found between the locations. Please try different locations.');
+          Alert.alert(
+            "Error",
+            "No route found between the locations. Please try different locations."
+          );
         }
       } else {
-        Alert.alert('Error', `Failed to fetch route. Status: ${data.status}`);
+        Alert.alert("Error", `Failed to fetch route. Status: ${data.status}`);
       }
     } catch (error) {
-      console.error('Error fetching route:', error);
-      Alert.alert('Error', 'An error occurred while fetching route. Please try again later.');
+      console.error("Error fetching route:", error);
+      Alert.alert(
+        "Error",
+        "An error occurred while fetching route. Please try again later."
+      );
     }
   };
 
@@ -76,7 +91,10 @@ const DirectionComponent = ({ navigation, data }) => {
       do {
         (a = t.charCodeAt(r++) - 63), (c |= (31 & a) << u), (u += 5);
       } while (a >= 32);
-      (a = 1 & c ? ~(c >> 1) : c >> 1), (h += o), (i += a), l.push([h * Math.pow(10, -e), i * Math.pow(10, -e)]);
+      (a = 1 & c ? ~(c >> 1) : c >> 1),
+        (h += o),
+        (i += a),
+        l.push([h * Math.pow(10, -e), i * Math.pow(10, -e)]);
     }
     return (l = l.map((t) => ({ latitude: t[0], longitude: t[1] })));
   };
@@ -84,7 +102,12 @@ const DirectionComponent = ({ navigation, data }) => {
   if (initialRegion != null) {
     return (
       <View style={styles.container}>
-        <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={customMapStyle} initialRegion={initialRegion}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          customMapStyle={customMapStyle}
+          initialRegion={initialRegion}
+        >
           {routeCoordinates.length > 0 && (
             <Polyline
               coordinates={routeCoordinates}
@@ -95,7 +118,12 @@ const DirectionComponent = ({ navigation, data }) => {
             />
           )}
           {initialRegion && (
-            <Marker coordinate={initialRegion} title="Me" description="This is my current location" image={myImage} />
+            <Marker
+              coordinate={initialRegion}
+              title="Me"
+              description="This is my current location"
+              image={myImage}
+            />
           )}
           <Marker
             key={data.id}
@@ -103,9 +131,14 @@ const DirectionComponent = ({ navigation, data }) => {
               latitude: parseFloat(data.latitude),
               longitude: parseFloat(data.longitude),
             }}
-            image={customMarkerImage}
           >
-            <Callout>
+            <Image
+              source={customMarkerImage}
+              style={{ width: 70, height: 70 }}
+              resizeMethod="resize"
+              resizeMode="center"
+            />
+            <Callout style={{ flex: 1, position: 'relative' }}>
               <View>
                 <Text>{data.name}</Text>
                 <Text>₦{data.price}/L</Text>
@@ -133,8 +166,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

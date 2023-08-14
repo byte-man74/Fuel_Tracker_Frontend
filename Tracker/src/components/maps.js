@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import { View, StyleSheet, Text,  ActivityIndicator  } from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE,} from 'react-native-maps';
-import * as Location from 'expo-location';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, ActivityIndicator, Image } from "react-native";
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
+import * as Location from "expo-location";
 
-const customMapStyle = require('../../assets/maps/configuration.json');
-const customMarkerImage = require('../../assets/pump.png'); // Replace this with the path to your custom marker image
-const myImage = require('../../assets/user_image.png');
+const customMapStyle = require("../../assets/maps/configuration.json");
+const customMarkerImage = require("../../assets/pump.png"); // Replace this with the path to your custom marker image
+const myImage = require("../../assets/user_image.png");
 
-const MapsComponent = ({loading, navigation, data}) => {
+const MapsComponent = ({ loading, navigation, data }) => {
   const [initialRegion, setInitialRegion] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
 
@@ -20,8 +20,8 @@ const MapsComponent = ({loading, navigation, data}) => {
     (async () => {
       // Check and request for location permissions
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.error('Location permission not granted.');
+      if (status !== "granted") {
+        console.error("Location permission not granted.");
         return;
       }
 
@@ -37,10 +37,8 @@ const MapsComponent = ({loading, navigation, data}) => {
     })();
   }, []);
 
-
-
   if (loading === false && initialRegion != null) {
-    console.log("loading is false now")
+    console.log("loading is false now");
     return (
       <View style={styles.container}>
         <MapView
@@ -50,14 +48,20 @@ const MapsComponent = ({loading, navigation, data}) => {
           initialRegion={initialRegion} // Set the initial region here
           region={selectedRegion}
         >
-        {initialRegion && (
-          <Marker
-            coordinate={initialRegion}
-            title="Me"
-            description="This is my current location"
-            image={myImage} 
-          />
-        )}
+          {initialRegion && (
+            <Marker
+              coordinate={initialRegion}
+              title="Me"
+              description="This is my current location"
+            >
+              <Image
+                source={myImage}
+                style={{ width: 70, height: 70 }}
+                resizeMethod="resize"
+                resizeMode="center"
+              />
+            </Marker>
+          )}
           {data.map((station) => (
             <Marker
               key={station.id}
@@ -65,14 +69,21 @@ const MapsComponent = ({loading, navigation, data}) => {
                 latitude: parseFloat(station.latitude),
                 longitude: parseFloat(station.longitude),
               }}
-              image={customMarkerImage} // Set the custom marker image here
-              onPress={() => handleMarkerPress({
-                latitude: parseFloat(station.latitude),
-                longitude: parseFloat(station.longitude),
-                latitudeDelta: 0.04, // Adjust these values to control the zoom level
-                longitudeDelta: 0.04,
-              })}
+              onPress={() =>
+                handleMarkerPress({
+                  latitude: parseFloat(station.latitude),
+                  longitude: parseFloat(station.longitude),
+                  latitudeDelta: 0.04, // Adjust these values to control the zoom level
+                  longitudeDelta: 0.04,
+                })
+              }
             >
+              <Image
+                source={customMarkerImage}
+                style={{ width: 70, height: 70 }}
+                resizeMethod="resize"
+                resizeMode="center"
+              />
               <Callout>
                 <View>
                   <Text>{station.name}</Text>
@@ -84,16 +95,13 @@ const MapsComponent = ({loading, navigation, data}) => {
         </MapView>
       </View>
     );
-  }
-  else{
+  } else {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="orange" />
       </View>
-    )
+    );
   }
-
-
 };
 const styles = StyleSheet.create({
   container: {
@@ -104,8 +112,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
