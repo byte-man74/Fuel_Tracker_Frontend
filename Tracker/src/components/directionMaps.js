@@ -48,7 +48,7 @@ const DirectionComponent = ({ navigation, data }) => {
     destinationLongitude
   ) => {
     try {
-      const apiKey = "AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpyvpOk";
+      const apiKey = "AIzaSyCnIx1hokAk81uKGBM0d_S1GAqWpytvpOk";
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${originLatitude},${originLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${apiKey}`
       );

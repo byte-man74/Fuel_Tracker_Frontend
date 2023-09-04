@@ -299,11 +299,8 @@ const FuelStationDetails = ({ navigation, route }) => {
                   alignItems: "center",
                 }}
               >
-                <TouchableOpacity
+                <View
                   style={styles.dirButton}
-                  onPress={() =>
-                    navigation.navigate("Directions", { item: item })
-                  }
                 >
                   <Image
                     source={require("../../icons/maps.png")}
@@ -318,7 +315,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   >
                     Directions
                   </Text>
-                </TouchableOpacity>
+                </View>
                 <View style={styles.openingHours}>
                   <Image
                     source={require("../../icons/time.png")}
