@@ -84,7 +84,9 @@ const process_station = (station) => {
       traffic: traffic_status, // Add a check here 
       image: activeImage,
       time_posted: humanReadableDateTime,
-      votes: station.price.votes
+      votes: station.price.votes,
+      has_voted: station.has_voted, //
+      active: false, //
     };
     // Return the resulting data
     return data;

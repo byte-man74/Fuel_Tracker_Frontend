@@ -24,7 +24,6 @@ const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
-  
 
   const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
     useState(false);
@@ -37,48 +36,17 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [Commentloading, setCommentLoading] = useState(true);
   const [priceValue, setPriceValue] = useState("");
   const [priceActivityLoading, setPriceActivityLoading] = useState(false);
-  const [upvoteStates, setUpvoteStates] = useState([]);
+  const [active, setActive] = useState(item.active);
 
-  const handleUpvote = async (index, id) => {
+  const handleUpvote = async ( id) => {
     try {
-      // Update the upvote status for the item at the specified index
-      const newUpvoteStates = [...upvoteStates];
-      newUpvoteStates[index] = !newUpvoteStates[index];
-      setUpvoteStates(newUpvoteStates);
-
-      // Save the upvote state in AsyncStorage
-      await saveUpvoteState(newUpvoteStates);
-      await api.post(`add_votes/${id}/`);
+      setActive(true);
+      await api.get(`add_votes/${id}/`);
     } catch (error) {
       console.error("Error upvoting:", error);
     }
   };
 
-  const saveUpvoteState = async (upvoteStates) => {
-    try {
-      // Save the upvote states array in AsyncStorage
-      await AsyncStorage.setItem("upvoteStates", JSON.stringify(upvoteStates));
-    } catch (error) {
-      console.error("Error saving upvote states:", error);
-    }
-  };
-
-  const retrieveUpvoteStates = async () => {
-    try {
-      // Retrieve the upvote states array from AsyncStorage
-      const upvoteStates = await AsyncStorage.getItem("upvoteStates");
-      if (upvoteStates !== null) {
-        setUpvoteStates(JSON.parse(upvoteStates));
-      }
-    } catch (error) {
-      console.error("Error retrieving upvote states:", error);
-    }
-  };
-
-  useEffect(() => {
-    // Load the upvote states array from AsyncStorage when the component mounts
-    retrieveUpvoteStates();
-  }, []);
 
   const openBottomOption = () => {
     setOptionBottomSheetVisible(true);
@@ -256,9 +224,9 @@ const FuelStationDetails = ({ navigation, route }) => {
                   <TouchableOpacity
                     style={[
                       styles.upvoteButton,
-                      upvoteStates[index] ? styles.upvotedButton : null,
+                      (item.has_voted || active) ? styles.upvotedButton : null,
                     ]}
-                    onPress={() => handleUpvote(index, item.id)}
+                    onPress={() => handleUpvote(index, item.id, item)}
                   >
                     <Image
                       source={require("../../icons/upvote.png")}

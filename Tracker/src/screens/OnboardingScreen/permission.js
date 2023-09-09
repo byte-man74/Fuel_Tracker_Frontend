@@ -40,7 +40,7 @@ const Permission = ({ navigation }) => {
                 "longitude": longitude
               });
     
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
                 navigation.navigate("MainScreen")
             }
         } catch (error) {

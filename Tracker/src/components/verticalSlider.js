@@ -12,7 +12,6 @@ import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import SkeletonItem from "./Pages/HomePage/Skeleton";
 
 const { width } = Dimensions.get("window");
@@ -22,7 +21,6 @@ const SliderSaved = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
-  const [upvoteStates, setUpvoteStates] = useState([]);
   const real_data = [];
 
   useEffect(() => {
@@ -37,46 +35,19 @@ const SliderSaved = ({ navigation }) => {
     get_saved_station();
   }, []);
 
-  const handleUpvote = async (index, id) => {
+  const handleUpvote = async (item) => {
+    
     try {
       // Update the upvote status for the item at the specified index
-      const newUpvoteStates = [...upvoteStates];
-      newUpvoteStates[index] = !newUpvoteStates[index];
-      setUpvoteStates(newUpvoteStates);
-
-      // Save the upvote state in AsyncStorage
-      await saveUpvoteState(newUpvoteStates);
-      await api.post(`add_votes/${id}/`);
+   
+      item.active = true;
+      await api.get(`add_votes/${item.id}/`);
     } catch (error) {
+      console.error(item)
       console.error("Error upvoting:", error);
     }
   };
 
-  const saveUpvoteState = async (upvoteStates) => {
-    try {
-      // Save the upvote states array in AsyncStorage
-      await AsyncStorage.setItem("upvoteStates", JSON.stringify(upvoteStates));
-    } catch (error) {
-      console.error("Error saving upvote states:", error);
-    }
-  };
-
-  const retrieveUpvoteStates = async () => {
-    try {
-      // Retrieve the upvote states array from AsyncStorage
-      const upvoteStates = await AsyncStorage.getItem("upvoteStates");
-      if (upvoteStates !== null) {
-        setUpvoteStates(JSON.parse(upvoteStates));
-      }
-    } catch (error) {
-      console.error("Error retrieving upvote states:", error);
-    }
-  };
-
-  useEffect(() => {
-    // Load the upvote states array from AsyncStorage when the component mounts
-    retrieveUpvoteStates();
-  }, []);
 
   useEffect(() => {
     const get_saved_station = async () => {
@@ -185,9 +156,9 @@ const SliderSaved = ({ navigation }) => {
               <TouchableOpacity
                 style={[
                   styles.upvoteButton,
-                  upvoteStates[index] ? styles.upvotedButton : null,
+                  (item.has_voted || item.active) ? styles.upvotedButton : null,
                 ]}
-                onPress={() => handleUpvote(index, item.id)}
+                onPress={() => handleUpvote(item)}
               >
                 <Image
                   source={require("../icons/upvote.png")}
@@ -213,7 +184,7 @@ const SliderSaved = ({ navigation }) => {
                 color: "#333333",
               }}
             >
-              Last updated {item.time_posted}
+              {item.time_posted}
             </Text>
           </View>
         </View>
