@@ -154,14 +154,12 @@ const SliderSaved = ({ navigation }) => {
                   Traffic
                 </Text>
               </View>
-              <TouchableOpacity
+              <View
                 style={[
                   styles.upvoteButton,
-                  (item.active) ? styles.upvotedButton : null,
                 ]}
-                onPress={() => handleUpvote(item)}
               >
-                <Image
+                {/* <Image
                   source={require("../icons/upvote.png")}
                   style={{
                     width: "15%",
@@ -169,11 +167,11 @@ const SliderSaved = ({ navigation }) => {
                     objectFit: "contain",
                     marginRight: 5,
                   }}
-                />
+                /> */}
                 <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
-                  Upvote price | {item.votes}
+                  {item.votes} user(s) agreed on price 👍🏾
                 </Text>
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.lastUpdatedPrice}>

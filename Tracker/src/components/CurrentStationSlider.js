@@ -164,15 +164,15 @@ const StationSlider = ({ navigation }) => {
                 </Text>
               </View>
               <TouchableOpacity   
-                  style={[styles.upvoteButton, item.has_voted ? styles.upvotedButton : null]}
+                  style={[styles.upvoteButton]}
               onPress={() => handleUpvote( item.id)} 
               >
-                <Image
+                {/* <Image
                   source={require("../icons/upvote.png")}
                   style={{ width: "15%", height: "65%", objectFit: "contain", marginRight: 5 }}
-                />
+                /> */}
                 <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
-                  Upvote price | {item.votes}
+                  {item.votes} users agreed on price 👍🏾
                 </Text>
               </TouchableOpacity>
             </View>
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,
-    paddingHorizontal: 4,
+    paddingHorizontal: 8,
     alignItems: "center",
     flexDirection: "row",
     marginRight: 8,

@@ -146,12 +146,8 @@ const SavedScreen = ({ navigation }) => {
                 </Text>
               </View>
               <TouchableOpacity style={styles.upvoteButton}>
-                <Image
-                  source={require("../../../icons/upvote.png")}
-                  style={{ width: 24, height: 24, marginRight: 5 }}
-                />
                 <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
-                  Upvote price | {item.votes}
+                  {item.votes} users agreed with price 👍🏾
                 </Text>
               </TouchableOpacity>
             </View>
@@ -455,11 +451,11 @@ homeContainerHeader: {
     justifyContent: "space-between",
   },
   upvoteButton: {
-    width: 145,
+    minWidth: 145,
     height: "100%",
     backgroundColor: "#E8E9EE",
     borderRadius: 8,
-    paddingHorizontal: 4,
+    paddingHorizontal: 10,
     alignItems: "center",
     flexDirection: "row",
     marginRight: 8,
