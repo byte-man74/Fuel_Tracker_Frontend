@@ -220,7 +220,7 @@ const StationSlider = ({ navigation }) => {
             <Text
               style={{ fontFamily: "Regular", fontSize: RFValue(12), width: "97.5%", color: "#333333" }}
             >
-               Last {item.time_posted}
+               {item.time_posted}
             </Text>
           </View>
         </View>
