@@ -38,7 +38,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [priceActivityLoading, setPriceActivityLoading] = useState(false);
   const [active, setActive] = useState(item.active);
 
-  const handleUpvote = async ( id) => {
+  const handleUpvote = async (id) => {
     try {
       setActive(true);
       await api.get(`add_votes/${id}/`);
@@ -46,7 +46,6 @@ const FuelStationDetails = ({ navigation, route }) => {
       console.error("Error upvoting:", error);
     }
   };
-
 
   const openBottomOption = () => {
     setOptionBottomSheetVisible(true);
@@ -224,9 +223,9 @@ const FuelStationDetails = ({ navigation, route }) => {
                   <TouchableOpacity
                     style={[
                       styles.upvoteButton,
-                      (item.has_voted || active) ? styles.upvotedButton : null,
+                      item.has_voted || active ? styles.upvotedButton : null,
                     ]}
-                    onPress={() => handleUpvote(index, item.id, item)}
+                    onPress={() => handleUpvote(item.id)}
                   >
                     <Image
                       source={require("../../icons/upvote.png")}
@@ -267,9 +266,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   alignItems: "center",
                 }}
               >
-                <View
-                  style={styles.dirButton}
-                >
+                <View style={styles.dirButton}>
                   <Image
                     source={require("../../icons/maps.png")}
                     style={{ width: 24, height: 24, marginRight: 5 }}
