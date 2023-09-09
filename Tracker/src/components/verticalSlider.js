@@ -40,7 +40,8 @@ const SliderSaved = ({ navigation }) => {
     try {
       // Update the upvote status for the item at the specified index
    
-      item.active = true;
+      item.active = !item.active;
+      console.log(item.active);
       await api.get(`add_votes/${item.id}/`);
     } catch (error) {
       console.error(item)
@@ -156,7 +157,7 @@ const SliderSaved = ({ navigation }) => {
               <TouchableOpacity
                 style={[
                   styles.upvoteButton,
-                  (item.has_voted || item.active) ? styles.upvotedButton : null,
+                  (item.active) ? styles.upvotedButton : null,
                 ]}
                 onPress={() => handleUpvote(item)}
               >

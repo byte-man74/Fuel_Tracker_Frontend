@@ -100,7 +100,7 @@ const StationSlider = ({ navigation }) => {
     });
   }
 
-  const renderItem = ({ item , index }) => {
+  const renderItem = ({ item}) => {
     return (
       <TouchableOpacity
         onPress={() =>
@@ -164,8 +164,8 @@ const StationSlider = ({ navigation }) => {
                 </Text>
               </View>
               <TouchableOpacity   
-                  style={[styles.upvoteButton, (item.has_voted || meter) ? styles.upvotedButton : null]}
-              onPress={() => handleUpvote(index, item.id, item)} 
+                  style={[styles.upvoteButton, item.has_voted ? styles.upvotedButton : null]}
+              onPress={() => handleUpvote( item.id)} 
               >
                 <Image
                   source={require("../icons/upvote.png")}
