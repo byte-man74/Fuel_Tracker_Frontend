@@ -189,7 +189,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingHorizontal: "4%",
     backgroundColor: "#FFFFFF",
-    minHeight: 70,
   },
   homeContainerHeader: {
     width: "100%",
