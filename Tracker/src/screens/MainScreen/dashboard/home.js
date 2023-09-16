@@ -132,7 +132,7 @@ const HomeScreen = ({ navigation }) => {
               onFocus={() => navigation.navigate("SearchScreen")}
             ></TextInput>
             <TouchableOpacity
-              style={{ position: "absolute", top: "22.5%", right: "3%" }}
+              style={{ position: "absolute", top: 40, right: "3%" }}  //!here
               onPress={() => navigation.navigate("SearchScreen")}
             >
               <Image

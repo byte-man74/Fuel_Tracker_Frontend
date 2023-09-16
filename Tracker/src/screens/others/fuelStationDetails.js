@@ -18,7 +18,7 @@ import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const { height, width } = Dimensions.get("window");
 
