@@ -17,6 +17,7 @@ import process_station from "../../../api/station_images";
 import SliderSaved from "../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RFValue } from "react-native-responsive-fontsize";
+import Button from "../../../components/GlobalComponents/button";
 
 const { height } = Dimensions.get("window");
 
@@ -25,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
   const slideInAnimation = useRef(new Animated.Value(100)).current;
   const [currentLocationLoading, setcurrentLocationLoading] = useState(true);
   const [stationData, setData] = useState([]);
-
+  const [modal, setModal] = useState(false);
   const real_data = [];
   useEffect(() => {
     const get_saved_station = async () => {
@@ -71,6 +72,42 @@ const HomeScreen = ({ navigation }) => {
   }, []);
   return (
     <>
+      <View
+        style={{
+          width: "100%",
+          height: height,
+          backgroundColor: "rgba(0, 0, 0, 0.49)",
+          position: "absolute",
+          top: 0,
+          justifyContent: "center",
+          alignItems: "center",
+          right: 0,
+          zIndex: 100,
+        }}
+      >
+        <View
+          style={{
+            width: "70%",
+            height: 200,
+            backgroundColor: "white",
+            borderRadius: 12,
+            padding: 14,
+            gap: 20,
+          }}
+        >
+          <Text style={{ fontSize: 16}}>Filter Station</Text>
+          <View
+          style={{
+            padding: 14,
+            gap: 15,
+          }}
+        >
+          <Button title="By price" width="100%" height={50} color="black"/>
+          <Button title="By distance" width="100%" height={50} color="black"/>
+        </View>
+
+        </View>
+      </View>
       <SafeAreaView style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
@@ -132,7 +169,7 @@ const HomeScreen = ({ navigation }) => {
               onFocus={() => navigation.navigate("SearchScreen")}
             ></TextInput>
             <TouchableOpacity
-              style={{ position: "absolute", top: "22.5%", right: "3%" }}  //!here
+              style={{ position: "absolute", top: "22.5%", right: "3%" }} //!here
               onPress={() => navigation.navigate("SearchScreen")}
             >
               <Image
@@ -190,6 +227,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: "4%",
     backgroundColor: "#FFFFFF",
     minHeight: 85,
+    alignItems: "center",
+    justifyContent: "center",
   },
   homeContainerHeader: {
     width: "100%",

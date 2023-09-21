@@ -302,7 +302,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                       ? { backgroundColor: "red" } // Apply red background if traffic is 1
                       : item.traffic === 2
                       ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
-                      : { backgroundColor: "green" }, // Apply green background if traffic is 3
+                      : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
                   ]}
                 >
                   <Image
@@ -613,10 +613,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: "4%",
   },
   header: {
-    width: "100%",
-    height: 40,
+    flex: 1,
+    resizeMode: "cover",
     flexDirection: "row",
+    justifyContent: "flex-start",
+    minHeight: 45,
+    alignItems: "center",
     justifyContent: "space-between",
+  
   },
   stationInfo: {
     width: "100%",

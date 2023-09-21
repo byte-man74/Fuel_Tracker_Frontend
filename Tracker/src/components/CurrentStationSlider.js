@@ -146,7 +146,7 @@ const StationSlider = ({ navigation }) => {
                     ? { backgroundColor: "red" } // Apply red background if traffic is 1
                     : item.traffic === 2
                     ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
-                    : { backgroundColor: "green" }, // Apply green background if traffic is 3
+                    : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
                 ]}
               >
                 <Image
