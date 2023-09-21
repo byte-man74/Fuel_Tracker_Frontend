@@ -132,7 +132,7 @@ const HomeScreen = ({ navigation }) => {
               onFocus={() => navigation.navigate("SearchScreen")}
             ></TextInput>
             <TouchableOpacity
-              style={{ position: "absolute", top: 40, right: "3%" }}  //!here
+              style={{ position: "absolute", top: "22.5%", right: "3%" }}  //!here
               onPress={() => navigation.navigate("SearchScreen")}
             >
               <Image
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingHorizontal: "4%",
     backgroundColor: "#FFFFFF",
+    minHeight: 85,
   },
   homeContainerHeader: {
     width: "100%",

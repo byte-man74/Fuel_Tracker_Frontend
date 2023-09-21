@@ -19,7 +19,6 @@ import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
@@ -269,7 +268,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 <View style={styles.dirButton}>
                   <Image
                     source={require("../../icons/maps.png")}
-                    style={{ width: 24, height: 24, marginRight: 5 }}
+                    style={{ width: 20, height: 20, marginRight: 5 }}
                   />
                   <Text
                     style={{
@@ -284,7 +283,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 <View style={styles.openingHours}>
                   <Image
                     source={require("../../icons/time.png")}
-                    style={{ width: 23, height: 23, marginRight: 5 }}
+                    style={{ width: 20, height: 20, marginRight: 5 }}
                   />
                   <Text
                     style={{
@@ -353,21 +352,24 @@ const FuelStationDetails = ({ navigation, route }) => {
               onPress={openPriceOptionButton}
               style={{
                 flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
                 flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-between",
+                gap: 10
               }}
             >
-              {price ? (
-                <Text style={styles.EditText}>₦{price}L</Text>
-              ) : (
-                <ActivityIndicator />
-              )}
-              <Image
-                style={{ width: 18, height: 18, marginHorizontal: 5 }}
-                source={require("../../icons/edit.png")}
-              />
-              <Text style={styles.Text}>Update Price</Text>
+              <View style={{ flexDirection: "row", gap: 2, alignItems: "center"}}>
+                {price ? (
+                  <Text style={styles.EditText}>₦{price}L</Text>
+                ) : (
+                  <ActivityIndicator />
+                )}
+                <Image
+                  style={{ width: 18, height: 18, marginHorizontal: 5 }}
+                  source={require("../../icons/edit.png")}
+                />
+                <Text style={styles.Text}>Update Price</Text>
+              </View>
               <Text style={styles.TimeText}>{item.time_posted}</Text>
             </TouchableOpacity>
           </View>
@@ -677,14 +679,13 @@ const styles = StyleSheet.create({
   },
   TextBold: {
     fontFamily: "SemiBold",
-    fontSize: 18,
+    fontSize: 16,
     color: "#232323",
   },
   TimeText: {
     fontFamily: "Regular",
     fontSize: 15,
     color: "#232323",
-    position: "absolute",
     right: 0,
   },
   extraFunctionsStyling: {
@@ -713,6 +714,8 @@ const styles = StyleSheet.create({
   },
   dirButton: {
     width: 108,
+    display: "flex",
+    justifyContent: "center",
     height: "100%",
     backgroundColor: "#333333",
     borderRadius: 8,
@@ -722,6 +725,8 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   openingHours: {
+    display: "flex",
+    justifyContent: "center",
     width: 110,
     height: "100%",
     backgroundColor: "#333333",
@@ -732,6 +737,8 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   trafficIndicator: {
+    display: "flex",
+    justifyContent: "center",
     width: 85,
     height: "100%",
     backgroundColor: "rgba(102, 189, 112, 1)",
@@ -761,9 +768,13 @@ const styles = StyleSheet.create({
   secondDetails: {
     width: "94%",
     minHeight: 90,
+    gap: 20,
+    flexWrap: "wrap",
+    flexDirection: "column",
     borderBottomColor: "#D9D9D9",
     borderBottomWidth: 1,
     marginBottom: 20,
+    paddingBottom: 10,
     justifyContent: "space-around",
   },
   carouselContainerExtraInfo: {
