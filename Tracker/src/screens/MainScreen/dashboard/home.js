@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
   const slideInAnimation = useRef(new Animated.Value(100)).current;
   const [currentLocationLoading, setcurrentLocationLoading] = useState(true);
   const [stationData, setData] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [Modal, setModal] = useState(true);
   const real_data = [];
   useEffect(() => {
     const get_saved_station = async () => {
@@ -72,42 +72,51 @@ const HomeScreen = ({ navigation }) => {
   }, []);
   return (
     <>
-      <View
-        style={{
-          width: "100%",
-          height: height,
-          backgroundColor: "rgba(0, 0, 0, 0.49)",
-          position: "absolute",
-          top: 0,
-          justifyContent: "center",
-          alignItems: "center",
-          right: 0,
-          zIndex: 100,
-        }}
-      >
-        <View
+      {Modal ? (
+        <TouchableOpacity 
           style={{
-            width: "70%",
-            height: 200,
-            backgroundColor: "white",
-            borderRadius: 12,
-            padding: 14,
-            gap: 20,
+            width: "100%",
+            height: height,
+            backgroundColor: "rgba(0, 0, 0, 0.49)",
+            position: "absolute",
+            top: 0,
+            justifyContent: "center",
+            alignItems: "center",
+            right: 0,
+            zIndex: 100,
           }}
+          onPress={() => {setModal(false)}}
         >
-          <Text style={{ fontSize: 16}}>Filter Station</Text>
           <View
-          style={{
-            padding: 14,
-            gap: 15,
-          }}
-        >
-          <Button title="By price" width="100%" height={50} color="black"/>
-          <Button title="By distance" width="100%" height={50} color="black"/>
-        </View>
-
-        </View>
-      </View>
+            style={{
+              width: "70%",
+              height: 200,
+              backgroundColor: "white",
+              borderRadius: 12,
+              padding: 14,
+              gap: 20,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>Filter Station</Text>
+            <View
+              style={{
+                padding: 14,
+                gap: 15,
+              }}
+            >
+              <Button title="By price" width="100%" height={50} color="black" />
+              <Button
+                title="By distance"
+                width="100%"
+                height={50}
+                color="black"
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
       <SafeAreaView style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
@@ -170,7 +179,7 @@ const HomeScreen = ({ navigation }) => {
             ></TextInput>
             <TouchableOpacity
               style={{ position: "absolute", top: "22.5%", right: "3%" }} //!here
-              onPress={() => navigation.navigate("SearchScreen")}
+              onPress={() => setModal(true)}
             >
               <Image
                 source={require("../../../icons/filter.png")}
@@ -226,13 +235,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingHorizontal: "4%",
     backgroundColor: "#FFFFFF",
-    minHeight: 85,
+    minHeight: 90,
     alignItems: "center",
     justifyContent: "center",
   },
   homeContainerHeader: {
     width: "100%",
-    height: 30,
+    height: 35,
     flexDirection: "row",
     paddingHorizontal: "4%",
     justifyContent: "space-between",
