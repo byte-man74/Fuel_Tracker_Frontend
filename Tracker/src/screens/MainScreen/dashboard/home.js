@@ -76,7 +76,6 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const onRefresh = () => {
-
     setRefreshing(true);
 
     // Simulate an API call or data fetching
@@ -122,12 +121,13 @@ const HomeScreen = ({ navigation }) => {
                 gap: 15,
               }}
             >
-              <Button title="By price" width="100%" height={50} color="black" />
+              <Button title="By price" width="100%" height={50} color="black"  onPress={() => setPriceSort(true)} />
               <Button
                 title="By distance"
                 width="100%"
                 height={50}
                 color="black"
+                onPress={() => setPriceSort(false)}
               />
             </View>
           </View>
@@ -233,7 +233,11 @@ const HomeScreen = ({ navigation }) => {
             <Animated.View
               style={[styles.carouselBox, { opacity: fadeInAnimation }]}
             >
-              <StationSlider navigation={navigation} refresh={refreshing} priceSort={priceSort} />
+              <StationSlider
+                navigation={navigation}
+                refresh={refreshing}
+                priceSort={priceSort}
+              />
             </Animated.View>
           </View>
           <View
