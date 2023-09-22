@@ -29,6 +29,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [commentActivityLoading, setcommentActivityLoading] = useState(false);
+  const [trafficBottomSheetVisible, setTrafficBottomSheetVisible] = useState(false);
   const [price, setPrice] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
@@ -53,6 +54,11 @@ const FuelStationDetails = ({ navigation, route }) => {
   const closeBottomOption = () => {
     setOptionBottomSheetVisible(false);
   };
+
+  const openTrafficBottomOption = () =>{
+    closeBottomOption();
+    setTrafficBottomSheetVisible(true); //
+  }
 
   const openPriceOptionButton = () => {
     closeBottomOption();
@@ -481,12 +487,13 @@ const FuelStationDetails = ({ navigation, route }) => {
                 alignItems: "center",
                 marginBottom: 30,
               }}
+              onPress={openTrafficBottomOption} 
             >
               <Image
                 style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../icons/uil_share.png")}
+                source={require("../../icons/traffic_black.png")}
               />
-              <Text style={styles.Text}>Share</Text>
+              <Text style={styles.Text}>Rate traffic</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={openCommentOption}
@@ -516,6 +523,47 @@ const FuelStationDetails = ({ navigation, route }) => {
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
             <Text style={styles.EditText}>Update Price</Text>
+            <TouchableOpacity onPress={closePriceOptionButton}>
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require("../../images/Icons.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.feedbackContainer}>
+            <TouchableOpacity style={styles.searchContainer}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Input Price Option"
+                value={priceValue}
+                keyboardType="numeric"
+                onChangeText={handlePriceTextChange}
+              ></TextInput>
+            </TouchableOpacity>
+            <Button
+              title="Submit"
+              onPress={edit_price} // Only call handleSubmit when the button is not disabled
+              disabled={false}
+              color={"#1E1E1E"} // Custom color
+              textColor={"white"}
+              loading={priceActivityLoading}
+              width={"100%"}
+              // Custom width
+              height={55}
+            />
+          </View>
+        </View>
+      </BottomSheet>
+
+      {/* bottom sheet box price rating */}
+      <BottomSheet
+        isVisible={trafficBottomSheetVisible}
+        onDismiss={() => setTrafficBottomSheetVisible(false)}
+        snapPoints={["35%"]}
+      >
+        <View style={styles.bottomSheetContent}>
+          <View style={styles.buttomsheetheader2}>
+            <Text style={styles.EditText}>Update Traffic</Text>
             <TouchableOpacity onPress={closePriceOptionButton}>
               <Image
                 style={{ width: 30, height: 30 }}
@@ -853,14 +901,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   radioContainer: {
-    flexDirection: "row", 
-    alignItems: "center", 
+    flexDirection: "row",
+    alignItems: "center",
     paddingLeft: 2,
-    marginRight: 6, 
+    marginRight: 6,
   },
   radioOption: {
-    flexDirection: "row", 
-    alignItems: "center", 
-    marginRight: 10, 
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 10,
   },
 });
