@@ -23,13 +23,10 @@ const StationSlider = ({ navigation, refresh }) => {
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [meter, setMeter] = useState(false);
 
 
 
   const handleUpvote = async (id) => {
-    setMeter(!meter);
-    console.log(meter)
     try {
       await api.get(`add_votes/${id}/`)
     } catch (error) {

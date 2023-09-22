@@ -355,10 +355,12 @@ const FuelStationDetails = ({ navigation, route }) => {
                 flexWrap: "wrap",
                 width: "100%",
                 justifyContent: "space-between",
-                gap: 10
+                gap: 10,
               }}
             >
-              <View style={{ flexDirection: "row", gap: 2, alignItems: "center"}}>
+              <View
+                style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
+              >
                 {price ? (
                   <Text style={styles.EditText}>₦{price}L</Text>
                 ) : (
@@ -550,7 +552,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       <BottomSheet
         isVisible={CommentSheetVisible}
         onDismiss={closeBottomOption}
-        snapPoints={["37%"]}
+        snapPoints={["40%"]}
       >
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
@@ -562,14 +564,14 @@ const FuelStationDetails = ({ navigation, route }) => {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.feedbackContainer}>
-            <TouchableOpacity style={styles.searchContainer}>
+          <View style={styles.commentFeedbackContainer}>
+            <TouchableOpacity style={styles.commentSearchContainer}>
               <TextInput
-                style={styles.searchInput}
+                style={{ ...styles.searchInput, textAlignVertical: "top" }}
                 placeholder="Comment on fueling station"
                 value={commentText}
                 onChangeText={handleTextChange}
-              ></TextInput>
+              />
             </TouchableOpacity>
             <Button
               title="Submit"
@@ -620,7 +622,6 @@ const styles = StyleSheet.create({
     minHeight: 45,
     alignItems: "center",
     justifyContent: "space-between",
-  
   },
   stationInfo: {
     width: "100%",
@@ -631,6 +632,12 @@ const styles = StyleSheet.create({
   searchContainer: {
     width: "100%",
     height: 60,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  commentSearchContainer: {
+    width: "100%",
+    height: 120,
     marginTop: 30,
     marginBottom: 30,
   },
@@ -840,15 +847,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
   },
+  commentFeedbackContainer: {
+    width: "100%",
+    minHeight: 80,
+    alignItems: "center",
+  },
   radioContainer: {
-    flexDirection: "row", // Place radio options horizontally
-    alignItems: "center", // Align items vertically within the container
+    flexDirection: "row", 
+    alignItems: "center", 
     paddingLeft: 2,
-    marginRight: 6, // Adjust the spacing between radio options as needed
+    marginRight: 6, 
   },
   radioOption: {
-    flexDirection: "row", // Align radio button and text horizontally
-    alignItems: "center", // Align items vertically within each option
-    marginRight: 10, // Adjust the spacing between radio options as needed
+    flexDirection: "row", 
+    alignItems: "center", 
+    marginRight: 10, 
   },
 });
