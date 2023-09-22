@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
   const slideInAnimation = useRef(new Animated.Value(100)).current;
   const [currentLocationLoading, setcurrentLocationLoading] = useState(true);
   const [stationData, setData] = useState([]);
-  const [Modal, setModal] = useState(true);
+  const [Modal, setModal] = useState(false);
   const real_data = [];
   useEffect(() => {
     const get_saved_station = async () => {
