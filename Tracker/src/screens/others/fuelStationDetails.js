@@ -29,7 +29,8 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
   const [commentActivityLoading, setcommentActivityLoading] = useState(false);
-  const [trafficBottomSheetVisible, setTrafficBottomSheetVisible] = useState(false);
+  const [trafficBottomSheetVisible, setTrafficBottomSheetVisible] =
+    useState(false);
   const [price, setPrice] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
@@ -37,6 +38,11 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [priceValue, setPriceValue] = useState("");
   const [priceActivityLoading, setPriceActivityLoading] = useState(false);
   const [active, setActive] = useState(item.active);
+  const [selectedRadioOption, setSelectedRadioOption] = useState(1);
+
+  const handleRadioOptionSelect = (value) => {
+    setSelectedRadioOption(value);
+  };
 
   const handleUpvote = async (id) => {
     try {
@@ -69,15 +75,14 @@ const FuelStationDetails = ({ navigation, route }) => {
     setPriceBottomSheetVisible(false);
   };
 
-  const openTrafficBottomOption = () =>{
+  const openTrafficBottomOption = () => {
     closeBottomOption();
     setTrafficBottomSheetVisible(true); //
-  }
+  };
 
-  const closeTrafficBottomOption = () =>{
-    setTrafficBottomSheetVisible(false); 
-  }
-
+  const closeTrafficBottomOption = () => {
+    setTrafficBottomSheetVisible(false);
+  };
 
   const closeCommentOptionButton = () => {
     setCommentSheetVisible(false);
@@ -493,7 +498,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 alignItems: "center",
                 marginBottom: 30,
               }}
-              onPress={openTrafficBottomOption} 
+              onPress={openTrafficBottomOption}
             >
               <Image
                 style={{ width: 22, height: 22, marginHorizontal: 10 }}
@@ -565,41 +570,77 @@ const FuelStationDetails = ({ navigation, route }) => {
       <BottomSheet
         isVisible={trafficBottomSheetVisible}
         onDismiss={() => setTrafficBottomSheetVisible(false)}
-        snapPoints={["35%"]}
+        snapPoints={["30%"]}
       >
-        <View style={styles.bottomSheetContent}>
-          <View style={styles.buttomsheetheader2}>
-            <Text style={styles.EditText}>Update Traffic</Text>
-            <TouchableOpacity onPress={closeTrafficBottomOption}>
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../images/Icons.png")}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.feedbackContainer}>
-            <TouchableOpacity style={styles.searchContainer}>
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Input Price Option"
-                value={priceValue}
-                keyboardType="numeric"
-                onChangeText={handlePriceTextChange}
-              ></TextInput>
-            </TouchableOpacity>
-            <Button
-              title="Submit"
-              onPress={edit_price} // Only call handleSubmit when the button is not disabled
-              disabled={false}
-              color={"#1E1E1E"} // Custom color
-              textColor={"white"}
-              loading={priceActivityLoading}
-              width={"100%"}
-              // Custom width
-              height={55}
+        <View style={styles.buttomsheetheader2}>
+          <Text style={styles.EditText}>Update Traffic</Text>
+          <TouchableOpacity onPress={closeTrafficBottomOption}>
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require("../../images/Icons.png")}
             />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.feedbackContainer}>
+          <View style={styles.radioOptionsContainer}>
+            <TouchableOpacity
+              style={[
+                styles.radioOption,
+                selectedRadioOption === 1 && styles.selectedRadioOption,
+              ]}
+              onPress={() => handleRadioOptionSelect(1)}
+            >
+              <RadioButton.Android
+                value="1"
+                status={selectedRadioOption === 1 ? "checked" : "unchecked"}
+                onPress={() => handleRadioOptionSelect(1)}
+                color="orange" // Customize the color of the radio button
+              />
+              <Text style={styles.radioOptionLabel}>Low Traffic</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.radioOption,
+                selectedRadioOption === 2 && styles.selectedRadioOption,
+              ]}
+              onPress={() => handleRadioOptionSelect(2)}
+            >
+              <RadioButton.Android
+                value="2"
+                status={selectedRadioOption === 2 ? "checked" : "unchecked"}
+                onPress={() => handleRadioOptionSelect(2)}
+                color="orange" // Customize the color of the radio button
+              />
+              <Text style={styles.radioOptionLabel}>Medium Traffic</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.radioOption,
+                selectedRadioOption === 3 && styles.selectedRadioOption,
+              ]}
+              onPress={() => handleRadioOptionSelect(3)}
+            >
+              <RadioButton.Android
+                value="3"
+                status={selectedRadioOption === 3 ? "checked" : "unchecked"}
+                onPress={() => handleRadioOptionSelect(3)}
+                color="orange" // Customize the color of the radio button
+              />
+              <Text style={styles.radioOptionLabel}>High Traffic</Text>
+            </TouchableOpacity>
           </View>
         </View>
+        <Button
+          title="Submit"
+          onPress={edit_price} // Only call handleSubmit when the button is not disabled
+          disabled={false}
+          color={"#1E1E1E"} // Custom color
+          textColor={"white"}
+          loading={priceActivityLoading}
+          width={"100%"}
+          // Custom width
+          height={55}
+        />
       </BottomSheet>
 
       {/* bottom sheet comment box */}
@@ -908,7 +949,6 @@ const styles = StyleSheet.create({
   },
   radioContainer: {
     flexDirection: "row",
-    alignItems: "center",
     paddingLeft: 2,
     marginRight: 6,
   },
@@ -916,5 +956,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginRight: 10,
+  },
+  radioOptionsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
