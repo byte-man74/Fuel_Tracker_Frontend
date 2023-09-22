@@ -596,7 +596,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 onPress={() => handleRadioOptionSelect(1)}
                 color="orange" // Customize the color of the radio button
               />
-              <Text style={styles.radioOptionLabel}>Low Traffic</Text>
+              <Text style={styles.radioOptionLabel}>Very Bad</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -611,7 +611,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 onPress={() => handleRadioOptionSelect(2)}
                 color="orange" // Customize the color of the radio button
               />
-              <Text style={styles.radioOptionLabel}>Medium Traffic</Text>
+              <Text style={styles.radioOptionLabel}>Average</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -626,7 +626,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 onPress={() => handleRadioOptionSelect(3)}
                 color="orange" // Customize the color of the radio button
               />
-              <Text style={styles.radioOptionLabel}>High Traffic</Text>
+              <Text style={styles.radioOptionLabel}>Excellent</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -962,4 +962,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  radioOptionLabel: {
+    fontSize: 14,
+    color: '#333', // Customize the text color
+  },
+
+
 });

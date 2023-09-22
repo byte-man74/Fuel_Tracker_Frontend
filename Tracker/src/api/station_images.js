@@ -74,6 +74,8 @@ const process_station = (station) => {
     const traffic_status = get_traffic_rating(station.traffic)
     const activeImage = matchedImage ? matchedImage.image : images[0].image;
   
+
+    // on this code i want this code to check if price sort is equals to true then 
     const data = {
       id: station.station.id,
       name: station.station.name,

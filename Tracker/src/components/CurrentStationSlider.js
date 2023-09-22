@@ -12,28 +12,25 @@ import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
 import * as Location from "expo-location";
-import { RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "./Pages/HomePage/Skeleton";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const StationSlider = ({ navigation, refresh }) => {
+const StationSlider = ({ navigation, refresh, priceSort }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
   const [currentLocation, setCurrentLocation] = useState(null);
 
-
-
   const handleUpvote = async (id) => {
     try {
-      await api.get(`add_votes/${id}/`)
+      await api.get(`add_votes/${id}/`);
     } catch (error) {
       console.error("Error upvoting:", error);
     }
   };
-
 
   const getCurrentLocation = async () => {
     try {
@@ -98,7 +95,13 @@ const StationSlider = ({ navigation, refresh }) => {
     });
   }
 
-  const renderItem = ({ item}) => {
+  const sortedData = priceSort
+  ? real_data.slice().sort((a, b) => a.price - b.price)
+  : real_data;
+
+
+  const renderItem = ({ item }) => {
+
     return (
       <TouchableOpacity
         onPress={() =>
@@ -161,9 +164,9 @@ const StationSlider = ({ navigation, refresh }) => {
                   Traffic
                 </Text>
               </View>
-              <TouchableOpacity   
-                  style={[styles.upvoteButton]}
-              onPress={() => handleUpvote( item.id)} 
+              <TouchableOpacity
+                style={[styles.upvoteButton]}
+                onPress={() => handleUpvote(item.id)}
               >
                 {/* <Image
                   source={require("../icons/upvote.png")}
@@ -177,9 +180,14 @@ const StationSlider = ({ navigation, refresh }) => {
           </View>
           <View style={styles.lastUpdatedPrice}>
             <Text
-              style={{ fontFamily: "Regular", fontSize: RFValue(12), width: "97.5%", color: "#333333" }}
+              style={{
+                fontFamily: "Regular",
+                fontSize: RFValue(12),
+                width: "97.5%",
+                color: "#333333",
+              }}
             >
-               {item.time_posted}
+              {item.time_posted}
             </Text>
           </View>
         </View>
@@ -191,15 +199,15 @@ const StationSlider = ({ navigation, refresh }) => {
     <View style={styles.sliderContainer}>
       {loading ? (
         <FlatList
-        data={[1, 2, 3, 4, 5]}
-        renderItem={() => <SkeletonItem containerWidth={ITEM_WIDTH} />}
-        keyExtractor={(item) => item.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContentContainer}
-        snapToInterval={ITEM_WIDTH}
-        decelerationRate="fast"
-      />
+          data={[1, 2, 3, 4, 5]}
+          renderItem={() => <SkeletonItem containerWidth={ITEM_WIDTH} />}
+          keyExtractor={(item) => item.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContentContainer}
+          snapToInterval={ITEM_WIDTH}
+          decelerationRate="fast"
+        />
       ) : real_data.length === 0 ? (
         // Show UI for empty data array
         <View style={styles.emptyDataContainer}>
@@ -216,7 +224,7 @@ const StationSlider = ({ navigation, refresh }) => {
         </View>
       ) : (
         <FlatList
-          data={real_data}
+          data={sortedData}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           horizontal
@@ -243,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     backgroundColor: "#66666610",
-    paddingHorizontal: "7%"
+    paddingHorizontal: "7%",
   },
   stationTextSkeleton: {
     width: "40%",
@@ -416,8 +424,8 @@ const styles = StyleSheet.create({
   },
   load: {
     width: 300,
-    objectFit: "contain"
-  }
+    objectFit: "contain",
+  },
 });
 
 export default StationSlider;

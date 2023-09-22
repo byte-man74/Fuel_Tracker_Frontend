@@ -30,6 +30,7 @@ const HomeScreen = ({ navigation }) => {
   const [Modal, setModal] = useState(false);
   const real_data = [];
   const [refreshing, setRefreshing] = useState(false);
+  const [priceSort, setPriceSort] = useState(true);
 
   useEffect(() => {
     const get_saved_station = async () => {
@@ -232,7 +233,7 @@ const HomeScreen = ({ navigation }) => {
             <Animated.View
               style={[styles.carouselBox, { opacity: fadeInAnimation }]}
             >
-              <StationSlider navigation={navigation} refresh={refreshing} />
+              <StationSlider navigation={navigation} refresh={refreshing} priceSort={priceSort} />
             </Animated.View>
           </View>
           <View
