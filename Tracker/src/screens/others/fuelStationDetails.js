@@ -18,12 +18,14 @@ import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
+import OpenMap from 'react-native-open-maps';
+
 
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
-
+  console.log(item)
   const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
     useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
@@ -157,6 +159,21 @@ const FuelStationDetails = ({ navigation, route }) => {
       });
   };
 
+  const openMapsApp = (latitude, longitude) => {
+    OpenMap({
+      latitude,
+      longitude,
+      query: item.name, // Optionally, you can specify a query
+    });
+  };
+  
+  // Usage
+  const fuelingStationLatitude = 123.456; // Replace with the actual latitude
+  const fuelingStationLongitude = 789.012; // Replace with the actual longitude
+  
+  
+  
+
   const edit_price = () => {
     setPriceActivityLoading(true);
     api
@@ -282,7 +299,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   alignItems: "center",
                 }}
               >
-                <View style={styles.dirButton}>
+                <TouchableOpacity onPress={() => {openMapsApp(parseFloat(item.latitude), parseFloat(item.longitude))}} style={styles.dirButton}>
                   <Image
                     source={require("../../icons/maps.png")}
                     style={{ width: 20, height: 20, marginRight: 5 }}
@@ -296,7 +313,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   >
                     Directions
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.openingHours}>
                   <Image
                     source={require("../../icons/time.png")}
