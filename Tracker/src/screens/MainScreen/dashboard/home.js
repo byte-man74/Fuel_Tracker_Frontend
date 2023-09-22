@@ -75,8 +75,7 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const onRefresh = () => {
-    // Put your refresh logic here, e.g., fetch new data
-    // After completing the refresh action, setRefreshing(true) to false
+
     setRefreshing(true);
 
     // Simulate an API call or data fetching
@@ -162,9 +161,9 @@ const HomeScreen = ({ navigation }) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor="red" // Customize the loading spinner color
+            tintColor="orange" // Customize the loading spinner color
             title="Refreshing..." // Displayed when refreshing
-            titleColor="red" // Customize the loading text color
+            titleColor="orange" // Customize the loading text color
           />
         }
       >
@@ -233,7 +232,7 @@ const HomeScreen = ({ navigation }) => {
             <Animated.View
               style={[styles.carouselBox, { opacity: fadeInAnimation }]}
             >
-              <StationSlider navigation={navigation} />
+              <StationSlider navigation={navigation} refresh={refreshing} />
             </Animated.View>
           </View>
           <View

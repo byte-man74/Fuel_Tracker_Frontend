@@ -18,7 +18,7 @@ import SkeletonItem from "./Pages/HomePage/Skeleton";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
-const StationSlider = ({ navigation }) => {
+const StationSlider = ({ navigation, refresh }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
@@ -56,11 +56,12 @@ const StationSlider = ({ navigation }) => {
 
   useEffect(() => {
     getCurrentLocation();
-  }, [meter]);
+  }, []);
 
   const real_data = [];
   useEffect(() => {
     const get_saved_station = async () => {
+      setLoading(true);
       try {
         const response = await api.post("closest_station/", {
           latitude: currentLocation.latitude,
@@ -91,7 +92,7 @@ const StationSlider = ({ navigation }) => {
     if (currentLocation) {
       get_saved_station();
     }
-  }, [currentLocation]);
+  }, [currentLocation, refresh]);
 
   if (stationData) {
     stationData.forEach((station) => {
