@@ -121,12 +121,20 @@ const HomeScreen = ({ navigation }) => {
                 gap: 15,
               }}
             >
-              <Button title="By price" width="100%" height={50} color="black"  onPress={() => setPriceSort(true)} />
+              <Button
+                title="By price"
+                width="100%"
+                height={50}
+                color={priceSort ? "black" : "#eeeeee"} // Custom color
+                textColor={priceSort ? "white" : "black"}
+                onPress={() => setPriceSort(true)}
+              />
               <Button
                 title="By distance"
                 width="100%"
                 height={50}
-                color="black"
+                color={priceSort ? "#eeeeee" :  "black"} // Custom color
+                textColor={priceSort ? "black" : "white"}
                 onPress={() => setPriceSort(false)}
               />
             </View>
