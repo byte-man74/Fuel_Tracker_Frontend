@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   Animated,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import StationSlider from "../../../components/CurrentStationSlider";
@@ -28,6 +29,8 @@ const HomeScreen = ({ navigation }) => {
   const [stationData, setData] = useState([]);
   const [Modal, setModal] = useState(false);
   const real_data = [];
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
     const get_saved_station = async () => {
       try {
@@ -70,10 +73,23 @@ const HomeScreen = ({ navigation }) => {
 
     Animated.parallel([fadeIn, slideIn]).start();
   }, []);
+
+  const onRefresh = () => {
+    // Put your refresh logic here, e.g., fetch new data
+    // After completing the refresh action, setRefreshing(true) to false
+    setRefreshing(true);
+
+    // Simulate an API call or data fetching
+    setTimeout(() => {
+      // After fetching data, set refreshing to false
+      setRefreshing(false);
+    }, 2000); // Adjust the delay as needed
+  };
+
   return (
     <>
       {Modal ? (
-        <TouchableOpacity 
+        <TouchableOpacity
           style={{
             width: "100%",
             height: height,
@@ -85,7 +101,9 @@ const HomeScreen = ({ navigation }) => {
             right: 0,
             zIndex: 100,
           }}
-          onPress={() => {setModal(false)}}
+          onPress={() => {
+            setModal(false);
+          }}
         >
           <View
             style={{
@@ -138,7 +156,18 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="red" // Customize the loading spinner color
+            title="Refreshing..." // Displayed when refreshing
+            titleColor="red" // Customize the loading text color
+          />
+        }
+      >
         <View style={styles.mainBox}>
           <View style={styles.averagePriceBox}>
             <View style={styles.averagePriceBoxContainer}>
