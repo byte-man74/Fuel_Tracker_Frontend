@@ -55,11 +55,6 @@ const FuelStationDetails = ({ navigation, route }) => {
     setOptionBottomSheetVisible(false);
   };
 
-  const openTrafficBottomOption = () =>{
-    closeBottomOption();
-    setTrafficBottomSheetVisible(true); //
-  }
-
   const openPriceOptionButton = () => {
     closeBottomOption();
     setPriceBottomSheetVisible(true);
@@ -73,6 +68,16 @@ const FuelStationDetails = ({ navigation, route }) => {
   const closePriceOptionButton = () => {
     setPriceBottomSheetVisible(false);
   };
+
+  const openTrafficBottomOption = () =>{
+    closeBottomOption();
+    setTrafficBottomSheetVisible(true); //
+  }
+
+  const closeTrafficBottomOption = () =>{
+    setTrafficBottomSheetVisible(false); 
+  }
+
 
   const closeCommentOptionButton = () => {
     setCommentSheetVisible(false);
@@ -176,6 +181,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       {OptionBottomSheetVisible && <Overlay />}
       {PriceBottomSheetVisible && <Overlay />}
       {CommentSheetVisible && <Overlay />}
+      {trafficBottomSheetVisible && <Overlay />}
       <View style={styles.backgroundImage}>
         <ImageBackground
           source={require("../../images/backgrnd.png")}
@@ -564,7 +570,7 @@ const FuelStationDetails = ({ navigation, route }) => {
         <View style={styles.bottomSheetContent}>
           <View style={styles.buttomsheetheader2}>
             <Text style={styles.EditText}>Update Traffic</Text>
-            <TouchableOpacity onPress={closePriceOptionButton}>
+            <TouchableOpacity onPress={closeTrafficBottomOption}>
               <Image
                 style={{ width: 30, height: 30 }}
                 source={require("../../images/Icons.png")}
