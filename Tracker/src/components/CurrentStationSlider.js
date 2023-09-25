@@ -144,9 +144,9 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
                 style={[
                   styles.trafficIndicator,
                   item.traffic === 1
-                    ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                    ? { backgroundColor: "#DF1525" } // Apply red background if traffic is 1
                     : item.traffic === 2
-                    ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
+                    ? { backgroundColor: "#F3E461" } // Apply yellow background if traffic is 2
                     : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
                 ]}
               >
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
   bigContainer: {
     width: 70,
     height: 40,
-    backgroundColor: "red",
+    backgroundColor: "#DF1525",
   },
 
   trafficIndicator: {

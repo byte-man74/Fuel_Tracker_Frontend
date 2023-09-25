@@ -120,9 +120,9 @@ const SavedScreen = ({ navigation }) => {
                 style={[
                   styles.trafficIndicator,
                   item.traffic === 1
-                    ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                    ? { backgroundColor: "#DF1525" } // Apply red background if traffic is 1
                     : item.traffic === 2
-                    ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
+                    ? { backgroundColor: "#F3E461" } // Apply yellow background if traffic is 2
                     : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
                 ]}
               >
@@ -373,7 +373,7 @@ homeContainerHeader: {
   listStationComponentBox: {
     width: "100%",
     minHeight: 450,
-    backgroundColor: "red",
+    backgroundColor: "#DF1525",
   },
   listStationComponent: {
     width: "100%",

@@ -18,14 +18,12 @@ import { RadioButton } from "react-native-paper";
 import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
-import OpenMap from 'react-native-open-maps';
-
+import OpenMap from "react-native-open-maps";
 
 const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
-  console.log(item)
   const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
     useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
@@ -41,6 +39,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [priceActivityLoading, setPriceActivityLoading] = useState(false);
   const [active, setActive] = useState(item.active);
   const [selectedRadioOption, setSelectedRadioOption] = useState(1);
+  const [trafficLoading, setActiveTrafficLoading] = useState(false);
 
   const handleRadioOptionSelect = (value) => {
     setSelectedRadioOption(value);
@@ -50,9 +49,7 @@ const FuelStationDetails = ({ navigation, route }) => {
     try {
       setActive(true);
       await api.get(`add_votes/${id}/`);
-    } catch (error) {
-      console.error("Error upvoting:", error);
-    }
+    } catch (error) {}
   };
 
   const openBottomOption = () => {
@@ -92,7 +89,6 @@ const FuelStationDetails = ({ navigation, route }) => {
 
   const handlePriceTextChange = (newText) => {
     setPriceValue(newText);
-    console.log(newText);
   };
 
   //get comment
@@ -166,13 +162,18 @@ const FuelStationDetails = ({ navigation, route }) => {
       query: item.name, // Optionally, you can specify a query
     });
   };
-  
-  // Usage
-  const fuelingStationLatitude = 123.456; // Replace with the actual latitude
-  const fuelingStationLongitude = 789.012; // Replace with the actual longitude
-  
-  
-  
+
+  const handleTrafficVote = () => {
+    setActiveTrafficLoading(true);
+    api
+      .post(`traffic_rating/${item.id}/`, {
+        rating_type: selectedRadioOption,
+      })
+      .then((response) => {
+        setSelectedRadioOption(1);
+        setActiveTrafficLoading(false);
+      });
+  };
 
   const edit_price = () => {
     setPriceActivityLoading(true);
@@ -186,8 +187,6 @@ const FuelStationDetails = ({ navigation, route }) => {
         setPriceActivityLoading(false);
       })
       .catch((error) => {
-        // Error handling code
-        console.error(error.message);
         setPriceActivityLoading(false);
       });
   };
@@ -299,7 +298,15 @@ const FuelStationDetails = ({ navigation, route }) => {
                   alignItems: "center",
                 }}
               >
-                <TouchableOpacity onPress={() => {openMapsApp(parseFloat(item.latitude), parseFloat(item.longitude))}} style={styles.dirButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    openMapsApp(
+                      parseFloat(item.latitude),
+                      parseFloat(item.longitude)
+                    );
+                  }}
+                  style={styles.dirButton}
+                >
                   <Image
                     source={require("../../icons/maps.png")}
                     style={{ width: 20, height: 20, marginRight: 5 }}
@@ -333,10 +340,10 @@ const FuelStationDetails = ({ navigation, route }) => {
                   style={[
                     styles.trafficIndicator,
                     item.traffic === 1
-                      ? { backgroundColor: "red" } // Apply red background if traffic is 1
+                      ? { backgroundColor: "#DF1525" }
                       : item.traffic === 2
-                      ? { backgroundColor: "yellow" } // Apply yellow background if traffic is 2
-                      : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
+                      ? { backgroundColor: "#F3E461" }
+                      : { backgroundColor: "#66BD70" },
                   ]}
                 >
                   <Image
@@ -347,7 +354,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                     style={{
                       fontFamily: "Regular",
                       fontSize: 14,
-                      color: "white",
+                      color: "white"
                     }}
                   >
                     Traffic
@@ -603,14 +610,17 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity
               style={[
                 styles.radioOption,
-                selectedRadioOption === 1 && styles.selectedRadioOption,
+                selectedRadioOption === "terrible" &&
+                  styles.selectedRadioOption,
               ]}
               onPress={() => handleRadioOptionSelect(1)}
             >
               <RadioButton.Android
                 value="1"
-                status={selectedRadioOption === 1 ? "checked" : "unchecked"}
-                onPress={() => handleRadioOptionSelect(1)}
+                status={
+                  selectedRadioOption === "terrible" ? "checked" : "unchecked"
+                }
+                onPress={() => handleRadioOptionSelect("terrible")}
                 color="orange" // Customize the color of the radio button
               />
               <Text style={styles.radioOptionLabel}>Very Bad</Text>
@@ -618,14 +628,16 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity
               style={[
                 styles.radioOption,
-                selectedRadioOption === 2 && styles.selectedRadioOption,
+                selectedRadioOption === "average" && styles.selectedRadioOption,
               ]}
-              onPress={() => handleRadioOptionSelect(2)}
+              onPress={() => handleRadioOptionSelect("average")}
             >
               <RadioButton.Android
                 value="2"
-                status={selectedRadioOption === 2 ? "checked" : "unchecked"}
-                onPress={() => handleRadioOptionSelect(2)}
+                status={
+                  selectedRadioOption === "average" ? "checked" : "unchecked"
+                }
+                onPress={() => handleRadioOptionSelect("average")}
                 color="orange" // Customize the color of the radio button
               />
               <Text style={styles.radioOptionLabel}>Average</Text>
@@ -633,14 +645,16 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity
               style={[
                 styles.radioOption,
-                selectedRadioOption === 3 && styles.selectedRadioOption,
+                selectedRadioOption === "good" && styles.selectedRadioOption,
               ]}
-              onPress={() => handleRadioOptionSelect(3)}
+              onPress={() => handleRadioOptionSelect("good")}
             >
               <RadioButton.Android
                 value="3"
-                status={selectedRadioOption === 3 ? "checked" : "unchecked"}
-                onPress={() => handleRadioOptionSelect(3)}
+                status={
+                  selectedRadioOption === "good" ? "checked" : "unchecked"
+                }
+                onPress={() => handleRadioOptionSelect("good")}
                 color="orange" // Customize the color of the radio button
               />
               <Text style={styles.radioOptionLabel}>Excellent</Text>
@@ -649,11 +663,11 @@ const FuelStationDetails = ({ navigation, route }) => {
         </View>
         <Button
           title="Submit"
-          onPress={edit_price} // Only call handleSubmit when the button is not disabled
+          onPress={handleTrafficVote} // Only call handleSubmit when the button is not disabled
           disabled={false}
           color={"#1E1E1E"} // Custom color
           textColor={"white"}
-          loading={priceActivityLoading}
+          loading={trafficLoading}
           width={"100%"}
           // Custom width
           height={55}
@@ -981,8 +995,6 @@ const styles = StyleSheet.create({
   },
   radioOptionLabel: {
     fontSize: 14,
-    color: '#333', // Customize the text color
+    color: "#333", // Customize the text color
   },
-
-
 });

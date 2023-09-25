@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   listStationComponentBox: {
     width: "100%",
     minHeight: 450,
-    backgroundColor: "red",
+    backgroundColor: "#DF1525",
   },
   listStationComponent: {
     width: "100%",
