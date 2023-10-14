@@ -1,15 +1,11 @@
 import {
   Text,
   View,
-  Image,
   ScrollView,
-  TouchableOpacity,
-  TextInput,
   Animated,
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";

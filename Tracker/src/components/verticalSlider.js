@@ -159,15 +159,6 @@ const SliderSaved = ({ navigation }) => {
                   styles.upvoteButton,
                 ]}
               >
-                {/* <Image
-                  source={require("../icons/upvote.png")}
-                  style={{
-                    width: "15%",
-                    height: "65%",
-                    objectFit: "contain",
-                    marginRight: 5,
-                  }}
-                /> */}
                 <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
                   {item.votes} user(s) agreed on price 👍🏾
                 </Text>
