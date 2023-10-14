@@ -21,6 +21,7 @@ import animate from "./helper_functions/useAnimation";
 import ModalContainer from "../../../../components/GlobalComponents/modal";
 import { Avatar } from "./components/avatar";
 import { NotificationIcon } from "./components/notification";
+import { AveragePrice } from "./components/averagePrice";
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -93,25 +94,14 @@ const HomeScreen = ({ navigation }) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor="orange" // Customize the loading spinner color
-            title="Refreshing..." // Displayed when refreshing
-            titleColor="orange" // Customize the loading text color
+            tintColor="orange" 
+            title="Refreshing..." 
+            titleColor="orange" 
           />
         }
       >
         <View style={styles.mainBox}>
-          <View style={styles.averagePriceBox}>
-            <View style={styles.averagePriceBoxContainer}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text style={styles.priceText}>₦---</Text>
-                <Image
-                  style={{ width: 24, height: 24, marginLeft: 2 }}
-                  source={require("../../../../icons/gas.png")}
-                />
-              </View>
-              <Text style={styles.headerText}>Average fuel price near you</Text>
-            </View>
-          </View>
+          <AveragePrice />
           <TouchableOpacity
             style={styles.searchContainer}
             onPress={() => navigation.navigate("SearchScreen")}
