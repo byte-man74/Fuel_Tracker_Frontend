@@ -17,10 +17,12 @@ import api from "../../../../services/api";
 import process_station from "../../../../api/station_images";
 import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RFValue } from "react-native-responsive-fontsize";
 import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";
 const { height } = Dimensions.get("window");
+import { get_saved_station } from "./api";
+
+
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -32,22 +34,7 @@ const HomeScreen = ({ navigation }) => {
   const [priceSort, setPriceSort] = useState(true);
 
   useEffect(() => {
-    const get_saved_station = async () => {
-      try {
-        const response = await api.get("get_nearby_fueling_stations/");
-        if (response.status === 200) {
-          setData(response.data.fueling_stations);
-        } else {
-          console.error("Error: Unexpected response status:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-
-      }
-    };
-
-    get_saved_station();
+    get_saved_station(setData);
   }, []);
 
   if (stationData) {
