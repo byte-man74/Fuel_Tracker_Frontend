@@ -13,53 +13,27 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import StationSlider from "../../../../components/CurrentStationSlider";
-import api from "../../../../services/api";
 import process_station from "../../../../api/station_images";
 import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";
 const { height } = Dimensions.get("window");
-import { get_saved_station } from "./api";
-
+import { get_saved_station } from "./helper_functions/api";
+import animate from "./helper_functions/useAnimation";
 
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
   const slideInAnimation = useRef(new Animated.Value(100)).current;
-  const [stationData, setData] = useState([]);
   const [Modal, setModal] = useState(false);
-  const real_data = [];
   const [refreshing, setRefreshing] = useState(false);
   const [priceSort, setPriceSort] = useState(true);
 
   useEffect(() => {
-    get_saved_station(setData);
+    animate(fadeInAnimation, slideInAnimation);
   }, []);
 
-  if (stationData) {
-    stationData.forEach((station) => {
-      const processed_data = process_station(station);
-      real_data.push(processed_data);
-    });
-  }
-
-  useEffect(() => {
-    const fadeIn = Animated.timing(fadeInAnimation, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    });
-
-    const slideIn = Animated.spring(slideInAnimation, {
-      toValue: 0,
-      speed: 15,
-      bounciness: 5,
-      useNativeDriver: true,
-    });
-
-    Animated.parallel([fadeIn, slideIn]).start();
-  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);

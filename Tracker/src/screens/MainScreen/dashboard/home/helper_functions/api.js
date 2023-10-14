@@ -1,4 +1,4 @@
-import api from "../../../../services/api";
+import api from "../../../../../services/api";
 
 export const get_saved_station = async (setData) => {
   try {
@@ -13,3 +13,15 @@ export const get_saved_station = async (setData) => {
   } finally {
   }
 };
+
+
+export const processStationData = (stationData, processStation) => {
+    const realData = [];
+    if (stationData) {
+      stationData.forEach((station) => {
+        const processedData = processStation(station);
+        realData.push(processedData);
+      });
+    }
+    return realData;
+  };
