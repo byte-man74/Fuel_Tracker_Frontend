@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -13,15 +12,15 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import StationSlider from "../../../../components/CurrentStationSlider";
-import process_station from "../../../../api/station_images";
 import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";
-const { height } = Dimensions.get("window");
 import simulateApiCall from "./helper_functions/main";
 import animate from "./helper_functions/useAnimation";
-
+import ModalContainer from "../../../../components/GlobalComponents/modal";
+import { Avatar } from "./components/avatar";
+import { NotificationIcon } from "./components/notification";
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -38,28 +37,10 @@ const HomeScreen = ({ navigation }) => {
     simulateApiCall(setRefreshing);
   };
 
-
-
-
   return (
     <>
       {Modal ? (
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            height: height,
-            backgroundColor: "rgba(0, 0, 0, 0.49)",
-            position: "absolute",
-            top: 0,
-            justifyContent: "center",
-            alignItems: "center",
-            right: 0,
-            zIndex: 100,
-          }}
-          onPress={() => {
-            setModal(false);
-          }}
-        >
+        <ModalContainer>
           <View
             style={{
               width: "70%",
@@ -89,35 +70,21 @@ const HomeScreen = ({ navigation }) => {
                 title="By distance"
                 width="100%"
                 height={50}
-                color={priceSort ? "#eeeeee" :  "black"} // Custom color
+                color={priceSort ? "#eeeeee" : "black"} // Custom color
                 textColor={priceSort ? "black" : "white"}
                 onPress={() => setPriceSort(false)}
               />
             </View>
           </View>
-        </TouchableOpacity>
+        </ModalContainer>
       ) : (
         <></>
       )}
+
       <SafeAreaView style={styles.headerBox}>
         <View style={styles.homeContainerHeader}>
-          <View style={styles.avatarWithName}>
-            <Image
-              source={require("../../../../images/avatar.png")}
-              style={styles.avatarStyling}
-              resizeMode="contain"
-            />
-            <Text style={styles.haaderTitle}>Hello👋</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.notificationBox}
-            onPress={() => navigation.navigate("Notification")}
-          >
-            <Image
-              source={require("../../../../icons/notifiction_active.png")}
-              style={styles.iconStyling}
-            />
-          </TouchableOpacity>
+          <Avatar />
+          <NotificationIcon navigation={navigation} />
         </View>
       </SafeAreaView>
       <ScrollView
@@ -218,4 +185,3 @@ const HomeScreen = ({ navigation }) => {
 };
 
 export default HomeScreen;
-
