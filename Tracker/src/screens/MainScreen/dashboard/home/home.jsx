@@ -12,13 +12,13 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import StationSlider from "../../../components/CurrentStationSlider";
-import api from "../../../services/api";
-import process_station from "../../../api/station_images";
-import SliderSaved from "../../../components/verticalSlider";
+import StationSlider from "../../../../components/CurrentStationSlider";
+import api from "../../../../services/api";
+import process_station from "../../../../api/station_images";
+import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Button from "../../../components/GlobalComponents/button";
+import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";
 
 
