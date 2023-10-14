@@ -1,4 +1,5 @@
 import { Animated } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 const animate = (fadeInAnimation, slideInAnimation) => {
   // Start Fade-In Animation

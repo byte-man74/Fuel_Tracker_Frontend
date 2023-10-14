@@ -123,5 +123,21 @@ export const styles = StyleSheet.create({
       width: "100%",
       minHeight: 100,
     },
+    searchIcon: {
+      width: 28,
+      height: 28,
+      position: 'absolute',
+      top: '22.5%',
+      left: '3%',
+    },
+    filterButton: {
+      position: 'absolute',
+      top: '22.5%',
+      right: '3%',
+    },
+    filterIcon: {
+      width: 28,
+      height: 28,
+    },
   });
   

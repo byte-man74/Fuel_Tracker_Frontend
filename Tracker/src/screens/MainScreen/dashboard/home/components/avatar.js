@@ -9,7 +9,7 @@ export const Avatar = () => (
         style={styles.avatarStyling}
         resizeMode="contain"
       />
-      <Text style={styles.headerTitle}>Hello👋</Text>
+      <Text style={styles.haaderTitle}>Hello👋</Text>
     </View>
   );
   

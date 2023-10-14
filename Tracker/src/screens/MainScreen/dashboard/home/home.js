@@ -2,8 +2,6 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
-  Platform,
   ScrollView,
   TouchableOpacity,
   TextInput,
@@ -22,6 +20,9 @@ import ModalContainer from "../../../../components/GlobalComponents/modal";
 import { Avatar } from "./components/avatar";
 import { NotificationIcon } from "./components/notification";
 import { AveragePrice } from "./components/averagePrice";
+import { SearchBox } from "./components/search";
+
+
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -41,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <>
       {Modal ? (
-        <ModalContainer>
+        <ModalContainer setModal={setModal}>
           <View
             style={{
               width: "70%",
@@ -102,35 +103,7 @@ const HomeScreen = ({ navigation }) => {
       >
         <View style={styles.mainBox}>
           <AveragePrice />
-          <TouchableOpacity
-            style={styles.searchContainer}
-            onPress={() => navigation.navigate("SearchScreen")}
-          >
-            <Image
-              source={require("../../../../icons/search.png")}
-              style={{
-                width: 28,
-                height: 28,
-                position: "absolute",
-                top: "22.5%",
-                left: "3%",
-              }}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              onFocus={() => navigation.navigate("SearchScreen")}
-            ></TextInput>
-            <TouchableOpacity
-              style={{ position: "absolute", top: "22.5%", right: "3%" }} //!here
-              onPress={() => setModal(true)}
-            >
-              <Image
-                source={require("../../../../icons/filter.png")}
-                style={{ width: 28, height: 28 }}
-              />
-            </TouchableOpacity>
-          </TouchableOpacity>
+          <SearchBox navigation={navigation} setModal={setModal} />
           <View style={styles.nearbyFuelingStationContainer}>
             <Animated.View
               style={[

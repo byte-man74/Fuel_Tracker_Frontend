@@ -1,5 +1,8 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
+
+
+const { height } = Dimensions.get("window");
 
 const ModalContainer = ({ children, setModal}) => {
   return (
