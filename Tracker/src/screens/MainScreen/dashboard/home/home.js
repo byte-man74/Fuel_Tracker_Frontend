@@ -12,13 +12,13 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import StationSlider from "../../../components/CurrentStationSlider";
-import api from "../../../services/api";
-import process_station from "../../../api/station_images";
-import SliderSaved from "../../../components/verticalSlider";
+import StationSlider from "../../../../components/CurrentStationSlider";
+import api from "../../../../services/api";
+import process_station from "../../../../api/station_images";
+import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RFValue } from "react-native-responsive-fontsize";
-import Button from "../../../components/GlobalComponents/button";
+import Button from "../../../../components/GlobalComponents/button";
 
 const { height } = Dimensions.get("window");
 
@@ -147,7 +147,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.homeContainerHeader}>
           <View style={styles.avatarWithName}>
             <Image
-              source={require("../../../images/avatar.png")}
+              source={require("../../../../images/avatar.png")}
               style={styles.avatarStyling}
               resizeMode="contain"
             />
@@ -158,7 +158,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("Notification")}
           >
             <Image
-              source={require("../../../icons/notifiction_active.png")}
+              source={require("../../../../icons/notifiction_active.png")}
               style={styles.iconStyling}
             />
           </TouchableOpacity>
@@ -183,7 +183,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.priceText}>₦---</Text>
                 <Image
                   style={{ width: 24, height: 24, marginLeft: 2 }}
-                  source={require("../../../icons/gas.png")}
+                  source={require("../../../../icons/gas.png")}
                 />
               </View>
               <Text style={styles.headerText}>Average fuel price near you</Text>
@@ -194,7 +194,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("SearchScreen")}
           >
             <Image
-              source={require("../../../icons/search.png")}
+              source={require("../../../../icons/search.png")}
               style={{
                 width: 28,
                 height: 28,
@@ -213,7 +213,7 @@ const HomeScreen = ({ navigation }) => {
               onPress={() => setModal(true)}
             >
               <Image
-                source={require("../../../icons/filter.png")}
+                source={require("../../../../icons/filter.png")}
                 style={{ width: 28, height: 28 }}
               />
             </TouchableOpacity>
