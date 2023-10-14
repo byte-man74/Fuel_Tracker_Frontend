@@ -21,8 +21,7 @@ import { Avatar } from "./components/avatar";
 import { NotificationIcon } from "./components/notification";
 import { AveragePrice } from "./components/averagePrice";
 import { SearchBox } from "./components/search";
-
-
+import { FuelingStationsSection } from "./components/nearyByStationContainer";
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -95,39 +94,22 @@ const HomeScreen = ({ navigation }) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor="orange" 
-            title="Refreshing..." 
-            titleColor="orange" 
+            tintColor="orange"
+            title="Refreshing..."
+            titleColor="orange"
           />
         }
       >
         <View style={styles.mainBox}>
           <AveragePrice />
           <SearchBox navigation={navigation} setModal={setModal} />
-          <View style={styles.nearbyFuelingStationContainer}>
-            <Animated.View
-              style={[
-                styles.nearbyFuelingStationContainerHeader,
-                { transform: [{ translateY: slideInAnimation }] },
-              ]}
-            >
-              <Text style={styles.haaderTitle}>Fueling stations near you</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("SearchScreen")}
-              >
-                <Text style={styles.headerText}>view all</Text>
-              </TouchableOpacity>
-            </Animated.View>
-            <Animated.View
-              style={[styles.carouselBox, { opacity: fadeInAnimation }]}
-            >
-              <StationSlider
-                navigation={navigation}
-                refresh={refreshing}
-                priceSort={priceSort}
-              />
-            </Animated.View>
-          </View>
+          <FuelingStationsSection
+            navigation={navigation}
+            slideInAnimation={slideInAnimation}
+            fadeInAnimation={fadeInAnimation}
+            refreshing={refreshing}
+            priceSort={priceSort}
+          />
           <View
             style={{ ...styles.nearbyFuelingStationContainer, marginBottom: 0 }}
           >
