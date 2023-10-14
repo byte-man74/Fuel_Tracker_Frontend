@@ -9,7 +9,6 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import StationSlider from "../../../../components/CurrentStationSlider";
 import SliderSaved from "../../../../components/verticalSlider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
@@ -22,6 +21,7 @@ import { NotificationIcon } from "./components/notification";
 import { AveragePrice } from "./components/averagePrice";
 import { SearchBox } from "./components/search";
 import { FuelingStationsSection } from "./components/nearyByStationContainer";
+import { SavedStationsSection } from "./components/savedStation";
 
 const HomeScreen = ({ navigation }) => {
   const fadeInAnimation = useRef(new Animated.Value(0)).current;
@@ -110,19 +110,7 @@ const HomeScreen = ({ navigation }) => {
             refreshing={refreshing}
             priceSort={priceSort}
           />
-          <View
-            style={{ ...styles.nearbyFuelingStationContainer, marginBottom: 0 }}
-          >
-            <View style={styles.nearbyFuelingStationContainerHeader}>
-              <Text style={styles.haaderTitle}>Saved fueling stations</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Saved")}>
-                <Text style={styles.headerText}>view all</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.carouselBox}>
-              <SliderSaved navigation={navigation} />
-            </View>
-          </View>
+          <SavedStationsSection navigation={navigation} />
         </View>
       </ScrollView>
     </>
