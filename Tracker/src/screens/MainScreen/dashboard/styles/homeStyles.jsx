@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-const height = Dimensions.height
+import { RFValue } from "react-native-responsive-fontsize";
+const { height } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
     headerBox: {
