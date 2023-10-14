@@ -19,7 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
 import { styles } from "./styles/homeStyles";
 const { height } = Dimensions.get("window");
-import { get_saved_station } from "./helper_functions/api";
+import simulateApiCall from "./helper_functions/main";
 import animate from "./helper_functions/useAnimation";
 
 
@@ -34,16 +34,12 @@ const HomeScreen = ({ navigation }) => {
     animate(fadeInAnimation, slideInAnimation);
   }, []);
 
-
   const onRefresh = () => {
-    setRefreshing(true);
-
-    // Simulate an API call or data fetching
-    setTimeout(() => {
-      // After fetching data, set refreshing to false
-      setRefreshing(false);
-    }, 2000); // Adjust the delay as needed
+    simulateApiCall(setRefreshing);
   };
+
+
+
 
   return (
     <>
