@@ -8,8 +8,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import api from "../services/api";
-import process_station from "../api/station_images";
+import { processAndSortData } from "./currentStation";
 import LottieView from "lottie-react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
@@ -31,26 +30,13 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
     getCurrentLocation(setCurrentLocation);
   }, []);
 
-  const real_data = [];
   useEffect(() => {
     if (currentLocation) {
       FetchClosestStation(currentLocation, setData, setLoading, navigation);
     }
   }, [currentLocation, refresh]);
 
-
-  
-  if (stationData) {
-    stationData.forEach((station) => {
-      const processed_data = process_station(station);
-      real_data.push(processed_data);
-    });
-  }
-
-  const sortedData = priceSort
-  ? real_data.slice().sort((a, b) => a.price - b.price)
-  : real_data;
-
+  const sortedData = processAndSortData(stationData, priceSort);
 
   const renderItem = ({ item }) => {
 
@@ -160,7 +146,7 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
           snapToInterval={ITEM_WIDTH}
           decelerationRate="fast"
         />
-      ) : real_data.length === 0 ? (
+      ) : sortedData.length === 0 ? (
         // Show UI for empty data array
         <View style={styles.emptyDataContainer}>
           <LottieView

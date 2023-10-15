@@ -1,6 +1,6 @@
 import api from "../services/api";
 import * as Location from "expo-location";
-
+import process_station from "../api/station_images";
 
 export const handleUpvote = async (id) => {
   try {
@@ -67,3 +67,15 @@ export const FetchClosestStation = async (currentLocation, setData, setLoading, 
     setLoading(false);
   }
 };
+
+
+export const processAndSortData = (stationData, priceSort) => {
+    if (!stationData) return [];
+  
+    const processedData = stationData.map(process_station);
+  
+    if (!priceSort) return processedData;
+  
+    return processedData.sort((a, b) => a.price - b.price);
+  };
+  
