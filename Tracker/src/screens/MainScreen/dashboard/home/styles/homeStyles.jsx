@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
       resizeMode: "cover",
       paddingHorizontal: "4%",
       backgroundColor: "#FFFFFF",
-      minHeight: 97,
+      minHeight: 105,
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "flex-start",
     },
     homeContainerHeader: {
       width: "100%",
