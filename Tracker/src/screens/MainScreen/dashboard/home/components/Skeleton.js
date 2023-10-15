@@ -7,7 +7,7 @@ const SkeletonItem = ({ containerWidth }) => {
     <View style={[styles.container, { width: containerWidth }]}>
       <View style={styles.imageSkeleton}>
         <LottieView
-          source={require("../../../images/mapload.json")}
+          source={require("../../../../../images/mapload.json")}
           autoPlay
           loop
           style={styles.load}

@@ -12,7 +12,7 @@ import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonItem from "./Pages/HomePage/Skeleton";
+import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
