@@ -11,12 +11,12 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import BottomSheet from "../../components/GlobalComponents/bottomSheet";
-import Button from "../../components/GlobalComponents/button";
-import Overlay from "../../components/overlay";
+import BottomSheet from "../../../components/GlobalComponents/bottomSheet";
+import Button from "../../../components/GlobalComponents/button";
+import Overlay from "../../../components/overlay";
 import { RadioButton } from "react-native-paper";
-import CommentItem from "../../components/Pages/FuelStationDetailsPage/comment";
-import api from "../../services/api";
+import CommentItem from "../../../components/Pages/FuelStationDetailsPage/comment";
+import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OpenMap from "react-native-open-maps";
 
@@ -205,7 +205,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       {trafficBottomSheetVisible && <Overlay />}
       <View style={styles.backgroundImage}>
         <ImageBackground
-          source={require("../../images/backgrnd.png")}
+          source={require("../../../images/backgrnd.png")}
           style={styles.fullBackground}
         >
           <SafeAreaView>
@@ -213,13 +213,13 @@ const FuelStationDetails = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Image
                   style={{ width: 32, height: 30 }}
-                  source={require("../../icons/back.png")}
+                  source={require("../../../icons/back.png")}
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={openBottomOption}>
                 <Image
                   style={{ width: 30, height: 30 }}
-                  source={require("../../icons/options.png")}
+                  source={require("../../../icons/options.png")}
                 />
               </TouchableOpacity>
             </View>
@@ -238,7 +238,7 @@ const FuelStationDetails = ({ navigation, route }) => {
               <View style={{ flexDirection: "row" }}>
                 <Image
                   style={{ width: 18, height: 18, marginRight: 5 }}
-                  source={require("../../icons/star.png")}
+                  source={require("../../../icons/star.png")}
                 />
                 <Text style={styles.Text}>({item.votes})</Text>
               </View>
@@ -260,7 +260,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                     onPress={() => handleUpvote(item.id)}
                   >
                     <Image
-                      source={require("../../icons/upvote.png")}
+                      source={require("../../../icons/upvote.png")}
                       style={{ width: 20, height: 20, marginRight: 5 }}
                     />
                     <Text style={{ fontFamily: "Regular", fontSize: 14 }}>
@@ -276,7 +276,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           <View style={styles.otherDetails}>
             <View style={styles.carouselContainerExtraInfo}>
               <Image
-                source={require("../../../assets/shell.png")}
+                source={require("../../../../assets/shell.png")}
                 style={{
                   width: 35,
                   height: 35,
@@ -308,7 +308,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   style={styles.dirButton}
                 >
                   <Image
-                    source={require("../../icons/maps.png")}
+                    source={require("../../../icons/maps.png")}
                     style={{ width: 20, height: 20, marginRight: 5 }}
                   />
                   <Text
@@ -323,7 +323,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 </TouchableOpacity>
                 <View style={styles.openingHours}>
                   <Image
-                    source={require("../../icons/time.png")}
+                    source={require("../../../icons/time.png")}
                     style={{ width: 20, height: 20, marginRight: 5 }}
                   />
                   <Text
@@ -347,7 +347,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                   ]}
                 >
                   <Image
-                    source={require("../../icons/traffic.png")}
+                    source={require("../../../icons/traffic.png")}
                     style={{ width: 24, height: 24, marginRight: 5 }}
                   />
                   <Text
@@ -409,7 +409,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                 )}
                 <Image
                   style={{ width: 18, height: 18, marginHorizontal: 5 }}
-                  source={require("../../icons/edit.png")}
+                  source={require("../../../icons/edit.png")}
                 />
                 <Text style={styles.Text}>Update Price</Text>
               </View>
@@ -435,7 +435,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               <Image
                 style={{ width: 18, height: 18, marginHorizontal: 5 }}
-                source={require("../../icons/phone.png")}
+                source={require("../../../icons/phone.png")}
               />
               <Text style={styles.Text}>--- --- ---</Text>
             </View>
@@ -495,7 +495,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity onPress={closeBottomOption}>
               <Image
                 style={{ width: 30, height: 30 }}
-                source={require("../../images/Icons.png")}
+                source={require("../../../images/Icons.png")}
               />
             </TouchableOpacity>
           </View>
@@ -511,7 +511,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               <Image
                 style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../icons/edit.png")}
+                source={require("../../../icons/edit.png")}
               />
               <Text style={styles.Text}>Update Price</Text>
             </TouchableOpacity>
@@ -526,7 +526,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               <Image
                 style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../icons/traffic_black.png")}
+                source={require("../../../icons/traffic_black.png")}
               />
               <Text style={styles.Text}>Rate traffic</Text>
             </TouchableOpacity>
@@ -541,7 +541,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               <Image
                 style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../icons/comment.png")}
+                source={require("../../../icons/comment.png")}
               />
               <Text style={styles.Text}>Comment</Text>
             </TouchableOpacity>
@@ -561,7 +561,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity onPress={closePriceOptionButton}>
               <Image
                 style={{ width: 30, height: 30 }}
-                source={require("../../images/Icons.png")}
+                source={require("../../../images/Icons.png")}
               />
             </TouchableOpacity>
           </View>
@@ -601,7 +601,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           <TouchableOpacity onPress={closeTrafficBottomOption}>
             <Image
               style={{ width: 30, height: 30 }}
-              source={require("../../images/Icons.png")}
+              source={require("../../../images/Icons.png")}
             />
           </TouchableOpacity>
         </View>
@@ -686,7 +686,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             <TouchableOpacity onPress={closeCommentOptionButton}>
               <Image
                 style={{ width: 30, height: 30 }}
-                source={require("../../images/Icons.png")}
+                source={require("../../../images/Icons.png")}
               />
             </TouchableOpacity>
           </View>

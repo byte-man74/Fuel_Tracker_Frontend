@@ -7,7 +7,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo";
 import MainScreenTab from "./src/navigations/MainScreen";
 import SearchScreen from "./src/screens/MainScreen/dashboard/searchScreen";
-import FuelStationDetails from "./src/screens/others/fuelStationDetails";
+import FuelStationDetails from "./src/screens/others/details/fuelStationDetails";
 import StationList from "./src/screens/others/stationList";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import NotificationScreen from "./src/screens/others/notification";
