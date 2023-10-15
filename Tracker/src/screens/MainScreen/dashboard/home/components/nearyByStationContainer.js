@@ -10,9 +10,9 @@ export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAni
           { transform: [{ translateY: slideInAnimation }] },
         ]}
       >
-        <Text style={styles.haaderTitle}>{ status === "nearby" ? "Fueling stations near you" : "Hello" }</Text>
+        <Text style={styles.haaderTitle}>{ status === "nearby" ? "Fueling stations near you" : "Saved fueling Station" }</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('SearchScreen')}
+          onPress={status === "nearby" ? () => navigation.navigate('SearchScreen') : () => navigation.navigate('Saved')}
         >
           <Text style={styles.headerText}>view all</Text>
         </TouchableOpacity>
@@ -24,6 +24,7 @@ export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAni
           navigation={navigation}
           refresh={refreshing}
           priceSort={priceSort}
+          status={status}
         />
       </Animated.View>
     </View>
