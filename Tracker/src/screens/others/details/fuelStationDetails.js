@@ -24,22 +24,28 @@ const { height, width } = Dimensions.get("window");
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
+
+  // bottom sheet state
   const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
     useState(false);
   const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
   const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
-  const [commentActivityLoading, setcommentActivityLoading] = useState(false);
   const [trafficBottomSheetVisible, setTrafficBottomSheetVisible] =
     useState(false);
+
+  //loading state
+  const [trafficLoading, setActiveTrafficLoading] = useState(false);
+  const [Commentloading, setCommentLoading] = useState(true);
+  const [commentActivityLoading, setcommentActivityLoading] = useState(false);
+  const [priceActivityLoading, setPriceActivityLoading] = useState(false);
+
+  // data state
   const [price, setPrice] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
-  const [Commentloading, setCommentLoading] = useState(true);
   const [priceValue, setPriceValue] = useState("");
-  const [priceActivityLoading, setPriceActivityLoading] = useState(false);
   const [active, setActive] = useState(item.active);
   const [selectedRadioOption, setSelectedRadioOption] = useState(1);
-  const [trafficLoading, setActiveTrafficLoading] = useState(false);
 
   const handleRadioOptionSelect = (value) => {
     setSelectedRadioOption(value);
@@ -354,7 +360,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                     style={{
                       fontFamily: "Regular",
                       fontSize: 14,
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Traffic
