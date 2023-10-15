@@ -19,6 +19,9 @@ import CommentItem from "../../../components/Pages/FuelStationDetailsPage/commen
 import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OpenMap from "react-native-open-maps";
+import { OptionModal } from "./optionBottiom";
+import { PriceUpdate } from "../priceRating";
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -37,13 +40,13 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [trafficLoading, setActiveTrafficLoading] = useState(false);
   const [Commentloading, setCommentLoading] = useState(true);
   const [commentActivityLoading, setcommentActivityLoading] = useState(false);
-  const [priceActivityLoading, setPriceActivityLoading] = useState(false);
+
 
   // data state
   const [price, setPrice] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
-  const [priceValue, setPriceValue] = useState("");
+
   const [active, setActive] = useState(item.active);
   const [selectedRadioOption, setSelectedRadioOption] = useState(1);
 
@@ -93,9 +96,6 @@ const FuelStationDetails = ({ navigation, route }) => {
     setCommentSheetVisible(false);
   };
 
-  const handlePriceTextChange = (newText) => {
-    setPriceValue(newText);
-  };
 
   //get comment
   useEffect(() => {
@@ -165,7 +165,7 @@ const FuelStationDetails = ({ navigation, route }) => {
     OpenMap({
       latitude,
       longitude,
-      query: item.name, // Optionally, you can specify a query
+      query: item.name,
     });
   };
 
@@ -181,21 +181,6 @@ const FuelStationDetails = ({ navigation, route }) => {
       });
   };
 
-  const edit_price = () => {
-    setPriceActivityLoading(true);
-    api
-      .post(`edit_price/get_options/${item.id}/`, {
-        vote: false,
-        price: priceValue,
-      })
-      .then((response) => {
-        setPriceValue("");
-        setPriceActivityLoading(false);
-      })
-      .catch((error) => {
-        setPriceActivityLoading(false);
-      });
-  };
 
   const handleTextChange = (newText) => {
     // Update the state with the new text value
@@ -496,63 +481,12 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["32%"]}
       >
-        <View style={styles.bottomSheetContent}>
-          <View style={styles.buttomsheetheader}>
-            <TouchableOpacity onPress={closeBottomOption}>
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../../images/Icons.png")}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.feedbackContainer}>
-            <TouchableOpacity
-              onPress={openPriceOptionButton}
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                marginBottom: 30,
-              }}
-            >
-              <Image
-                style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../../icons/edit.png")}
-              />
-              <Text style={styles.Text}>Update Price</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                marginBottom: 30,
-              }}
-              onPress={openTrafficBottomOption}
-            >
-              <Image
-                style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../../icons/traffic_black.png")}
-              />
-              <Text style={styles.Text}>Rate traffic</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={openCommentOption}
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                marginBottom: 10,
-              }}
-            >
-              <Image
-                style={{ width: 22, height: 22, marginHorizontal: 10 }}
-                source={require("../../../icons/comment.png")}
-              />
-              <Text style={styles.Text}>Comment</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <OptionModal
+          openPriceOptionButton={openPriceOptionButton}
+          closeBottomOption={closeBottomOption}
+          openTrafficBottomOption={openTrafficBottomOption}
+          openCommentOption={openCommentOption}
+        />
       </BottomSheet>
 
       {/* bottom sheet box price rating */}
@@ -561,39 +495,7 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["35%"]}
       >
-        <View style={styles.bottomSheetContent}>
-          <View style={styles.buttomsheetheader2}>
-            <Text style={styles.EditText}>Update Price</Text>
-            <TouchableOpacity onPress={closePriceOptionButton}>
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../../images/Icons.png")}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.feedbackContainer}>
-            <TouchableOpacity style={styles.searchContainer}>
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Input Price Option"
-                value={priceValue}
-                keyboardType="numeric"
-                onChangeText={handlePriceTextChange}
-              ></TextInput>
-            </TouchableOpacity>
-            <Button
-              title="Submit"
-              onPress={edit_price} // Only call handleSubmit when the button is not disabled
-              disabled={false}
-              color={"#1E1E1E"} // Custom color
-              textColor={"white"}
-              loading={priceActivityLoading}
-              width={"100%"}
-              // Custom width
-              height={55}
-            />
-          </View>
-        </View>
+        <PriceUpdate closePriceOptionButton={closePriceOptionButton} item={item} />
       </BottomSheet>
 
       {/* bottom sheet box price rating */}
@@ -725,7 +627,7 @@ const FuelStationDetails = ({ navigation, route }) => {
 
 export default FuelStationDetails;
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
   },
