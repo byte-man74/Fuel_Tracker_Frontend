@@ -2,7 +2,7 @@ import { View, Text, Animated, TouchableOpacity } from "react-native";
 import StationSlider from "./slider/CurrentStationSlider";
 import { styles } from "../styles/homeStyles";
 
-export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAnimation, refreshing, priceSort }) => (
+export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAnimation, refreshing, priceSort, status }) => (
     <View style={styles.nearbyFuelingStationContainer}>
       <Animated.View
         style={[
@@ -10,7 +10,7 @@ export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAni
           { transform: [{ translateY: slideInAnimation }] },
         ]}
       >
-        <Text style={styles.haaderTitle}>Fueling stations near you</Text>
+        <Text style={styles.haaderTitle}>{ status === "nearby" ? "Fueling stations near you" : "Hello" }</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate('SearchScreen')}
         >

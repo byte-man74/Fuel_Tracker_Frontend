@@ -100,6 +100,7 @@ const HomeScreen = ({ navigation }) => {
           <AveragePrice />
           <SearchBox navigation={navigation} setModal={setModal} />
           <FuelingStationsSection
+            status={"nearby"}
             navigation={navigation}
             slideInAnimation={slideInAnimation}
             fadeInAnimation={fadeInAnimation}
