@@ -1,10 +1,4 @@
-import {
-  Text,
-  View,
-  ScrollView,
-  Animated,
-  RefreshControl,
-} from "react-native";
+import { Text, View, ScrollView, Animated, RefreshControl } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../../components/GlobalComponents/button";
@@ -107,7 +101,14 @@ const HomeScreen = ({ navigation }) => {
             refreshing={refreshing}
             priceSort={priceSort}
           />
-          <SavedStationsSection navigation={navigation} />
+          <FuelingStationsSection
+            status={""}
+            navigation={navigation}
+            slideInAnimation={slideInAnimation}
+            fadeInAnimation={fadeInAnimation}
+            refreshing={refreshing}
+            priceSort={priceSort}
+          />
         </View>
       </ScrollView>
     </>

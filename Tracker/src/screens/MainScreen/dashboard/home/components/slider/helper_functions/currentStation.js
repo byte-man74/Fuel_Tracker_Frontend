@@ -59,11 +59,19 @@ export const FetchClosestStation = async (
 ) => {
   setLoading(true);
 
+  const location_data = {
+    latitude: currentLocation.latitude,
+    longitude: currentLocation.longitude,
+  }
+
   try {
-    const response = await api.post(status == "nearby" ? "closest_station/" : "get_nearby_fueling_stations/", {
-      latitude: currentLocation.latitude,
-      longitude: currentLocation.longitude,
-    });
+    let response;
+    if (status === "nearby") {
+      response = await api.post("closest_station/", location_data);
+    } else {
+      response = await api.get("get_nearby_fueling_stations/");
+    }
+
     handleResponse(response, setData);
   } catch (error) {
     handleError(error, navigation);
@@ -71,6 +79,7 @@ export const FetchClosestStation = async (
     setLoading(false);
   }
 };
+
 
 export const processAndSortData = (stationData, priceSort) => {
   if (!stationData) return [];
