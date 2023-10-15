@@ -14,7 +14,7 @@ import LottieView from "lottie-react-native";
 import * as Location from "expo-location";
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
-
+import { handleUpvote } from "./currentStation";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
@@ -24,13 +24,6 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   const default_logo = require("../../assets/shell.png");
   const [currentLocation, setCurrentLocation] = useState(null);
 
-  const handleUpvote = async (id) => {
-    try {
-      await api.get(`add_votes/${id}/`);
-    } catch (error) {
-      console.error("Error upvoting:", error);
-    }
-  };
 
   const getCurrentLocation = async () => {
     try {
