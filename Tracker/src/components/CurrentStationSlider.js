@@ -11,11 +11,11 @@ import {
 import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
-
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
 import { handleUpvote } from "./currentStation";
 import { getCurrentLocation } from "./currentStation";
+import { FetchClosestStation } from "./currentStation";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
@@ -33,40 +33,13 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
 
   const real_data = [];
   useEffect(() => {
-    const get_saved_station = async () => {
-      setLoading(true);
-      try {
-        const response = await api.post("closest_station/", {
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude,
-        });
-        if (response.status === 200) {
-          setData(response.data.fueling_stations);
-        } else {
-          console.error("Error: Unexpected response status:", response.status);
-        }
-      } catch (error) {
-        if (!error.response) {
-          // No Internet Connection Error
-          navigation.navigate("NoNetwork");
-          return;
-        }
-
-        if (error.response.status === 500 || error.response.status === 502) {
-          // Server Error
-          navigation.navigate("ServerScreen");
-          return;
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (currentLocation) {
-      get_saved_station();
+      FetchClosestStation(currentLocation, setData, setLoading, navigation);
     }
   }, [currentLocation, refresh]);
 
+
+  
   if (stationData) {
     stationData.forEach((station) => {
       const processed_data = process_station(station);

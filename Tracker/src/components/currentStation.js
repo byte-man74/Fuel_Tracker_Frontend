@@ -25,3 +25,45 @@ export const getCurrentLocation = async ( setCurrentLocation) => {
     console.log("Error getting location:", error);
   }
 };
+
+
+
+// Handles server responses
+const handleResponse = (response, setData) => {
+  if (response.status === 200) {
+    setData(response.data.fueling_stations);
+  } else {
+    console.error("Error: Unexpected response status:", response.status);
+  }
+};
+
+// Handles API call errors
+const handleError = (error, navigation) => {
+  if (!error.response) {
+    // Network Error
+    navigation.navigate("NoNetwork");
+    return;
+  }
+
+  if ([500, 502].includes(error.response.status)) {
+    // Server Error
+    navigation.navigate("ServerScreen");
+    return;
+  }
+};
+
+export const FetchClosestStation = async (currentLocation, setData, setLoading, navigation) => {
+  setLoading(true);
+  
+  try {
+    const response = await api.post("closest_station/", {
+      latitude: currentLocation.latitude,
+      longitude: currentLocation.longitude,
+    });
+    handleResponse(response, setData);
+  } catch (error) {
+    handleError(error, navigation);
+  } finally {
+    setLoading(false);
+  }
+};
