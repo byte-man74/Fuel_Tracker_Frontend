@@ -8,21 +8,21 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { processAndSortData } from "./currentStation";
+import { processAndSortData } from "../../../../../../components/currentStation";
 import LottieView from "lottie-react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
-import { handleUpvote } from "./currentStation";
-import { getCurrentLocation } from "./currentStation";
-import { TrafficIndicator, UpvoteButton } from "./currentRender";
-import { FetchClosestStation } from "./currentStation";
+import SkeletonItem from "../Skeleton";
+import { handleUpvote } from "../../../../../../components/currentStation";
+import { getCurrentLocation } from "../../../../../../components/currentStation";
+import { TrafficIndicator, UpvoteButton } from "../../../../../../components/currentRender";
+import { FetchClosestStation } from "../../../../../../components/currentStation";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.698;
 
 const StationSlider = ({ navigation, refresh, priceSort }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const default_logo = require("../../assets/shell.png");
+  const default_logo = require("../../../../../../../assets/shell.png");
   const [currentLocation, setCurrentLocation] = useState(null);
 
 
@@ -73,47 +73,59 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   };
   
 
-  return (
+  const LoadingSkeleton = () => (
+    <FlatList
+      data={[1, 2, 3, 4, 5]}
+      renderItem={() => <SkeletonItem containerWidth={ITEM_WIDTH} />}
+      keyExtractor={(item) => item.toString()}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.flatListContentContainer}
+      snapToInterval={ITEM_WIDTH}
+      decelerationRate="fast"
+    />
+  );
+  
+  const EmptyDataUI = () => (
+    <View style={styles.emptyDataContainer}>
+      <LottieView
+        source={require("../../../../../../images/emptypage.json")}
+        autoPlay
+        loop
+        style={styles.carouselItemImage}
+      />
+      <Text style={styles.emptyDataText}>
+        No fueling station in your location has been registered on our database.
+      </Text>
+    </View>
+  );
+  
+  const DataFlatList = ({ data, renderItem }) => (
+    <FlatList
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.flatListContentContainer}
+      snapToInterval={ITEM_WIDTH}
+      decelerationRate="fast"
+    />
+  );
+  
+  const MainComponent = ({ loading, sortedData, renderItem }) => (
     <View style={styles.sliderContainer}>
       {loading ? (
-        <FlatList
-          data={[1, 2, 3, 4, 5]}
-          renderItem={() => <SkeletonItem containerWidth={ITEM_WIDTH} />}
-          keyExtractor={(item) => item.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.flatListContentContainer}
-          snapToInterval={ITEM_WIDTH}
-          decelerationRate="fast"
-        />
+        <LoadingSkeleton />
       ) : sortedData.length === 0 ? (
-        // Show UI for empty data array
-        <View style={styles.emptyDataContainer}>
-          <LottieView
-            source={require("../images/emptypage.json")}
-            autoPlay
-            loop
-            style={styles.carouselItemImage}
-          />
-          <Text style={styles.emptyDataText}>
-            No fueling station in your location has been registered on our
-            database.
-          </Text>
-        </View>
+        <EmptyDataUI />
       ) : (
-        <FlatList
-          data={sortedData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.flatListContentContainer}
-          snapToInterval={ITEM_WIDTH}
-          decelerationRate="fast"
-        />
+        <DataFlatList data={sortedData} renderItem={renderItem} />
       )}
     </View>
   );
+
+  return <MainComponent loading={loading} sortedData={sortedData} renderItem={renderItem} />
 };
 
 export const styles = StyleSheet.create({

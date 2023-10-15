@@ -1,5 +1,5 @@
 import { View, Text, Animated, TouchableOpacity } from "react-native";
-import StationSlider from "../../../../../components/CurrentStationSlider";
+import StationSlider from "./slider/CurrentStationSlider";
 import { styles } from "../styles/homeStyles";
 
 export const FuelingStationsSection = ({ navigation, slideInAnimation, fadeInAnimation, refreshing, priceSort }) => (

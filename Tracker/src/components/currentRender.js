@@ -1,5 +1,5 @@
 import { TouchableOpacity, Image, View, Text } from "react-native";
-import { styles } from "./CurrentStationSlider";
+import { styles } from "../screens/MainScreen/dashboard/home/components/slider/CurrentStationSlider";
 
 
 export const TrafficIndicator = ({ traffic }) => {
