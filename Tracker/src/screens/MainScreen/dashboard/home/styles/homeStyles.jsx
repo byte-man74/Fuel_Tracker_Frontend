@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     headerBox: {
       flex: 1,
       resizeMode: "cover",
-      justifyContent: "flex-start",
       paddingHorizontal: "4%",
       backgroundColor: "#FFFFFF",
       minHeight: 97,
