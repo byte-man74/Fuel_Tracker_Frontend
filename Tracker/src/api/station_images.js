@@ -30,7 +30,7 @@ const process_station = (station) => {
           if (count >= 1) {
             const time = new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             return count === 1
-              ? `Updated a ${label} ago: ${time}`
+              ? ` a ${label} ago: ${time}`
               : ` ${count} ${label}s ago: ${time}`;
           }
         }
