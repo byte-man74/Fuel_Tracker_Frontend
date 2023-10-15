@@ -1,5 +1,5 @@
 import { TouchableOpacity, Image, View, Text } from "react-native";
-import { styles } from "../screens/MainScreen/dashboard/home/components/slider/CurrentStationSlider";
+import { styles } from "./styles";
 
 
 export const TrafficIndicator = ({ traffic }) => {
@@ -19,7 +19,7 @@ export const TrafficIndicator = ({ traffic }) => {
       style={[styles.trafficIndicator, { backgroundColor: getTrafficColor() }]}
     >
       <Image
-        source={require("../icons/traffic.png")}
+        source={require("../../../../../../icons/traffic.png")}
         style={{ width: 24, height: 24, marginRight: 5 }}
       />
       <Text style={{ fontFamily: "Regular", fontSize: 14, color: "white" }}>

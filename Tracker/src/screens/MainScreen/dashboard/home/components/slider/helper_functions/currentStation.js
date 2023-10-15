@@ -1,6 +1,6 @@
-import api from "../services/api";
+import api from "../../../../../../../services/api";
 import * as Location from "expo-location";
-import process_station from "../api/station_images";
+import process_station from "../../../../../../../api/station_images";
 
 export const handleUpvote = async (id) => {
   try {
