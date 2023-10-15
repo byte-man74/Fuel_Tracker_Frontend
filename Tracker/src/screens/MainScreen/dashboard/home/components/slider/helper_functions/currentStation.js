@@ -10,7 +10,7 @@ export const handleUpvote = async (id) => {
   }
 };
 
-export const getCurrentLocation = async ( setCurrentLocation) => {
+export const getCurrentLocation = async (setCurrentLocation) => {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -25,8 +25,6 @@ export const getCurrentLocation = async ( setCurrentLocation) => {
     console.log("Error getting location:", error);
   }
 };
-
-
 
 // Handles server responses
 const handleResponse = (response, setData) => {
@@ -52,11 +50,17 @@ const handleError = (error, navigation) => {
   }
 };
 
-export const FetchClosestStation = async (currentLocation, setData, setLoading, navigation) => {
+export const FetchClosestStation = async (
+  currentLocation,
+  setData,
+  setLoading,
+  navigation,
+  status
+) => {
   setLoading(true);
-  
+
   try {
-    const response = await api.post("closest_station/", {
+    const response = await api.post(status == "nearby" ? "closest_station/" : "get_nearby_fueling_stations/", {
       latitude: currentLocation.latitude,
       longitude: currentLocation.longitude,
     });
@@ -68,14 +72,12 @@ export const FetchClosestStation = async (currentLocation, setData, setLoading, 
   }
 };
 
-
 export const processAndSortData = (stationData, priceSort) => {
-    if (!stationData) return [];
-  
-    const processedData = stationData.map(process_station);
-  
-    if (!priceSort) return processedData;
-  
-    return processedData.sort((a, b) => a.price - b.price);
-  };
-  
+  if (!stationData) return [];
+
+  const processedData = stationData.map(process_station);
+
+  if (!priceSort) return processedData;
+
+  return processedData.sort((a, b) => a.price - b.price);
+};

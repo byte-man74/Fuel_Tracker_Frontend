@@ -15,7 +15,7 @@ import { TrafficIndicator, UpvoteButton } from "./supportComponent";
 import { FetchClosestStation } from "./helper_functions/currentStation";
 
 
-const StationSlider = ({ navigation, refresh, priceSort }) => {
+const StationSlider = ({ navigation, refresh, priceSort, status }) => {
   const [stationData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../../../../../../assets/shell.png");
@@ -28,7 +28,7 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
 
   useEffect(() => {
     if (currentLocation) {
-      FetchClosestStation(currentLocation, setData, setLoading, navigation);
+      FetchClosestStation(currentLocation, setData, setLoading, navigation, status);
     }
   }, [currentLocation, refresh]);
 
