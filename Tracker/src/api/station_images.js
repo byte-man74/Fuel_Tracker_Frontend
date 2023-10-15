@@ -79,6 +79,7 @@ const process_station = (station) => {
     const data = {
       id: station.station.id,
       name: station.station.name,
+      long_address: station.station.address,
       price: station.price.amount,
       latitude: station.position.latitude,
       longitude: station.position.longitude,
