@@ -15,6 +15,7 @@ import * as Location from "expo-location";
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
 import { handleUpvote } from "./currentStation";
+import { getCurrentLocation } from "./currentStation";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
 
@@ -25,24 +26,9 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   const [currentLocation, setCurrentLocation] = useState(null);
 
 
-  const getCurrentLocation = async () => {
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Location permission denied");
-        return;
-      }
-
-      const location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
-      setCurrentLocation({ latitude, longitude });
-    } catch (error) {
-      console.log("Error getting location:", error);
-    }
-  };
 
   useEffect(() => {
-    getCurrentLocation();
+    getCurrentLocation(setCurrentLocation);
   }, []);
 
   const real_data = [];
