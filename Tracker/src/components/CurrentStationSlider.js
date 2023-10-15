@@ -17,7 +17,7 @@ import { getCurrentLocation } from "./currentStation";
 import { TrafficIndicator, UpvoteButton } from "./currentRender";
 import { FetchClosestStation } from "./currentStation";
 const { width } = Dimensions.get("window");
-const ITEM_WIDTH = width * 0.68;
+const ITEM_WIDTH = width * 0.698;
 
 const StationSlider = ({ navigation, refresh, priceSort }) => {
   const [stationData, setData] = useState([]);
@@ -63,8 +63,8 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
             </View>
           </View>
           <View style={styles.lastUpdatedPrice}>
-            <Text style={{ fontFamily: "Regular", fontSize: 12, width: "97.5%", color: "#333333" }}>
-              {item.time_posted}
+            <Text style={{ fontFamily: "Regular", fontSize: 14, width: "97.5%", color: "#333333" }}>
+              Last updated{item.time_posted}
             </Text>
           </View>
         </View>
