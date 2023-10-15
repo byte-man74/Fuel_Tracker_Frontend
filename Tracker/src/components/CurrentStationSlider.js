@@ -14,6 +14,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
 import { handleUpvote } from "./currentStation";
 import { getCurrentLocation } from "./currentStation";
+import { TrafficIndicator, UpvoteButton } from "./currentRender";
 import { FetchClosestStation } from "./currentStation";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.68;
@@ -23,7 +24,6 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   const [loading, setLoading] = useState(true);
   const default_logo = require("../../assets/shell.png");
   const [currentLocation, setCurrentLocation] = useState(null);
-
 
 
   useEffect(() => {
@@ -39,92 +39,31 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   const sortedData = processAndSortData(stationData, priceSort);
 
   const renderItem = ({ item }) => {
-
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("FuelStationDetails", { item: item })
-        }
+        onPress={() => navigation.navigate("FuelStationDetails", { item })}
         style={styles.itemContainer}
       >
         <Image source={item.image} style={styles.image} />
         <View style={styles.carouselContainer}>
           <View style={styles.carouselContainerExtraInfo}>
-            <Image
-              source={default_logo}
-              style={{
-                width: 35,
-                height: 35,
-                borderRadius: 400,
-                marginRight: 7,
-              }}
-            />
+            <Image source={default_logo} style={styles.defaultLogo} />
             <View style={styles.carouselContainerExtraInfoText}>
               <Text style={styles.stationText}>{item.name}</Text>
               <Text style={styles.stationLocation}>{item.address}</Text>
             </View>
             <View style={{ position: "absolute", top: "19.5%", right: 0 }}>
-              <Text style={{ fontFamily: "MulishBold", fontSize: 18 }}>
-                ₦{item.price}/L
-              </Text>
+              <Text style={styles.priceText}>₦{item.price}/L</Text>
             </View>
           </View>
           <View style={styles.extraFunctionsStyling}>
-            <View
-              style={{
-                width: "100%",
-                height: "100%",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={[
-                  styles.trafficIndicator,
-                  item.traffic === 1
-                    ? { backgroundColor: "#DF1525" } // Apply red background if traffic is 1
-                    : item.traffic === 2
-                    ? { backgroundColor: "#F3E461" } // Apply yellow background if traffic is 2
-                    : { backgroundColor: "#66BD70" }, // Apply #66BD70 background if traffic is 3
-                ]}
-              >
-                <Image
-                  source={require("../icons/traffic.png")}
-                  style={{ width: 24, height: 24, marginRight: 5 }}
-                />
-                <Text
-                  style={{
-                    fontFamily: "Regular",
-                    fontSize: 14,
-                    color: "white",
-                  }}
-                >
-                  Traffic
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={[styles.upvoteButton]}
-                onPress={() => handleUpvote(item.id)}
-              >
-                {/* <Image
-                  source={require("../icons/upvote.png")}
-                  style={{ width: "15%", height: "65%", objectFit: "contain", marginRight: 5 }}
-                /> */}
-                <Text style={{ fontFamily: "Regular", fontSize: RFValue(12) }}>
-                  {item.votes} users agreed on price 👍🏾
-                </Text>
-              </TouchableOpacity>
+            <View style={{ width: "100%", height: "100%", flexDirection: "row", alignItems: "center" }}>
+              <TrafficIndicator traffic={item.traffic} />
+              <UpvoteButton votes={item.votes} onUpvote={() => handleUpvote(item.id)} />
             </View>
           </View>
           <View style={styles.lastUpdatedPrice}>
-            <Text
-              style={{
-                fontFamily: "Regular",
-                fontSize: RFValue(12),
-                width: "97.5%",
-                color: "#333333",
-              }}
-            >
+            <Text style={{ fontFamily: "Regular", fontSize: 12, width: "97.5%", color: "#333333" }}>
               {item.time_posted}
             </Text>
           </View>
@@ -132,6 +71,7 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
       </TouchableOpacity>
     );
   };
+  
 
   return (
     <View style={styles.sliderContainer}>
@@ -176,7 +116,7 @@ const StationSlider = ({ navigation, refresh, priceSort }) => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   sliderContainer: {
     width: "100%",
     // Assuming square items, adjust as per your requirements
@@ -196,6 +136,16 @@ const styles = StyleSheet.create({
     height: 14,
     backgroundColor: "#66666610",
     borderRadius: 4,
+  },
+  defaultLogo: {
+    width: 35,
+    height: 35,
+    borderRadius: 400,
+    marginRight: 7,
+  },
+  priceText: {
+    fontFamily: "MulishBold", 
+    fontSize: 18
   },
   stationLocationSkeleton: {
     width: "80%",
