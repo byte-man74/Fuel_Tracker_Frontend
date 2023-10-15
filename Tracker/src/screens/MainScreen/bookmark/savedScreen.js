@@ -97,7 +97,7 @@ const SavedScreen = ({ navigation }) => {
             />
             <View style={styles.carouselContainerExtraInfoText}>
               <Text style={styles.stationText}>{item.name}</Text>
-              <Text style={styles.stationLocation}>{item.address}</Text>
+              <Text style={styles.stationLocation}>{item.long_address}</Text>
             </View>
             <View
               style={{ position: "absolute", top: "19.5%", right: 0 }}
