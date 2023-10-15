@@ -11,7 +11,7 @@ import {
 import api from "../services/api";
 import process_station from "../api/station_images";
 import LottieView from "lottie-react-native";
-import * as Location from "expo-location";
+
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonItem from "../screens/MainScreen/dashboard/home/components/Skeleton";
 import { handleUpvote } from "./currentStation";

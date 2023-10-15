@@ -1,4 +1,6 @@
 import api from "../services/api";
+import * as Location from "expo-location";
+
 
 export const handleUpvote = async (id) => {
   try {
@@ -8,7 +10,7 @@ export const handleUpvote = async (id) => {
   }
 };
 
-export const getCurrentLocation = async ({ setCurrentLocation }) => {
+export const getCurrentLocation = async ( setCurrentLocation) => {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
