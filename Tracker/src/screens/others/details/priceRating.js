@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { styles } from "./style";
-import Button from "../../components/GlobalComponents/button";
-import api from "../../services/api";
+import { styles } from "../style";
+import Button from "../../../components/GlobalComponents/button";
+import api from "../../../services/api";
 
 
 
@@ -40,7 +40,7 @@ export const PriceUpdate = ({ closePriceOptionButton, item}) => {
         <TouchableOpacity onPress={closePriceOptionButton}>
           <Image
             style={{ width: 30, height: 30 }}
-            source={require("../../images/Icons.png")}
+            source={require("../../../images/Icons.png")}
           />
         </TouchableOpacity>
       </View>

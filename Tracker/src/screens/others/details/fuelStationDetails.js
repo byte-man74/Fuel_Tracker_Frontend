@@ -8,7 +8,6 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../../components/GlobalComponents/bottomSheet";
@@ -20,10 +19,9 @@ import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OpenMap from "react-native-open-maps";
 import { OptionModal } from "./optionBottiom";
-import { PriceUpdate } from "../priceRating";
+import { PriceUpdate } from "./priceRating";
 import { styles } from "../style";
-
-
+import CommentModal from "./commentBottom";
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
@@ -39,13 +37,11 @@ const FuelStationDetails = ({ navigation, route }) => {
   //loading state
   const [trafficLoading, setActiveTrafficLoading] = useState(false);
   const [Commentloading, setCommentLoading] = useState(true);
-  const [commentActivityLoading, setcommentActivityLoading] = useState(false);
-
 
   // data state
   const [price, setPrice] = useState(null);
-  const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
 
   const [active, setActive] = useState(item.active);
   const [selectedRadioOption, setSelectedRadioOption] = useState(1);
@@ -96,7 +92,6 @@ const FuelStationDetails = ({ navigation, route }) => {
     setCommentSheetVisible(false);
   };
 
-
   //get comment
   useEffect(() => {
     api
@@ -144,23 +139,6 @@ const FuelStationDetails = ({ navigation, route }) => {
       });
   }, []);
 
-  const add_comment = () => {
-    setcommentActivityLoading(true);
-    api
-      .post(`/add_comments/${item.id}/`, {
-        comment: commentText,
-      })
-      .then((response) => {
-        setComments((prevComments) => [...prevComments, response.data]);
-        setCommentText("");
-        setcommentActivityLoading(false);
-      })
-      .catch((error) => {
-        // Error handling code
-        setcommentActivityLoading(false);
-      });
-  };
-
   const openMapsApp = (latitude, longitude) => {
     OpenMap({
       latitude,
@@ -179,13 +157,6 @@ const FuelStationDetails = ({ navigation, route }) => {
         setSelectedRadioOption(1);
         setActiveTrafficLoading(false);
       });
-  };
-
-
-  const handleTextChange = (newText) => {
-    // Update the state with the new text value
-    setCommentText(newText);
-    console.log(commentText);
   };
 
   return (
@@ -495,7 +466,10 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["35%"]}
       >
-        <PriceUpdate closePriceOptionButton={closePriceOptionButton} item={item} />
+        <PriceUpdate
+          closePriceOptionButton={closePriceOptionButton}
+          item={item}
+        />
       </BottomSheet>
 
       {/* bottom sheet box price rating */}
@@ -588,38 +562,12 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["40%"]}
       >
-        <View style={styles.bottomSheetContent}>
-          <View style={styles.buttomsheetheader2}>
-            <Text style={styles.EditText}>Comment</Text>
-            <TouchableOpacity onPress={closeCommentOptionButton}>
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../../images/Icons.png")}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.commentFeedbackContainer}>
-            <TouchableOpacity style={styles.commentSearchContainer}>
-              <TextInput
-                style={{ ...styles.searchInput, textAlignVertical: "top" }}
-                placeholder="Comment on fueling station"
-                value={commentText}
-                onChangeText={handleTextChange}
-              />
-            </TouchableOpacity>
-            <Button
-              title="Submit"
-              onPress={add_comment} // Only call handleSubmit when the button is not disabled
-              disabled={false}
-              color={"#1E1E1E"} // Custom color
-              textColor={"white"}
-              loading={commentActivityLoading}
-              width={"100%"}
-              // Custom width
-              height={55}
-            />
-          </View>
-        </View>
+        <CommentModal
+          closeCommentOptionButton={closeCommentOptionButton}
+          commentText={commentText}
+          setCommentText={setCommentText}
+          item={item}
+        />
       </BottomSheet>
     </ScrollView>
   );
