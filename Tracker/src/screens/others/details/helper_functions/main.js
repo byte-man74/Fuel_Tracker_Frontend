@@ -32,3 +32,14 @@ export const fetchComments = (setComments, setCommentLoading, navigation, item) 
         setCommentLoading(false);
       });
 }
+
+
+export const handleUpvote = async (id, setActive) => {
+    try {
+      setActive(true);
+      await api.get(`add_votes/${id}/`);
+    } catch (error) {
+      console.error("Error upvoting:", error); // Optionally handle the error, such as logging it
+    }
+  };
+  

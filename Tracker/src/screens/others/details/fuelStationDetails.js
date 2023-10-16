@@ -21,7 +21,7 @@ import { styles } from "../style";
 import CommentModal from "./commentBottom";
 import { closeAllBottomSheet } from "./helper_functions/main";
 import { fetchComments } from "./helper_functions/main";
-
+import { handleUpvote } from "./helper_functions/main";
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
@@ -42,13 +42,6 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [active, setActive] = useState(item.active);
-
-  const handleUpvote = async (id) => {
-    try {
-      setActive(true);
-      await api.get(`add_votes/${id}/`);
-    } catch (error) {}
-  };
 
   //get comment
   useEffect(() => {
@@ -151,7 +144,7 @@ const FuelStationDetails = ({ navigation, route }) => {
                       styles.upvoteButton,
                       item.has_voted || active ? styles.upvotedButton : null,
                     ]}
-                    onPress={() => handleUpvote(item.id)}
+                    onPress={() => handleUpvote(item.id, setActive)}
                   >
                     <Image
                       source={require("../../../icons/upvote.png")}
