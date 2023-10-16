@@ -12,7 +12,6 @@ import BottomSheet from "../../../components/GlobalComponents/bottomSheet";
 import Overlay from "../../../components/overlay";
 import { TrafficModal } from "./trafficModal";
 import CommentItem from "../../../components/Pages/FuelStationDetailsPage/comment";
-import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OpenMap from "react-native-open-maps";
 import { OptionModal } from "./optionBottiom";
@@ -24,13 +23,8 @@ import { fetchComments } from "./helper_functions/main";
 import { handleUpvote } from "./helper_functions/main";
 import { fetchCurrentPrice } from "./helper_functions/main";
 
-
-
-
-
-
 const FuelStationDetails = ({ navigation, route }) => {
-  const { item, index } = route.params;
+  const { item } = route.params;
 
   // bottom sheet state
   const [bottomSheetsVisible, setBottomSheetsVisible] = useState({
@@ -51,7 +45,7 @@ const FuelStationDetails = ({ navigation, route }) => {
   //get comment
   useEffect(() => {
     fetchComments(setComments, setCommentLoading, navigation, item);
-    fetchCurrentPrice(item, navigation, setPrice, setCommentLoading)
+    fetchCurrentPrice(item, navigation, setPrice, setCommentLoading);
   }, [commentText]);
 
   //get price
