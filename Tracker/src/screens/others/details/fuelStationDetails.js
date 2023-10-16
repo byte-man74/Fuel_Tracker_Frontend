@@ -1,19 +1,17 @@
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
   Image,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet from "../../../components/GlobalComponents/bottomSheet";
-import Button from "../../../components/GlobalComponents/button";
 import Overlay from "../../../components/overlay";
-import { RadioButton } from "react-native-paper";
+import { TrafficModal } from "./trafficModal";
+
 import CommentItem from "../../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,7 +33,7 @@ const FuelStationDetails = ({ navigation, route }) => {
     useState(false);
 
   //loading state
-  const [trafficLoading, setActiveTrafficLoading] = useState(false);
+
   const [Commentloading, setCommentLoading] = useState(true);
 
   // data state
@@ -44,11 +42,6 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [comments, setComments] = useState([]);
 
   const [active, setActive] = useState(item.active);
-  const [selectedRadioOption, setSelectedRadioOption] = useState(1);
-
-  const handleRadioOptionSelect = (value) => {
-    setSelectedRadioOption(value);
-  };
 
   const handleUpvote = async (id) => {
     try {
@@ -145,18 +138,6 @@ const FuelStationDetails = ({ navigation, route }) => {
       longitude,
       query: item.name,
     });
-  };
-
-  const handleTrafficVote = () => {
-    setActiveTrafficLoading(true);
-    api
-      .post(`traffic_rating/${item.id}/`, {
-        rating_type: selectedRadioOption,
-      })
-      .then((response) => {
-        setSelectedRadioOption(1);
-        setActiveTrafficLoading(false);
-      });
   };
 
   return (
@@ -466,10 +447,7 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={closeBottomOption}
         snapPoints={["35%"]}
       >
-        <PriceUpdate
-          closePriceOptionButton={closePriceOptionButton}
-          item={item}
-        />
+        <PriceUpdate closePriceOptionButton={closePriceOptionButton} />
       </BottomSheet>
 
       {/* bottom sheet box price rating */}
@@ -478,81 +456,9 @@ const FuelStationDetails = ({ navigation, route }) => {
         onDismiss={() => setTrafficBottomSheetVisible(false)}
         snapPoints={["30%"]}
       >
-        <View style={styles.buttomsheetheader2}>
-          <Text style={styles.EditText}>Update Traffic</Text>
-          <TouchableOpacity onPress={closeTrafficBottomOption}>
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("../../../images/Icons.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.feedbackContainer}>
-          <View style={styles.radioOptionsContainer}>
-            <TouchableOpacity
-              style={[
-                styles.radioOption,
-                selectedRadioOption === "terrible" &&
-                  styles.selectedRadioOption,
-              ]}
-              onPress={() => handleRadioOptionSelect(1)}
-            >
-              <RadioButton.Android
-                value="1"
-                status={
-                  selectedRadioOption === "terrible" ? "checked" : "unchecked"
-                }
-                onPress={() => handleRadioOptionSelect("terrible")}
-                color="orange" // Customize the color of the radio button
-              />
-              <Text style={styles.radioOptionLabel}>Very Bad</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.radioOption,
-                selectedRadioOption === "average" && styles.selectedRadioOption,
-              ]}
-              onPress={() => handleRadioOptionSelect("average")}
-            >
-              <RadioButton.Android
-                value="2"
-                status={
-                  selectedRadioOption === "average" ? "checked" : "unchecked"
-                }
-                onPress={() => handleRadioOptionSelect("average")}
-                color="orange" // Customize the color of the radio button
-              />
-              <Text style={styles.radioOptionLabel}>Average</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.radioOption,
-                selectedRadioOption === "good" && styles.selectedRadioOption,
-              ]}
-              onPress={() => handleRadioOptionSelect("good")}
-            >
-              <RadioButton.Android
-                value="3"
-                status={
-                  selectedRadioOption === "good" ? "checked" : "unchecked"
-                }
-                onPress={() => handleRadioOptionSelect("good")}
-                color="orange" // Customize the color of the radio button
-              />
-              <Text style={styles.radioOptionLabel}>Excellent</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Button
-          title="Submit"
-          onPress={handleTrafficVote} // Only call handleSubmit when the button is not disabled
-          disabled={false}
-          color={"#1E1E1E"} // Custom color
-          textColor={"white"}
-          loading={trafficLoading}
-          width={"100%"}
-          // Custom width
-          height={55}
+        <TrafficModal
+          closeTrafficBottomOption={closeTrafficBottomOption}
+          item={item}
         />
       </BottomSheet>
 
