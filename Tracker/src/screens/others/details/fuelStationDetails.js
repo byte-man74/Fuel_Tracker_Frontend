@@ -11,7 +11,6 @@ import React, { useState, useEffect } from "react";
 import BottomSheet from "../../../components/GlobalComponents/bottomSheet";
 import Overlay from "../../../components/overlay";
 import { TrafficModal } from "./trafficModal";
-
 import CommentItem from "../../../components/Pages/FuelStationDetailsPage/comment";
 import api from "../../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +19,7 @@ import { OptionModal } from "./optionBottiom";
 import { PriceUpdate } from "./priceRating";
 import { styles } from "../style";
 import CommentModal from "./commentBottom";
+import { closeAllBottomSheet } from "./helper_functions/main";
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
@@ -32,10 +32,10 @@ const FuelStationDetails = ({ navigation, route }) => {
     traffic: false,
   });
 
+
   //loading state
   const [Commentloading, setCommentLoading] = useState(true);
 
-  // data state
   const [price, setPrice] = useState(null);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
@@ -401,10 +401,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       {/* bottom sheet box share */}
       <BottomSheet
         isVisible={bottomSheetsVisible.option}
-        onDismiss={() => setBottomSheetsVisible((prevState) => ({
-          ...prevState,
-          option: !prevState.option,
-        }))}
+        onDismiss={() => closeAllBottomSheet(setBottomSheetsVisible)}
         snapPoints={["32%"]}
       >
         <OptionModal
@@ -430,10 +427,7 @@ const FuelStationDetails = ({ navigation, route }) => {
       {/* bottom sheet box price rating */}
       <BottomSheet
         isVisible={bottomSheetsVisible.price}
-        onDismiss={() => setBottomSheetsVisible((prevState) => ({
-          ...prevState,
-          price: !prevState.price,
-        }))}
+        onDismiss={() => closeAllBottomSheet(setBottomSheetsVisible)}
         snapPoints={["35%"]}
       >
         <PriceUpdate
@@ -447,15 +441,13 @@ const FuelStationDetails = ({ navigation, route }) => {
       {/* bottom sheet box traffic rating */}
       <BottomSheet
         isVisible={bottomSheetsVisible.traffic}
-        onDismiss={() => setBottomSheetsVisible((prevState) => ({
-          ...prevState,
-          traffic: !prevState.traffic,
-        }))}
+        onDismiss={() => closeAllBottomSheet(setBottomSheetsVisible)}
         snapPoints={["30%"]}
       >
         <TrafficModal
           closeTrafficBottomOption={() => setBottomSheetsVisible((prevState) => ({
             ...prevState,
+            option: false,
             traffic: !prevState.traffic,
           }))}
           item={item}
@@ -465,15 +457,13 @@ const FuelStationDetails = ({ navigation, route }) => {
       {/* bottom sheet comment box */}
       <BottomSheet
         isVisible={bottomSheetsVisible.comment}
-        onDismiss={() => setBottomSheetsVisible((prevState) => ({
-          ...prevState,
-          comment: !prevState.comment,
-        }))}
+        onDismiss={() => closeAllBottomSheet(setBottomSheetsVisible)}
         snapPoints={["40%"]}
       >
         <CommentModal
           closeCommentOptionButton={() => setBottomSheetsVisible((prevState) => ({
             ...prevState,
+            option: false,
             comment: !prevState.comment,
           }))}
           commentText={commentText}
