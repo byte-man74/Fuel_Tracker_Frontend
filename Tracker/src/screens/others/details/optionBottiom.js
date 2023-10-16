@@ -1,5 +1,6 @@
 import { View, Image, TouchableOpacity, Text } from "react-native";
-import { styles } from "./fuelStationDetails";
+import { styles } from "../style";
+
 
 export const OptionModal = ({
   openPriceOptionButton,

@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { styles } from "./details/fuelStationDetails";
+import { styles } from "./style";
 import Button from "../../components/GlobalComponents/button";
 import api from "../../services/api";
 
