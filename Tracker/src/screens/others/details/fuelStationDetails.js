@@ -20,6 +20,8 @@ import { PriceUpdate } from "./priceRating";
 import { styles } from "../style";
 import CommentModal from "./commentBottom";
 import { closeAllBottomSheet } from "./helper_functions/main";
+import { fetchComments } from "./helper_functions/main";
+
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
@@ -50,26 +52,7 @@ const FuelStationDetails = ({ navigation, route }) => {
 
   //get comment
   useEffect(() => {
-    api
-      .get(`/get_comments/${item.id}/`)
-      .then((response) => {
-        setComments(response.data.comments);
-        setCommentLoading(false);
-      })
-      .catch((error) => {
-        if (!error.response) {
-          // No Internet Connection Error
-          navigation.navigate("NoNetwork");
-          return;
-        }
-
-        if (error.response.status === 500 || error.response.status === 502) {
-          // Server Error
-          navigation.navigate("ServerScreen");
-          return;
-        }
-        setCommentLoading(false);
-      });
+    fetchComments(setComments, setCommentLoading, navigation, item);
   }, [commentText]);
 
   //get price
