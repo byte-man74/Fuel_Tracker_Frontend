@@ -22,6 +22,12 @@ import CommentModal from "./commentBottom";
 import { closeAllBottomSheet } from "./helper_functions/main";
 import { fetchComments } from "./helper_functions/main";
 import { handleUpvote } from "./helper_functions/main";
+import { fetchCurrentPrice } from "./helper_functions/main";
+
+
+
+
+
 
 const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
@@ -34,7 +40,6 @@ const FuelStationDetails = ({ navigation, route }) => {
     traffic: false,
   });
 
-
   //loading state
   const [Commentloading, setCommentLoading] = useState(true);
 
@@ -46,31 +51,10 @@ const FuelStationDetails = ({ navigation, route }) => {
   //get comment
   useEffect(() => {
     fetchComments(setComments, setCommentLoading, navigation, item);
+    fetchCurrentPrice(item, navigation, setPrice, setCommentLoading)
   }, [commentText]);
 
   //get price
-  useEffect(() => {
-    api
-      .get(`/get_current_price/${item.id}/`)
-      .then((response) => {
-        setPrice(response.data.amount);
-      })
-      .catch((error) => {
-        if (!error.response) {
-          // No Internet Connection Error
-          navigation.navigate("NoNetwork");
-          return;
-        }
-
-        if (error.response.status === 500 || error.response.status === 502) {
-          // Server Error
-          navigation.navigate("ServerScreen");
-          return;
-        }
-        setCommentLoading(false);
-      });
-  }, []);
-
   const openMapsApp = (latitude, longitude) => {
     OpenMap({
       latitude,
@@ -99,10 +83,12 @@ const FuelStationDetails = ({ navigation, route }) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => setBottomSheetsVisible((prevState) => ({
-                  ...prevState,
-                  option: !prevState.option,
-                }))}
+                onPress={() =>
+                  setBottomSheetsVisible((prevState) => ({
+                    ...prevState,
+                    option: !prevState.option,
+                  }))
+                }
               >
                 <Image
                   style={{ width: 30, height: 30 }}
@@ -277,10 +263,12 @@ const FuelStationDetails = ({ navigation, route }) => {
               </View>
             </View>
             <TouchableOpacity
-              onPress={() => setBottomSheetsVisible((prevState) => ({
-                ...prevState,
-                price: !prevState.price,
-              }))}
+              onPress={() =>
+                setBottomSheetsVisible((prevState) => ({
+                  ...prevState,
+                  price: !prevState.price,
+                }))
+              }
               style={{
                 flexDirection: "row",
                 flexWrap: "wrap",
@@ -381,22 +369,30 @@ const FuelStationDetails = ({ navigation, route }) => {
         snapPoints={["32%"]}
       >
         <OptionModal
-          openPriceOptionButton={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            option: !prevState.option,
-          }))}
-          closeBottomOption={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            option: !prevState.option,
-          }))}
-          openTrafficBottomOption={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            traffic: !prevState.traffic,
-          }))}
-          openCommentOption={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            comment: !prevState.comment,
-          }))}
+          openPriceOptionButton={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              option: !prevState.option,
+            }))
+          }
+          closeBottomOption={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              option: !prevState.option,
+            }))
+          }
+          openTrafficBottomOption={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              traffic: !prevState.traffic,
+            }))
+          }
+          openCommentOption={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              comment: !prevState.comment,
+            }))
+          }
         />
       </BottomSheet>
 
@@ -407,10 +403,12 @@ const FuelStationDetails = ({ navigation, route }) => {
         snapPoints={["35%"]}
       >
         <PriceUpdate
-          closePriceOptionButton={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            price: !prevState.price,
-          }))}
+          closePriceOptionButton={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              price: !prevState.price,
+            }))
+          }
         />
       </BottomSheet>
 
@@ -421,11 +419,13 @@ const FuelStationDetails = ({ navigation, route }) => {
         snapPoints={["30%"]}
       >
         <TrafficModal
-          closeTrafficBottomOption={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            option: false,
-            traffic: !prevState.traffic,
-          }))}
+          closeTrafficBottomOption={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              option: false,
+              traffic: !prevState.traffic,
+            }))
+          }
           item={item}
         />
       </BottomSheet>
@@ -437,11 +437,13 @@ const FuelStationDetails = ({ navigation, route }) => {
         snapPoints={["40%"]}
       >
         <CommentModal
-          closeCommentOptionButton={() => setBottomSheetsVisible((prevState) => ({
-            ...prevState,
-            option: false,
-            comment: !prevState.comment,
-          }))}
+          closeCommentOptionButton={() =>
+            setBottomSheetsVisible((prevState) => ({
+              ...prevState,
+              option: false,
+              comment: !prevState.comment,
+            }))
+          }
           commentText={commentText}
           setCommentText={setCommentText}
           item={item}
