@@ -25,22 +25,20 @@ const FuelStationDetails = ({ navigation, route }) => {
   const { item, index } = route.params;
 
   // bottom sheet state
-  const [OptionBottomSheetVisible, setOptionBottomSheetVisible] =
-    useState(false);
-  const [PriceBottomSheetVisible, setPriceBottomSheetVisible] = useState(false);
-  const [CommentSheetVisible, setCommentSheetVisible] = useState(false);
-  const [trafficBottomSheetVisible, setTrafficBottomSheetVisible] =
-    useState(false);
+  const [bottomSheetsVisible, setBottomSheetsVisible] = useState({
+    option: false,
+    price: false,
+    comment: false,
+    traffic: false,
+  });
 
   //loading state
-
   const [Commentloading, setCommentLoading] = useState(true);
 
   // data state
   const [price, setPrice] = useState(null);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
-
   const [active, setActive] = useState(item.active);
 
   const handleUpvote = async (id) => {
@@ -48,41 +46,6 @@ const FuelStationDetails = ({ navigation, route }) => {
       setActive(true);
       await api.get(`add_votes/${id}/`);
     } catch (error) {}
-  };
-
-  const openBottomOption = () => {
-    setOptionBottomSheetVisible(true);
-  };
-
-  const closeBottomOption = () => {
-    setOptionBottomSheetVisible(false);
-  };
-
-  const openPriceOptionButton = () => {
-    closeBottomOption();
-    setPriceBottomSheetVisible(true);
-  };
-
-  const openCommentOption = () => {
-    closeBottomOption();
-    setCommentSheetVisible(true);
-  };
-
-  const closePriceOptionButton = () => {
-    setPriceBottomSheetVisible(false);
-  };
-
-  const openTrafficBottomOption = () => {
-    closeBottomOption();
-    setTrafficBottomSheetVisible(true); //
-  };
-
-  const closeTrafficBottomOption = () => {
-    setTrafficBottomSheetVisible(false);
-  };
-
-  const closeCommentOptionButton = () => {
-    setCommentSheetVisible(false);
   };
 
   //get comment
@@ -142,10 +105,10 @@ const FuelStationDetails = ({ navigation, route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {OptionBottomSheetVisible && <Overlay />}
-      {PriceBottomSheetVisible && <Overlay />}
-      {CommentSheetVisible && <Overlay />}
-      {trafficBottomSheetVisible && <Overlay />}
+      {Object.values(bottomSheetsVisible).some((isVisible) => isVisible) && (
+        <Overlay />
+      )}
+
       <View style={styles.backgroundImage}>
         <ImageBackground
           source={require("../../../images/backgrnd.png")}
@@ -159,7 +122,12 @@ const FuelStationDetails = ({ navigation, route }) => {
                   source={require("../../../icons/back.png")}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={openBottomOption}>
+              <TouchableOpacity
+                onPress={() => setBottomSheetsVisible((prevState) => ({
+                  ...prevState,
+                  option: !prevState.option,
+                }))}
+              >
                 <Image
                   style={{ width: 30, height: 30 }}
                   source={require("../../../icons/options.png")}
@@ -333,7 +301,10 @@ const FuelStationDetails = ({ navigation, route }) => {
               </View>
             </View>
             <TouchableOpacity
-              onPress={openPriceOptionButton}
+              onPress={() => setBottomSheetsVisible((prevState) => ({
+                ...prevState,
+                price: !prevState.price,
+              }))}
               style={{
                 flexDirection: "row",
                 flexWrap: "wrap",
@@ -429,47 +400,82 @@ const FuelStationDetails = ({ navigation, route }) => {
       </View>
       {/* bottom sheet box share */}
       <BottomSheet
-        isVisible={OptionBottomSheetVisible}
-        onDismiss={closeBottomOption}
+        isVisible={bottomSheetsVisible.option}
+        onDismiss={() => setBottomSheetsVisible((prevState) => ({
+          ...prevState,
+          option: !prevState.option,
+        }))}
         snapPoints={["32%"]}
       >
         <OptionModal
-          openPriceOptionButton={openPriceOptionButton}
-          closeBottomOption={closeBottomOption}
-          openTrafficBottomOption={openTrafficBottomOption}
-          openCommentOption={openCommentOption}
+          openPriceOptionButton={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            option: !prevState.option,
+          }))}
+          closeBottomOption={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            option: !prevState.option,
+          }))}
+          openTrafficBottomOption={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            traffic: !prevState.traffic,
+          }))}
+          openCommentOption={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            comment: !prevState.comment,
+          }))}
         />
       </BottomSheet>
 
       {/* bottom sheet box price rating */}
       <BottomSheet
-        isVisible={PriceBottomSheetVisible}
-        onDismiss={closeBottomOption}
+        isVisible={bottomSheetsVisible.price}
+        onDismiss={() => setBottomSheetsVisible((prevState) => ({
+          ...prevState,
+          price: !prevState.price,
+        }))}
         snapPoints={["35%"]}
       >
-        <PriceUpdate closePriceOptionButton={closePriceOptionButton} />
+        <PriceUpdate
+          closePriceOptionButton={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            price: !prevState.price,
+          }))}
+        />
       </BottomSheet>
 
-      {/* bottom sheet box price rating */}
+      {/* bottom sheet box traffic rating */}
       <BottomSheet
-        isVisible={trafficBottomSheetVisible}
-        onDismiss={() => setTrafficBottomSheetVisible(false)}
+        isVisible={bottomSheetsVisible.traffic}
+        onDismiss={() => setBottomSheetsVisible((prevState) => ({
+          ...prevState,
+          traffic: !prevState.traffic,
+        }))}
         snapPoints={["30%"]}
       >
         <TrafficModal
-          closeTrafficBottomOption={closeTrafficBottomOption}
+          closeTrafficBottomOption={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            traffic: !prevState.traffic,
+          }))}
           item={item}
         />
       </BottomSheet>
 
       {/* bottom sheet comment box */}
       <BottomSheet
-        isVisible={CommentSheetVisible}
-        onDismiss={closeBottomOption}
+        isVisible={bottomSheetsVisible.comment}
+        onDismiss={() => setBottomSheetsVisible((prevState) => ({
+          ...prevState,
+          comment: !prevState.comment,
+        }))}
         snapPoints={["40%"]}
       >
         <CommentModal
-          closeCommentOptionButton={closeCommentOptionButton}
+          closeCommentOptionButton={() => setBottomSheetsVisible((prevState) => ({
+            ...prevState,
+            comment: !prevState.comment,
+          }))}
           commentText={commentText}
           setCommentText={setCommentText}
           item={item}
