@@ -356,7 +356,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      {/* bottom sheet box share */}
+      {/* bottom sheet box option */}
       <BottomSheet
         isVisible={bottomSheetsVisible.option}
         onDismiss={() => closeAllBottomSheet(setBottomSheetsVisible)}
@@ -366,7 +366,7 @@ const FuelStationDetails = ({ navigation, route }) => {
           openPriceOptionButton={() =>
             setBottomSheetsVisible((prevState) => ({
               ...prevState,
-              option: !prevState.option,
+              price: !prevState.price,
             }))
           }
           closeBottomOption={() =>
@@ -403,6 +403,7 @@ const FuelStationDetails = ({ navigation, route }) => {
               price: !prevState.price,
             }))
           }
+          item={item}
         />
       </BottomSheet>
 

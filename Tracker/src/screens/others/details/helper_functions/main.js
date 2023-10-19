@@ -46,6 +46,7 @@ export const handleUpvote = async (id, setActive) => {
 export const fetchCurrentPrice = async (item, navigation, setPrice, setCommentLoading) => {
     try {
       const response = await api.get(`/get_current_price/${item.id}/`);
+      console.log(response.data)
       setPrice(response.data.amount);
     } catch (error) {
       if (!error.response) {

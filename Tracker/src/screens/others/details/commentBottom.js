@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import Button from "../../../components/GlobalComponents/button";
 import { styles } from "../style";
+import api from "../../../services/api";
 
 const CommentModal = ({
   closeCommentOptionButton,

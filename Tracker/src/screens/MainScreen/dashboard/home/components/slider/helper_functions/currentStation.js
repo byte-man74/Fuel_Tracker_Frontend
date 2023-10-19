@@ -29,7 +29,7 @@ export const getCurrentLocation = async (setCurrentLocation) => {
 // Handles server responses
 const handleResponse = (response, setData) => {
   if (response.status === 200) {
-    setData(response.data.fueling_stations);
+      setData(response.data.fueling_stations);
   } else {
     console.error("Error: Unexpected response status:", response.status);
   }
@@ -64,6 +64,7 @@ export const FetchClosestStation = async (
     longitude: currentLocation.longitude,
   }
 
+  console.log(location_data);
   try {
     let response;
     if (status === "nearby") {

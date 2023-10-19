@@ -21,7 +21,7 @@ export const PriceUpdate = ({ closePriceOptionButton, item}) => {
     setPriceActivityLoading(true);
     api
       .post(`edit_price/get_options/${item.id}/`, {
-        vote: false,
+        vote: true,
         price: priceValue,
       })
       .then((response) => {

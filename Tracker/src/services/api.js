@@ -16,6 +16,7 @@ api.interceptors.request.use(
 
     if (userToken) {
       // If a token exists, add it as a header to the API request
+      console.log(userToken)
       config.headers = {
         Authorization: `Bearer ${userToken}`,
       };
