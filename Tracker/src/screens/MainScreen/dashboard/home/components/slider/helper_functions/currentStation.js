@@ -14,7 +14,6 @@ export const getCurrentLocation = async (setCurrentLocation) => {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      console.log("Location permission denied");
       return;
     }
 
@@ -64,7 +63,6 @@ export const FetchClosestStation = async (
     longitude: currentLocation.longitude,
   }
 
-  console.log(location_data);
   try {
     let response;
     if (status === "nearby") {

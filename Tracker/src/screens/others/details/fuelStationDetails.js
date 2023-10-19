@@ -41,11 +41,12 @@ const FuelStationDetails = ({ navigation, route }) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [active, setActive] = useState(item.active);
+  const[toggle, setToggle] = useState(false)
 
   //get comment
   useEffect(() => {
-    fetchComments(setComments, setCommentLoading, navigation, item);
-    fetchCurrentPrice(item, navigation, setPrice, setCommentLoading);
+    fetchComments(setComments, setCommentLoading, navigation, item, setToggle);
+    fetchCurrentPrice(item, navigation, setPrice, setCommentLoading, setToggle);
   }, [commentText]);
 
   //get price
@@ -153,7 +154,7 @@ const FuelStationDetails = ({ navigation, route }) => {
               />
               <View style={styles.carouselContainerExtraInfoText}>
                 <Text style={styles.stationText}>{item.name}</Text>
-                <Text style={styles.stationLocation}>{item.address}</Text>
+                <Text style={styles.stationLocation}>{item.long_address}</Text>
               </View>
             </View>
             <View style={styles.extraFunctionsStyling}>
@@ -440,6 +441,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             }))
           }
           commentText={commentText}
+          setComments={setComments}
           setCommentText={setCommentText}
           item={item}
         />

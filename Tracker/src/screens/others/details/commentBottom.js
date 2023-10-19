@@ -9,6 +9,7 @@ const CommentModal = ({
   closeCommentOptionButton,
   commentText,
   setCommentText,
+  setComments,
   item,
 }) => {
   const [commentActivityLoading, setcommentActivityLoading] = useState(false);
@@ -16,22 +17,23 @@ const CommentModal = ({
   const handleTextChange = (newText) => {
     // Update the state with the new text value
     setCommentText(newText);
-    console.log(commentText);
   };
 
   const add_comment = () => {
     setcommentActivityLoading(true);
     api
-      .post(`/add_comments/${item.id}/`, {
+      .post(`/create_comment/${item.id}/`, {
         comment: commentText,
       })
       .then((response) => {
+        console.log(response.data);
         setComments((prevComments) => [...prevComments, response.data]);
         setCommentText("");
         setcommentActivityLoading(false);
       })
       .catch((error) => {
         // Error handling code
+        console.error(error)
         setcommentActivityLoading(false);
       });
   };

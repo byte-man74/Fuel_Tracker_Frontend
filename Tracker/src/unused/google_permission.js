@@ -20,7 +20,6 @@ const Permission = ({ navigation }) => {
     const requestLocationPermission = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-            console.log('Location permission not granted');
             return;
         }
 
@@ -39,7 +38,7 @@ const Permission = ({ navigation }) => {
             setState(address.state);
             setLocalGovernment(address.localGovernment);
         } catch (error) {
-            console.log('Error:', error.message);
+
         }
     };
 

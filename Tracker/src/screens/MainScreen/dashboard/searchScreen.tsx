@@ -55,7 +55,6 @@ const SearchScreen = ({ navigation }) => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Location permission denied");
         return;
       }
 
@@ -72,7 +71,6 @@ const SearchScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log (currentLocation)
     const get_saved_station = async () => {
       try {
         const response = await api.post("closest_station/", {

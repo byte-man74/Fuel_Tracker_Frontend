@@ -41,7 +41,6 @@ const SliderSaved = ({ navigation }) => {
       // Update the upvote status for the item at the specified index
    
       item.active = !item.active;
-      console.log(item.active);
       await api.get(`add_votes/${item.id}/`);
     } catch (error) {
       console.error(item)

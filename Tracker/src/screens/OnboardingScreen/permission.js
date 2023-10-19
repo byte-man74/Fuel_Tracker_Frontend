@@ -14,7 +14,6 @@ const Permission = ({ navigation }) => {
     const requestLocationPermission = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-            console.log('Location permission not granted');
             return;
         }
         // Fetch user's current location and call update_user_info inside captureLocation
@@ -28,7 +27,6 @@ const Permission = ({ navigation }) => {
             // After capturing the location and updating latitude and longitude, call update_user_info
             update_user_info(coords.latitude, coords.longitude);
         } catch (error) {
-            console.log('Error:', error.message);
         }
     };
     
