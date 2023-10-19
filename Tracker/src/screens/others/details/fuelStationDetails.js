@@ -335,7 +335,7 @@ const FuelStationDetails = ({ navigation, route }) => {
             >
               {Commentloading ? (
                 <View style={styles.loadingContainer}>
-                  <ActivityIndicator size="large" color="#007AFF" />
+                  <ActivityIndicator size="large" color="rgba(245, 168, 85, 1)" />
                 </View>
               ) : comments.length === 0 ? (
                 <View style={styles.emptyCommentsContainer}>
