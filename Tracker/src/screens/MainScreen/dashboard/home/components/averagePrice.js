@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import api from "../../../../../services/api";
 import { ActivityIndicator } from "react-native";
 
-export const AveragePrice = () => {
+export const AveragePrice = ({refreshing}) => {
   const [price, setPrice] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ export const AveragePrice = () => {
     };
 
     get_avg_price();
-  }, []);
+  }, [refreshing]);
 
   return (
     <View style={styles.averagePriceBox}>

@@ -91,7 +91,7 @@ const HomeScreen = ({ navigation }) => {
         }
       >
         <View style={styles.mainBox}>
-          <AveragePrice />
+          <AveragePrice refreshing={refreshing}/>
           <SearchBox navigation={navigation} setModal={setModal} />
           <FuelingStationsSection
             status={"nearby"}
