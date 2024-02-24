@@ -39,5 +39,5 @@ Code Review- Francis Adegbe
 
 ## License
 
-This project is licensed under the [License Name]. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the [License Name]. See the [LICENSE](LICENSE) file for more details..
 
